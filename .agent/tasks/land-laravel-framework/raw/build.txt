@@ -1,0 +1,91 @@
+land-laravel-framework build log
+=================================
+
+Environment:
+- PHP 8.4.1
+- Composer 2.8.3
+- rsync available
+- PWD: /Users/krutovoy/Projects/hosting-platform
+
+Commands executed (in order):
+
+1. Pre-build sha256 snapshot of 28 protected files (10 services + 5 tests + 5 designs + 5 docs + CLAUDE.md + AGENTS.md + phpunit.xml.dist):
+   shasum -a 256 ...28 files... > artifacts/pre-build-sha256.txt
+   EXIT: 0, lines: 28
+
+2. Baseline composer test:
+   composer test
+   EXIT: 0
+   Result: OK (37 tests, 142 assertions) via PHPUnit 11.5.55
+
+3. Captured top-level listing before rsync:
+   ls -1A > artifacts/top-before.txt
+
+4. Rewrote composer.json adding laravel/framework ^12.0, laravel/socialite ^5.0, post-autoload-dump script, optimize-autoloader, allow-plugins (pestphp/pest-plugin false, php-http/discovery true).
+
+5. Rsync Laravel skeleton from ~/Projects/mandate with --ignore-existing:
+   rsync -av --ignore-existing --exclude=... ~/Projects/mandate/ ./
+   EXIT: 0
+   Captured to artifacts/rsync.txt
+
+6. Trashed non-Laravel-shell top-level extras brought in by rsync:
+   trash .editorconfig .gitattributes .gitignore .gstack .playwright-mcp .worktrees demo examples LICENSE nixpacks.toml package.json packages paperclip-mandate playwright.config.ts scripts test-results tsconfig.base.json tsconfig.json vite.config.js vitest.frontend.config.ts
+   EXIT: 0
+
+7. Rewrote bootstrap/app.php (dropped Inertia/Sanctum/mandate command schedule refs).
+
+8. Rewrote bootstrap/providers.php (dropped HorizonServiceProvider).
+
+9. Rewrote routes/web.php and routes/api.php with minimal stubs.
+
+10. Trashed mandate-specific controllers, middleware, jobs, models, enums, rules, commands, and mandate-specific config files (horizon.php, sanctum.php, mandate.php). Also trashed TokenRegistrySeeder.php and database/database.sqlite and the HorizonServiceProvider.
+
+11. Edited app/Models/User.php to remove agents() relation referencing the deleted Agent model.
+
+12. Created storage/framework/{cache,sessions,views}, storage/logs, bootstrap/cache (mkdir -p; most already present from rsync).
+
+13. Wrote .env.example with pgsql DB connection and the 11 required integration keys plus 5 standard Laravel keys.
+
+14. Trashed stale composer.lock and stub vendor/ directory (from pre-Laravel minimal setup).
+
+15. Ran composer install:
+    composer install --no-interaction --prefer-dist
+    EXIT: 0
+    Wall time: ~12.5 seconds (real)
+    Output tail: Generating optimized autoload files + Illuminate\Foundation\ComposerScripts::postAutoloadDump + "@php artisan package:discover --ansi" ran and discovered laravel/socialite, nesbot/carbon, nunomaduro/termwind successfully.
+    Captured to artifacts/composer-install.txt
+
+16. php -d memory_limit=1G artisan --version
+    EXIT: 0
+    STDOUT: "Laravel Framework 12.56.0"
+    Captured to artifacts/artisan-version.txt
+
+17. php -d memory_limit=1G artisan list
+    EXIT: 0
+    Captured to artifacts/artisan-list.txt
+
+18. Post-install composer test:
+    composer test
+    EXIT: 0
+    Result: OK (37 tests, 142 assertions) via PHPUnit 11.5.55
+    Captured to artifacts/post-install-test.txt
+
+19. Post-build sha256 snapshot of the same 28 protected files:
+    shasum -a 256 ...28 files... > artifacts/post-build-sha256.txt
+    diff pre-build-sha256.txt post-build-sha256.txt
+    DIFF_EXIT: 0 (zero lines of difference, all 28 files byte-identical)
+
+20. Disk usage:
+    du -sh vendor/ => 49M
+
+21. Top-level listing after landing:
+    diff top-before.txt top-after.txt
+    Additions: .env.example, artisan (file), bootstrap/ (dir), config/ (dir), database/ (dir), public/ (dir), resources/ (dir), routes/ (dir), storage/ (dir)
+    Zero new top-level directories outside the Laravel shell set {bootstrap, config, public, resources, routes, storage, database, vendor}.
+
+22. No-regression check: task_loop.py status --task-id <each> for all 13 prior tasks. All report verdict_overall_status: PASS. Captured to artifacts/status-<id>.txt each.
+
+Preserved (byte-identical) files: 28 of 28.
+New top-level directories: exactly the Laravel shell set.
+composer test: still OK (37 tests, 142 assertions).
+Artisan: Laravel Framework 12.56.0.

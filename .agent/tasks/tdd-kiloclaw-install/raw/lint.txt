@@ -1,0 +1,4 @@
+No syntax errors detected in app/Services/KiloClaw/KiloClawHttpClient.php
+No syntax errors detected in app/Services/KiloClaw/KiloClawException.php
+No syntax errors detected in app/Services/KiloClawClientService.php
+No syntax errors detected in tests/Unit/Services/KiloClawClientServiceTest.php

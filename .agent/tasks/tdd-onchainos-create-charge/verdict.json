@@ -1,0 +1,172 @@
+{
+  "task_id": "tdd-onchainos-create-charge",
+  "overall_verdict": "PASS",
+  "pass": 1,
+  "verifier_notes": "Fresh verifier rerun. Red artifact shows PHPUnit error EXIT=255 on missing interface App\\Services\\OnChainOS\\OnChainOSClient at test line 133, captured before production OnChainOS files existed (red mtime 1776158585 < client/exception/service mtimes 1776158603/1776158606/1776158616; test file mtime 1776158578 precedes red). Green artifact and fresh composer test both show OK (14 tests, 34 assertions) exit 0. php -l clean on all four authored files plus SmokeTest and TelegramBotRegistrarServiceTest. Autoload probe returns ok for all eight symbols. createCharge body contains no ' new ', '::', or ' static '. Exact sha1 idempotency expression present. Fake class, no PHPUnit mocks. All four invalid-input tests assert callCount===0. Exception test asserts status='failed' and error contains 'transport boom'. Malformed-response test asserts status='failed' with error key. Six prior tasks all verdict_overall_status PASS. No em dashes or en dashes in authored files or spec/evidence. SmokeTest and TelegramBotRegistrarServiceTest contain zero references to OnChainOS.",
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "reason": "phpunit-red.txt EXIT=255 due to missing OnChainOSClient interface; test_empty_agent_name_returns_invalid_and_does_not_call_client present at test file line 18 asserting status=invalid."
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "reason": "test_whitespace_only_agent_name_returns_invalid_and_does_not_call_client at line 29 asserts status invalid and callCount===0; included in red run which failed via type error before production existed."
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "reason": "test_zero_amount_returns_invalid_and_does_not_call_client at line 40 asserts invalid and callCount===0; failed in red by missing interface."
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "reason": "test_negative_amount_returns_invalid_and_does_not_call_client at line 51 asserts invalid and callCount===0; failed in red by missing interface."
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "reason": "test_happy_path_returns_canonical_shape at line 62 seeds fake with sess_abc/pending/expires_at and asserts full canonical shape plus callCount===1."
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "reason": "test_client_exception_returns_failed_without_propagating at line 82 seeds fake with OnChainOSException('transport boom'), wraps call in try/fail, asserts status=failed and error contains 'transport boom'."
+    },
+    {
+      "id": "AC7",
+      "status": "PASS",
+      "reason": "test_malformed_response_without_session_id_returns_failed at line 99 seeds fake with ['status'=>'pending'] only, asserts status=failed and error key present."
+    },
+    {
+      "id": "AC8",
+      "status": "PASS",
+      "reason": "test_idempotency_key_is_stable_across_two_calls_same_utc_day at line 111 captures fake->lastArgs[2] from both calls, asserts equality and startsWith 'spawn-'."
+    },
+    {
+      "id": "AC9",
+      "status": "PASS",
+      "reason": "phpunit-green.txt reports 'OK (14 tests, 34 assertions)' EXIT=0 after production files landed."
+    },
+    {
+      "id": "AC10",
+      "status": "PASS",
+      "reason": "Fresh `composer test` rerun: PHPUnit 11.5.55, OK (14 tests, 34 assertions), exit 0. 14 tests >= 14, 34 assertions >= 14."
+    },
+    {
+      "id": "AC11",
+      "status": "PASS",
+      "reason": "app/Services/OnChainOS/OnChainOSClient.php has <?php, declare(strict_types=1) on line 2, namespace App\\Services\\OnChainOS, interface OnChainOSClient, single method createCharge(int $amountUsd, string $agentName, string $idempotencyKey): array. URL reference is inside a docblock on line 11 ('* Reference: https://...')."
+    },
+    {
+      "id": "AC12",
+      "status": "PASS",
+      "reason": "app/Services/OnChainOS/OnChainOSException.php has strict_types declare, namespace App\\Services\\OnChainOS, and 'final class OnChainOSException extends \\RuntimeException'."
+    },
+    {
+      "id": "AC13",
+      "status": "PASS",
+      "reason": "OnChainOSPaymentService.php: strict_types on line 2, namespace App\\Services, final class, constructor with private readonly OnChainOSClient $client (imported via use), single public createCharge(int, string): array. Exactly 2 'public function' occurrences (constructor + createCharge)."
+    },
+    {
+      "id": "AC14",
+      "status": "PASS",
+      "reason": "Service short-circuits on $amountUsd<=0 or trim($agentName)==='' returning status=invalid without calling client. Tests at lines 18, 29, 40, 51 all assert $fake->callCount === 0."
+    },
+    {
+      "id": "AC15",
+      "status": "PASS",
+      "reason": "createCharge wraps client call in try/catch (OnChainOSException $e) and returns status=failed with error=$e->getMessage(). Test at line 82 asserts return value and 'transport boom' in error."
+    },
+    {
+      "id": "AC16",
+      "status": "PASS",
+      "reason": "Service checks !isset($response['session_id']) || !isset($response['status']) and returns status=failed with error='malformed response'. Test at line 99 confirms."
+    },
+    {
+      "id": "AC17",
+      "status": "PASS",
+      "reason": "Line 28 of service contains exactly: 'spawn-' . sha1($agentName . ':' . $amountUsd . ':' . gmdate('Y-m-d')). Uses $agentName (not trimmed) since validation already ensured non-empty."
+    },
+    {
+      "id": "AC18",
+      "status": "PASS",
+      "reason": "Extracted createCharge method body via awk: zero occurrences of ' new ', '::', or ' static '. catch (OnChainOSException $e) contains no '::'."
+    },
+    {
+      "id": "AC19",
+      "status": "PASS",
+      "reason": "Grep for createMock|getMockBuilder|MockObject in test file returns no matches. Named helper class FakeOnChainOSClient at line 133 implements OnChainOSClient with public int $callCount, public array $lastArgs, public array $nextResponse, public ?\\Throwable $nextException."
+    },
+    {
+      "id": "AC20",
+      "status": "PASS",
+      "reason": "php -l on all four authored files reports 'No syntax errors detected', exit 0."
+    },
+    {
+      "id": "AC21",
+      "status": "PASS",
+      "reason": "Autoload probe prints 'ok:' for all eight symbols including App\\Services\\OnChainOS\\OnChainOSClient and OnChainOSException."
+    },
+    {
+      "id": "AC22",
+      "status": "PASS",
+      "reason": "Grep for file_get_contents|curl_init|curl_exec|fsockopen|fopen(|http://|https:// across four files: only match is the docblock comment line 11 of OnChainOSClient.php ('* Reference: https://...') which the spec allows. No production-code matches."
+    },
+    {
+      "id": "AC23",
+      "status": "PASS",
+      "reason": "phpunit-red.txt mtime 1776158585 precedes production file mtimes (client 1776158603, exception 1776158606, service body edit 1776158616). Exit 255 due to missing interface type. Test file mtime 1776158578 also precedes red."
+    },
+    {
+      "id": "AC24",
+      "status": "PASS",
+      "reason": "phpunit-green.txt exists, exit 0, reports 'OK (14 tests, 34 assertions)'. 14>=14 tests, 34>=14 assertions."
+    },
+    {
+      "id": "AC25",
+      "status": "PASS",
+      "reason": "task_loop.py status for six prior tasks all report verdict_overall_status: PASS: bootstrap-proof-loop, scaffold-service-stubs, test-harness, landing-mockup-steve-ive, tdd-telegram-validate-token, wizard-mockup-steve-ive."
+    },
+    {
+      "id": "AC26",
+      "status": "PASS",
+      "reason": "Only expected files present: new OnChainOS/OnChainOSClient.php, OnChainOS/OnChainOSException.php, OnChainOSPaymentServiceTest.php; modified OnChainOSPaymentService.php. SmokeTest.php and TelegramBotRegistrarServiceTest.php php -l clean and contain zero references to OnChainOS (grep no matches)."
+    },
+    {
+      "id": "AC27",
+      "status": "PASS",
+      "reason": "Grep for U+2014 and U+2013 across all authored files plus spec.md, evidence.md, evidence.json returns no matches."
+    }
+  ],
+  "commands_run": [
+    "composer test",
+    "php -l app/Services/OnChainOS/OnChainOSClient.php",
+    "php -l app/Services/OnChainOS/OnChainOSException.php",
+    "php -l app/Services/OnChainOSPaymentService.php",
+    "php -l tests/Unit/Services/OnChainOSPaymentServiceTest.php",
+    "php -l tests/Unit/SmokeTest.php",
+    "php -l tests/Unit/Services/TelegramBotRegistrarServiceTest.php",
+    "php -r 'require \"vendor/autoload.php\"; ...' (autoload probe for 8 symbols)",
+    "stat -f '%m %N' on red/green artifacts and production files",
+    "awk extract createCharge method body",
+    "grep createMock|getMockBuilder|MockObject in test file",
+    "grep file_get_contents|curl_init|curl_exec|fsockopen|fopen(|http://|https:// in four files",
+    "grep U+2014/U+2013 in authored files and spec/evidence",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id <each of six prior tasks>"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/tdd-onchainos-create-charge/spec.md",
+    ".agent/tasks/tdd-onchainos-create-charge/evidence.md",
+    ".agent/tasks/tdd-onchainos-create-charge/evidence.json",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-green.txt",
+    "app/Services/OnChainOS/OnChainOSClient.php",
+    "app/Services/OnChainOS/OnChainOSException.php",
+    "app/Services/OnChainOSPaymentService.php",
+    "tests/Unit/Services/OnChainOSPaymentServiceTest.php",
+    "tests/Unit/SmokeTest.php",
+    "tests/Unit/Services/TelegramBotRegistrarServiceTest.php"
+  ]
+}

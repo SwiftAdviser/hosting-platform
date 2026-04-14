@@ -1,0 +1,17 @@
+== design/ ==
+agent-wallet.html
+agents.html
+landing.html
+running.html
+wizard.html
+== top ==
+app
+design
+docs
+tests
+vendor
+AGENTS.md
+CLAUDE.md
+composer.json
+composer.lock
+phpunit.xml.dist

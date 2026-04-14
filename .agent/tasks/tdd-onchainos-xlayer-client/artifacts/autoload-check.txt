@@ -1,0 +1,14 @@
+ok: App\Services\AgentDeployerService
+ok: App\Services\KiloClawClientService
+ok: App\Services\OnChainOSPaymentService
+ok: App\Services\TelegramBotRegistrarService
+ok: App\Services\Telegram\TelegramHttpClient
+ok: App\Services\Telegram\TelegramTransportException
+ok: App\Services\KiloClaw\KiloClawHttpClient
+ok: App\Services\KiloClaw\KiloClawException
+ok: App\Services\OnChainOS\OnChainOSClient
+ok: App\Services\OnChainOS\OnChainOSException
+ok: App\Services\OnChainOS\XLayer\XLayerHttpTransport
+ok: App\Services\OnChainOS\XLayer\XLayerHttpException
+ok: App\Services\OnChainOS\XLayer\XLayerOnChainOSClient
+EXIT=0

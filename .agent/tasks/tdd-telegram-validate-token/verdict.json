@@ -1,0 +1,156 @@
+{
+  "task_id": "tdd-telegram-validate-token",
+  "overall_verdict": "PASS",
+  "pass": 1,
+  "verified_at": "2026-04-14T00:00:00Z",
+  "verifier_notes": "Fresh verification by task-verifier. Re-ran composer test: OK (6 tests, 12 assertions), EXIT=0. phpunit-red.txt mtime 1776157341 precedes production file mtimes (TelegramHttpClient.php 1776157353, TelegramTransportException.php 1776157354, TelegramBotRegistrarService.php 1776157356), confirming strict TDD red-before-green ordering. Test file mtime 1776157336 precedes red run. All 23 ACs independently verified against current repo state.",
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "reason": "phpunit-red.txt error #1: test_empty_token_returns_false_without_calling_client failed with 'Error: Interface App\\Services\\Telegram\\TelegramHttpClient not found', EXIT=2. Red artifact mtime (1776157341) precedes production file mtimes. Test method present at tests/Unit/Services/TelegramBotRegistrarServiceTest.php line 37."
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "reason": "phpunit-red.txt error #2 lists test_valid_token_ok_true_returns_true failing in the same red run. Test at TelegramBotRegistrarServiceTest.php line 48 uses fake returning ['ok' => true, 'result' => ['id' => 1]] for token '123:abc'."
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "reason": "phpunit-red.txt error #3 lists test_invalid_token_ok_false_returns_false failing in the same red run. Test at TelegramBotRegistrarServiceTest.php line 60 uses fake returning ['ok' => false, 'error_code' => 401, 'description' => 'Unauthorized']."
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "reason": "phpunit-red.txt error #4: test_transport_exception_returns_false failed with 'Class App\\Services\\Telegram\\TelegramTransportException not found'. Test at TelegramBotRegistrarServiceTest.php line 71 injects fake throwing TelegramTransportException and asserts validateToken returns false."
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "reason": "phpunit-red.txt error #5 lists test_whitespace_only_token_returns_false_without_calling_client failing in the same red run. Test at TelegramBotRegistrarServiceTest.php line 82 asserts assertSame(0, $fake->callCount) after validateToken('   ')."
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "reason": "phpunit-green.txt shows 'OK (6 tests, 12 assertions)' with EXIT=0 after production code landed. Green mtime 1776157368 follows all production file mtimes. All five telegram test methods plus SmokeTest pass."
+    },
+    {
+      "id": "AC7",
+      "status": "PASS",
+      "reason": "Live rerun of 'composer test' by verifier returned 'OK (6 tests, 12 assertions)' with exit 0. 6 tests >= 6, 12 assertions >= 6."
+    },
+    {
+      "id": "AC8",
+      "status": "PASS",
+      "reason": "app/Services/Telegram/TelegramHttpClient.php read: <?php opener line 1, declare(strict_types=1); line 2, namespace App\\Services\\Telegram; line 4, interface TelegramHttpClient line 6, one method public function getMe(string $token): array; at line 14."
+    },
+    {
+      "id": "AC9",
+      "status": "PASS",
+      "reason": "app/Services/Telegram/TelegramTransportException.php read: <?php opener line 1, declare(strict_types=1); line 2, namespace App\\Services\\Telegram; line 4, final class TelegramTransportException extends \\RuntimeException at line 6."
+    },
+    {
+      "id": "AC10",
+      "status": "PASS",
+      "reason": "app/Services/TelegramBotRegistrarService.php read: declare(strict_types=1); line 2, namespace App\\Services; line 4, final class TelegramBotRegistrarService line 9, constructor with private readonly TelegramHttpClient $client (imported via use line 6), public function validateToken(string $token): bool at line 16."
+    },
+    {
+      "id": "AC11",
+      "status": "PASS",
+      "reason": "Service has trim($token) === '' guard returning false at lines 18-20. Fake exposes public int $callCount incremented in getMe. Tests at lines 45 and 90 assert assertSame(0, $fake->callCount) for empty and whitespace tokens; both pass in phpunit-green.txt."
+    },
+    {
+      "id": "AC12",
+      "status": "PASS",
+      "reason": "Service has catch (TelegramTransportException) { return false; } at lines 24-26. Test test_transport_exception_returns_false injects fake throwing the exception and asserts validateToken returns false; test passes in phpunit-green.txt."
+    },
+    {
+      "id": "AC13",
+      "status": "PASS",
+      "reason": "validateToken method body (lines 18-28 of TelegramBotRegistrarService.php) contains no 'new ', no '::' (catch uses bare class name TelegramTransportException without ::), and no ' static '. Reviewed: trim guard, try/catch with bare type, single method call $this->client->getMe, and a return expression on $response['ok']."
+    },
+    {
+      "id": "AC14",
+      "status": "PASS",
+      "reason": "Grep of tests/Unit/Services/TelegramBotRegistrarServiceTest.php for createMock|getMockBuilder|MockObject returned 0 matches. Test uses inline anonymous class 'new class($response, $throw) implements TelegramHttpClient' at line 15."
+    },
+    {
+      "id": "AC15",
+      "status": "PASS",
+      "reason": "php -l exit 0 with 'No syntax errors detected' on TelegramHttpClient.php, TelegramTransportException.php, TelegramBotRegistrarService.php, and TelegramBotRegistrarServiceTest.php."
+    },
+    {
+      "id": "AC16",
+      "status": "PASS",
+      "reason": "Autoload probe via php -r with vendor/autoload.php printed 'ok:' for App\\Services\\AgentDeployerService, KiloClawClientService, OnChainOSPaymentService, TelegramBotRegistrarService, Telegram\\TelegramHttpClient, Telegram\\TelegramTransportException."
+    },
+    {
+      "id": "AC17",
+      "status": "PASS",
+      "reason": "Grep of the four authored files for file_get_contents|curl_init|curl_exec|fsockopen|fopen returned 0 matches. Grep for https?:// found exactly one occurrence: TelegramHttpClient.php line 9 inside a /** */ docblock ('GET https://api.telegram.org/bot<token>/getMe'), which is explicitly allowed. Service, exception, and test files contain zero URL strings."
+    },
+    {
+      "id": "AC18",
+      "status": "PASS",
+      "reason": ".agent/tasks/tdd-telegram-validate-token/artifacts/phpunit-red.txt exists with EXIT=2 and 5 errors listing the exact five telegram test methods failing on missing interface/class. stat mtime comparison: red artifact 1776157341 < TelegramHttpClient.php 1776157353 < TelegramTransportException.php 1776157354 < TelegramBotRegistrarService.php 1776157356, proving red run preceded production code."
+    },
+    {
+      "id": "AC19",
+      "status": "PASS",
+      "reason": ".agent/tasks/tdd-telegram-validate-token/artifacts/phpunit-green.txt exists: 'OK (6 tests, 12 assertions)' with EXIT=0. Green mtime 1776157368 follows all production file mtimes."
+    },
+    {
+      "id": "AC20",
+      "status": "PASS",
+      "reason": "task_loop.py status verdict_overall_status: PASS for bootstrap-proof-loop, scaffold-service-stubs, test-harness, and landing-mockup-steve-ive. All four status queries exit 0 with PASS."
+    },
+    {
+      "id": "AC21",
+      "status": "PASS",
+      "reason": "ls repo root shows expected entries only: .agent, .claude, .codex, app, design, docs, tests, vendor, AGENTS.md, CLAUDE.md, composer.json, composer.lock, phpunit.xml.dist, .phpunit.result.cache. app/Services/ contains the four original stub files plus new Telegram/ subdirectory. The design/ directory was added by the parallel wizard-mockup-steve-ive task and is outside this task's scope. No edits to composer.json, phpunit.xml.dist, or .gitignore."
+    },
+    {
+      "id": "AC22",
+      "status": "PASS",
+      "reason": "grep -lE with literal U+2014 and U+2013 bytes against spec.md, evidence.md, evidence.json, and the four authored PHP files returned exit 1 (no files matched)."
+    },
+    {
+      "id": "AC23",
+      "status": "PASS",
+      "reason": "Test file path tests/Unit/Services/TelegramBotRegistrarServiceTest.php confirmed. Namespace Tests\\Unit\\Services at line 4; class TelegramBotRegistrarServiceTest at line 11. phpunit.xml.dist read: unchanged, testsuite still points at ./tests/Unit with no new entries."
+    }
+  ],
+  "commands_run": [
+    "composer test",
+    "php -l app/Services/Telegram/TelegramHttpClient.php",
+    "php -l app/Services/Telegram/TelegramTransportException.php",
+    "php -l app/Services/TelegramBotRegistrarService.php",
+    "php -l tests/Unit/Services/TelegramBotRegistrarServiceTest.php",
+    "php -r 'require \"vendor/autoload.php\"; class_exists/interface_exists probe for six identifiers'",
+    "stat -f %m %N phpunit-red.txt phpunit-green.txt and the four authored files",
+    "grep createMock|getMockBuilder|MockObject tests/Unit/Services/TelegramBotRegistrarServiceTest.php",
+    "grep file_get_contents|curl_init|curl_exec|fsockopen|fopen authored files",
+    "grep https?:// authored files",
+    "grep -lE literal U+2014 U+2013 bytes against task spec and authored files",
+    "ls -la repo root and app/Services/",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id bootstrap-proof-loop",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id scaffold-service-stubs",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id test-harness",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id landing-mockup-steve-ive",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py validate --task-id tdd-telegram-validate-token",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id tdd-telegram-validate-token"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/tdd-telegram-validate-token/spec.md",
+    ".agent/tasks/tdd-telegram-validate-token/evidence.md",
+    ".agent/tasks/tdd-telegram-validate-token/evidence.json",
+    ".agent/tasks/tdd-telegram-validate-token/artifacts/phpunit-red.txt",
+    ".agent/tasks/tdd-telegram-validate-token/artifacts/phpunit-green.txt",
+    "app/Services/Telegram/TelegramHttpClient.php",
+    "app/Services/Telegram/TelegramTransportException.php",
+    "app/Services/TelegramBotRegistrarService.php",
+    "tests/Unit/Services/TelegramBotRegistrarServiceTest.php",
+    "phpunit.xml.dist"
+  ]
+}

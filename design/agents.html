@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your agents.</title>
+<style>
+/* theme: dark */
+:root {
+  --bg: #0a0a0b;
+  --fg: #f5f5f4;
+  --muted: rgba(245, 245, 244, 0.46);
+  --rule: rgba(245, 245, 244, 0.08);
+  --tint: rgba(245, 245, 244, 0.04);
+  --accent: #c6ff3d;
+  --radius: 2px;
+  --max: 44rem;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+body {
+  font-family: "JetBrains Mono", "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
+  min-height: 100vh;
+  display: grid;
+  place-items: start center;
+  background:
+    radial-gradient(900px 520px at 50% -8%, var(--tint), transparent 60%),
+    var(--bg);
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem);
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  width: 100%;
+  max-width: var(--max);
+}
+h1 {
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  margin: 0 0 2.5rem;
+  font-weight: 800;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem;
+  border-top: 1px solid var(--rule);
+}
+li.row {
+  display: grid;
+  grid-template-columns: minmax(5rem, 1fr) auto minmax(6rem, 1fr) auto;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.name {
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+.pill {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  background: var(--tint);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+}
+.handle {
+  color: var(--muted);
+  text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.handle:hover,
+.handle:focus,
+.handle:focus-visible {
+  color: var(--fg);
+}
+button.stop {
+  font: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+button.stop:hover,
+button.stop:focus,
+button.stop:focus-visible {
+  color: var(--fg);
+  border-color: var(--fg);
+  outline: none;
+}
+button.cta {
+  display: inline-block;
+  padding: 1.05rem 1.6rem;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--bg);
+  background: var(--accent);
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+button.cta:hover,
+button.cta:focus,
+button.cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  h1 { letter-spacing: -0.02em; margin-bottom: 2rem; }
+  li.row {
+    grid-template-columns: 1fr auto;
+    row-gap: 0.6rem;
+  }
+  .handle { grid-column: 1 / -1; }
+  button.stop { justify-self: start; }
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Three agents.</h1>
+<ul>
+<li class="row">
+<span class="name">atlas</span>
+<span class="pill">ready</span>
+<a class="handle" href="#atlas">@atlasbot</a>
+<button class="stop" type="button">Stop</button>
+</li>
+<li class="row">
+<span class="name">nova</span>
+<span class="pill">provisioning</span>
+<a class="handle" href="#nova">@novabot</a>
+<button class="stop" type="button">Stop</button>
+</li>
+<li class="row">
+<span class="name">sage</span>
+<span class="pill">failed</span>
+<a class="handle" href="#sage">@sagebot</a>
+<button class="stop" type="button">Stop</button>
+</li>
+</ul>
+<button class="cta" type="button">Post agent</button>
+</main>
+</body>
+</html>

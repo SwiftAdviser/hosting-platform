@@ -1,0 +1,2 @@
+WORDS: 24
+TOKENS: ['Agent', 'address', 'Your', "agent's", 'address.', 'atlas', 'Show', 'address', '0x1234abcd5678ef901234abcd5678ef9012345678', 'Your', 'agent', 'uses', 'this', 'wallet', 'to', 'hold', 'balances.', 'Copy', 'it', 'from', 'the', 'bot', 'message.', 'Done']

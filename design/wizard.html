@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New agent.</title>
+<style>
+/* theme: dark */
+:root {
+  --bg: #0a0a0b;
+  --fg: #f5f5f4;
+  --muted: rgba(245, 245, 244, 0.46);
+  --rule: rgba(245, 245, 244, 0.08);
+  --tint: rgba(245, 245, 244, 0.04);
+  --accent: #c6ff3d;
+  --radius: 2px;
+  --max: 44rem;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+body {
+  font-family: "JetBrains Mono", "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
+  min-height: 100vh;
+  display: grid;
+  place-items: start center;
+  background:
+    radial-gradient(900px 520px at 50% -8%, var(--tint), transparent 60%),
+    var(--bg);
+  padding: clamp(2.5rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3rem);
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  width: 100%;
+  max-width: var(--max);
+}
+h1 {
+  font-size: clamp(2.25rem, 6vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  margin: 0 0 2.5rem;
+  font-weight: 800;
+}
+form {
+  display: grid;
+  gap: 1.75rem;
+}
+label {
+  display: block;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  margin: 0 0 0.5rem;
+}
+input[type="text"],
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  color: var(--fg);
+  background: var(--tint);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 0.9rem 1rem;
+  outline: none;
+}
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+}
+input[type="text"]:focus,
+textarea:focus {
+  border-color: var(--fg);
+}
+textarea {
+  min-height: 8rem;
+  resize: vertical;
+  font-family: inherit;
+}
+.hint {
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+button.cta {
+  margin-top: 1.25rem;
+  display: inline-block;
+  padding: 1.05rem 1.6rem;
+  font: inherit;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--bg);
+  background: var(--accent);
+  border: 0;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+button.cta:hover,
+button.cta:focus,
+button.cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  h1 { letter-spacing: -0.02em; margin-bottom: 2rem; }
+  form { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+<main>
+<h1>New agent.</h1>
+<form method="post" action="#post">
+<div>
+<label for="name">NAME</label>
+<input id="name" name="name" type="text" required placeholder="atlas">
+</div>
+<div>
+<label for="personality">PERSONALITY</label>
+<textarea id="personality" name="personality" required></textarea>
+<p class="hint">Two or three sentences. How it talks. How it decides.</p>
+</div>
+<div>
+<label for="bot_token">TELEGRAM TOKEN</label>
+<input id="bot_token" name="bot_token" type="text" required placeholder="123456:abcdef">
+</div>
+<div>
+<label for="allowlist">ALLOWLIST</label>
+<input id="allowlist" name="allowlist" type="text" placeholder="42, 7, 1024">
+</div>
+<button class="cta" type="submit">Post agent</button>
+</form>
+</main>
+</body>
+</html>

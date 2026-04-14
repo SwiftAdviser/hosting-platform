@@ -1,0 +1,15 @@
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /Users/krutovoy/Projects/hosting-platform/phpunit.xml.dist
+
+...                                                                 3 / 3 (100%)
+
+Time: 00:00.003, Memory: 10.00 MB
+
+Migration Shape (Tests\Unit\Migrations\MigrationShape)
+ ✔ Users migration has expected shape
+ ✔ Agents migration has expected shape
+ ✔ Deploys migration has expected shape
+
+OK (3 tests, 51 assertions)

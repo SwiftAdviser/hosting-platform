@@ -1,0 +1,166 @@
+{
+  "task_id": "postgres-migrations",
+  "overall_verdict": "PASS",
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "reason": "database/migrations/2026_04_14_120000_create_users_table.php exists (722 bytes)."
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "reason": "database/migrations/2026_04_14_120001_create_agents_table.php exists (973 bytes)."
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "reason": "database/migrations/2026_04_14_120002_create_deploys_table.php exists (798 bytes)."
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "reason": "php -l on all three migration files plus MigrationShapeTest.php: 'No syntax errors detected'."
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "reason": "Each migration contains exactly one 'return new class extends Migration' (lines 7 of all three files)."
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "reason": "All three migrations import Migration, Blueprint, and Schema facade at lines 3-5."
+    },
+    {
+      "id": "AC7",
+      "status": "PASS",
+      "reason": "users migration Schema::create('users', ...) line 10; agents Schema::create('agents', ...) line 10; deploys Schema::create('deploys', ...) line 10; each takes Blueprint $table closure."
+    },
+    {
+      "id": "AC8",
+      "status": "PASS",
+      "reason": "users down() line 23 Schema::dropIfExists('users'); agents line 28 dropIfExists('agents'); deploys line 24 dropIfExists('deploys')."
+    },
+    {
+      "id": "AC9",
+      "status": "PASS",
+      "reason": "users migration declares all locked column literals per spec.md AC9: $table->id(), string('email')->unique(), string('name')->nullable(), string('google_id')->unique()->nullable(), timestamp('email_verified_at')->nullable(), string('remember_token', 100)->nullable(), timestamps()."
+    },
+    {
+      "id": "AC10",
+      "status": "PASS",
+      "reason": "agents migration declares all locked column literals per spec.md AC10: id, foreignId('user_id')->constrained()->cascadeOnDelete(), string('name'), text('personality'), string('icon')->nullable(), status->default('pending'), kiloclaw_id nullable, wallet_address nullable, bot_token_encrypted text nullable, allowlist text nullable, timestamps."
+    },
+    {
+      "id": "AC11",
+      "status": "PASS",
+      "reason": "agents migration line 22: $table->index(['user_id', 'status']);"
+    },
+    {
+      "id": "AC12",
+      "status": "PASS",
+      "reason": "deploys migration declares all locked column literals per spec.md AC12: id, foreignId('agent_id')->constrained()->cascadeOnDelete(), integer('amount_usd'), string('onchainos_session_id')->nullable()->unique(), status default('pending'), timestamp('paid_at') nullable, timestamps."
+    },
+    {
+      "id": "AC13",
+      "status": "PASS",
+      "reason": "deploys migration line 18: $table->index(['agent_id', 'status']);"
+    },
+    {
+      "id": "AC14",
+      "status": "PASS",
+      "reason": "tests/Unit/Migrations/MigrationShapeTest.php exists; namespace Tests\\Unit\\Migrations; extends PHPUnit\\Framework\\TestCase; declare(strict_types=1)."
+    },
+    {
+      "id": "AC15",
+      "status": "PASS",
+      "reason": "Three test methods per spec.md AC15: test_users_migration_has_expected_shape, test_agents_migration_has_expected_shape, test_deploys_migration_has_expected_shape."
+    },
+    {
+      "id": "AC16",
+      "status": "PASS",
+      "reason": "Each test uses loadMigration() with file_get_contents + assertFileExists and then assertStringContainsString for every locked column literal from AC9/AC10/AC12."
+    },
+    {
+      "id": "AC17",
+      "status": "PASS",
+      "reason": "Agents test line 69 asserts index(['user_id','status']); deploys test line 92 asserts index(['agent_id','status'])."
+    },
+    {
+      "id": "AC18",
+      "status": "PASS",
+      "reason": "vendor/bin/phpunit --filter MigrationShapeTest --testdox: OK (3 tests, 51 assertions), exit 0."
+    },
+    {
+      "id": "AC19",
+      "status": "PASS",
+      "reason": "MigrationShapeTest contributes exactly 3 tests to the suite (confirmed by filtered phpunit run). Full composer test OK (51 tests, 233 assertions); the task-specific delta is 3."
+    },
+    {
+      "id": "AC20",
+      "status": "PASS",
+      "reason": "Wave-A protected files sampled (app/Services/OnChainOSPaymentService.php, tests/Unit/SmokeTest.php, CLAUDE.md) are present and untouched. No files outside database/migrations/ and tests/Unit/Migrations/ are modified by this task."
+    },
+    {
+      "id": "AC21",
+      "status": "PASS",
+      "reason": "composer.json contains no database/migrations reference; phpunit.xml.dist has only the existing Unit testsuite pointing at ./tests/Unit (which already covers tests/Unit/Migrations/). No config changes required."
+    },
+    {
+      "id": "AC22",
+      "status": "PASS",
+      "reason": "Grep for U+2014 / U+2013 in the three migration files, the test file, and .agent/tasks/postgres-migrations/ returns zero matches."
+    },
+    {
+      "id": "AC23",
+      "status": "PASS",
+      "reason": "No 'php artisan migrate' invocation in build.txt or artifacts; the only occurrences in evidence.md/evidence.json/spec.md are in comments that document the non-execution rule."
+    }
+  ],
+  "commands_run": [
+    "php -l database/migrations/2026_04_14_120000_create_users_table.php",
+    "php -l database/migrations/2026_04_14_120001_create_agents_table.php",
+    "php -l database/migrations/2026_04_14_120002_create_deploys_table.php",
+    "php -l tests/Unit/Migrations/MigrationShapeTest.php",
+    "vendor/bin/phpunit --filter MigrationShapeTest --testdox",
+    "composer test",
+    "shasum -a 256 composer.json phpunit.xml.dist app/Services/OnChainOSPaymentService.php tests/Unit/SmokeTest.php CLAUDE.md"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/postgres-migrations/spec.md",
+    ".agent/tasks/postgres-migrations/evidence.md",
+    ".agent/tasks/postgres-migrations/evidence.json",
+    ".agent/tasks/postgres-migrations/artifacts/phpunit-green-final.txt",
+    "database/migrations/2026_04_14_120000_create_users_table.php",
+    "database/migrations/2026_04_14_120001_create_agents_table.php",
+    "database/migrations/2026_04_14_120002_create_deploys_table.php",
+    "tests/Unit/Migrations/MigrationShapeTest.php",
+    "composer.json",
+    "phpunit.xml.dist"
+  ],
+  "notes": {
+    "phpunit_filtered": "OK (3 tests, 51 assertions)",
+    "composer_test": "OK (51 tests, 233 assertions)",
+    "task_test_delta": 3,
+    "stale_artifact_acknowledged": "artifacts/phpunit-green.txt is stale from a wave-B parallel race; authoritative capture is artifacts/phpunit-green-final.txt.",
+    "prior_and_peer_tasks_PASS": [
+      "agent-wallet-disclosure-mockup-steve-ive",
+      "agents-list-mockup-steve-ive",
+      "bootstrap-proof-loop",
+      "land-laravel-framework",
+      "landing-mockup-steve-ive",
+      "running-state-mockup-steve-ive",
+      "scaffold-service-stubs",
+      "tdd-agent-deployer",
+      "tdd-kiloclaw-install",
+      "tdd-onchainos-create-charge",
+      "tdd-telegram-set-webhook",
+      "tdd-telegram-validate-token",
+      "test-harness",
+      "wizard-mockup-steve-ive",
+      "tdd-onchainos-xlayer-client",
+      "tdd-google-auth-socialite"
+    ]
+  }
+}

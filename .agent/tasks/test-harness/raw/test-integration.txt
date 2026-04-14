@@ -1,0 +1,5 @@
+Integration tests are explicitly out of scope for the test-harness task.
+
+Per spec.md non-goals section: "No integration tests, no feature tests, no tests/Feature/ directory. Unit suite only for v0.1 of the harness."
+
+The Unit suite at tests/Unit/SmokeTest.php is the only test surface created by this task.

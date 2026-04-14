@@ -1,0 +1,79 @@
+Task: agent-wallet-disclosure-mockup-steve-ive
+Repo: /Users/krutovoy/Projects/hosting-platform
+Target file: design/agent-wallet.html
+
+Locked content:
+  Title:    Agent address (2 words)
+  Heading:  Your agent's address. (3 words, trailing period)
+  Label:    atlas (sample agent name, lowercase)
+  Summary:  Show address (2 words, closed by default, no `open` attribute)
+  Sample:   0x1234abcd5678ef901234abcd5678ef9012345678 (42 chars, inside single <code>)
+  Hint:     Your agent uses this wallet to hold balances. Copy it from the bot message. (14 words)
+  CTA:      <a class="cta" href="agents.html">Done</a> (1 primary CTA)
+  Font:     "JetBrains Mono", "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace
+
+Metrics:
+  Byte count: 2696 (< 12288)
+  Visible body word count: 24 (< 80)
+    tokens: ['Agent','address','Your',"agent's",'address.','atlas','Show','address',
+             '0x1234abcd5678ef901234abcd5678ef9012345678','Your','agent','uses','this',
+             'wallet','to','hold','balances.','Copy','it','from','the','bot','message.','Done']
+  wallet word-boundary count: 1 (<= 5 allowed by narrow relaxation)
+  0x substring count: 1 (exactly one, inside the sample address in the <code> element)
+  Visible body ! count: 0
+  em-dash (U+2014) count: 0
+  en-dash (U+2013) count: 0
+  transform: / text-transform: count: 0 / 0
+  <details count: 1 (closed by default, no `open` attribute)
+  <summary count: 1
+  <code    count: 1
+  <h1      count: 1
+  <style   count: 1
+  inline style= count: 0
+  <script count: 0; <button count: 0; <link count: 0; @import count: 0; :// count: 0
+  var(--accent) references: 2
+    line 90:   background: var(--accent);        (inside a.cta { ... })
+    line 101:  outline: 2px solid var(--accent); (inside a.cta:hover, a.cta:focus, a.cta:focus-visible { ... })
+
+Prior-design sha256 baseline (pre-build == post-build):
+  design/landing.html  87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64
+  design/wizard.html   8c3dc84dd422ccd9e1e04502205d7992c29e7d6ebd91632e05f6197d3de14f18
+  design/agents.html   11cc4d2284b60777a01a298082648a9dbda105383dc601b58f6df2e39ec12795
+  design/running.html  566674ad8f283e9ca697b5915b0db29a44bf3597c836303e7279100106fadafd
+
+Commands executed (exit code 0 unless noted):
+  mkdir -p .agent/tasks/agent-wallet-disclosure-mockup-steve-ive/artifacts                            [0]
+  shasum -a 256 design/landing.html design/wizard.html design/agents.html design/running.html
+    > artifacts/prior-designs-pre.sha256                                                              [0]
+  ls design/ and top-level ls > artifacts/pre-build-ls.txt                                            [0]
+  Write design/agent-wallet.html (2696 bytes)                                                         [0]
+  shasum -a 256 design/landing.html design/wizard.html design/agents.html design/running.html
+    > artifacts/prior-designs-post.sha256                                                             [0]
+  diff artifacts/prior-designs-pre.sha256 artifacts/prior-designs-post.sha256                         [0]  (SHA MATCH)
+  wc -c design/agent-wallet.html > artifacts/size-check.txt                                           [0]  (2696)
+  python3 visible-body word count > artifacts/word-count.txt                                          [0]  (24 words)
+  grep sweep forbidden tokens > artifacts/grep-forbidden.txt                                          [0]  (all counts correct)
+  grep -n 'var(--accent)' design/agent-wallet.html > artifacts/accent-count.txt                       [0]  (2 refs, both inside .cta rule blocks)
+  ls design/ and top-level ls > artifacts/post-build-ls.txt                                           [0]
+  for t in 12 prior tasks: python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status    [0 each]
+    All 12 report verdict_overall_status: PASS
+
+No-regression status (12 prior tasks, tdd-agent-deployer INCLUDED as it verified earlier):
+  bootstrap-proof-loop           PASS
+  scaffold-service-stubs         PASS
+  test-harness                   PASS
+  landing-mockup-steve-ive       PASS
+  tdd-telegram-validate-token    PASS
+  wizard-mockup-steve-ive        PASS
+  tdd-onchainos-create-charge    PASS
+  agents-list-mockup-steve-ive   PASS
+  tdd-kiloclaw-install           PASS
+  tdd-telegram-set-webhook       PASS
+  running-state-mockup-steve-ive PASS
+  tdd-agent-deployer             PASS
+
+Guardrails honored:
+  design/landing.html, wizard.html, agents.html, running.html untouched (sha256 matches baseline).
+  No composer, bun, php artisan, git, gh invocations.
+  No app/, tests/, composer.json, phpunit.xml.dist, vendor/ touched.
+  Only files created under design/agent-wallet.html and .agent/tasks/agent-wallet-disclosure-mockup-steve-ive/.

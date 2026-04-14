@@ -1,0 +1,4 @@
+No syntax errors detected in app/Services/Auth/GoogleIdentityClient.php
+No syntax errors detected in app/Services/Auth/GoogleAuthException.php
+No syntax errors detected in app/Services/Auth/GoogleAuthService.php
+No syntax errors detected in tests/Unit/Services/Auth/GoogleAuthServiceTest.php

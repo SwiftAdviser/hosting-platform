@@ -1,0 +1,14 @@
+=== ls app/Services/ ===
+AgentDeployerService.php
+KiloClawClientService.php
+OnChainOSPaymentService.php
+TelegramBotRegistrarService.php
+
+=== cat app/Services/TelegramBotRegistrarService.php ===
+<?php
+namespace App\Services;
+
+class TelegramBotRegistrarService
+{
+    // Validates user-provided bot token, registers webhook, stores chat pairing state
+}

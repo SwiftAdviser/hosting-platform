@@ -1,0 +1,12 @@
+> @php vendor/bin/phpunit
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /Users/krutovoy/Projects/hosting-platform/phpunit.xml.dist
+
+.........................................                         41 / 41 (100%)
+
+Time: 00:00.006, Memory: 10.00 MB
+
+OK (41 tests, 161 assertions)
+EXIT=0

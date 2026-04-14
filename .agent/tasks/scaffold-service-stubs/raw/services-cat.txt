@@ -1,0 +1,36 @@
+=== AgentDeployerService.php ===
+<?php
+namespace App\Services;
+
+class AgentDeployerService
+{
+    // Orchestrates: validate config -> charge wallet -> upload to KiloClaw -> return token ID
+}
+--- end ---
+=== KiloClawClientService.php ===
+<?php
+namespace App\Services;
+
+class KiloClawClientService
+{
+    // Wraps the KiloClaw/OpenClaw host API. See docs/integrations.md §KiloClaw
+}
+--- end ---
+=== TelegramBotRegistrarService.php ===
+<?php
+namespace App\Services;
+
+class TelegramBotRegistrarService
+{
+    // Validates user-provided bot token, registers webhook, stores chat pairing state
+}
+--- end ---
+=== OnChainOSPaymentService.php ===
+<?php
+namespace App\Services;
+
+class OnChainOSPaymentService
+{
+    // Charges the connected wallet for the deploy fee. See docs/integrations.md §OnChainOS
+}
+--- end ---

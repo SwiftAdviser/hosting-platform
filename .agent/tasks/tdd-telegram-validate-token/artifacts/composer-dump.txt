@@ -1,0 +1,3 @@
+Generating optimized autoload files
+Generated optimized autoload files containing 1528 classes
+EXIT=0

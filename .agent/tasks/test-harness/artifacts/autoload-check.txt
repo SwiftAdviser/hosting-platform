@@ -1,0 +1,5 @@
+App\Services\AgentDeployerService: ok
+App\Services\KiloClawClientService: ok
+App\Services\TelegramBotRegistrarService: ok
+App\Services\OnChainOSPaymentService: ok
+EXIT=0

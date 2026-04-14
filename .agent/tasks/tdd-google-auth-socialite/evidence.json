@@ -1,0 +1,272 @@
+{
+  "task_id": "tdd-google-auth-socialite",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "GoogleIdentityClient.php exists with declare(strict_types=1), namespace App\\Services\\Auth, declares interface.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleIdentityClient.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "Interface declares single method fetchProfile(string $authorizationCode): array with docblock describing id/email/name and GoogleAuthException.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleIdentityClient.php fetchProfile signature and docblock"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "GoogleAuthException.php declares final class extending RuntimeException.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleAuthException.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "GoogleAuthService.php declares final class with readonly GoogleIdentityClient constructor injection.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleAuthService.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "Exposes public function signIn(string $authorizationCode): array.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleAuthService.php signIn signature"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Empty code returns invalid_code shape and does not call client.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_empty_authorization_code_returns_invalid_code_and_does_not_call_client",
+        ".agent/tasks/tdd-google-auth-socialite/artifacts/phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "Whitespace-only code returns invalid_code shape and does not call client.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_whitespace_only_authorization_code_returns_invalid_code_and_does_not_call_client",
+        ".agent/tasks/tdd-google-auth-socialite/artifacts/phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Non-empty code calls $this->client->fetchProfile once inside try.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleAuthService.php try block",
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_happy_path_returns_authenticated_with_canonical_user_shape asserts callCount=1, lastCode='code_abc'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "GoogleAuthException caught and returned as failed shape; does not propagate.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleAuthService.php catch clause",
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_client_exception_returns_failed_without_propagating"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "Missing/empty id/email/name keys return failed with 'malformed google profile'.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleAuthService.php isset + empty-string guard",
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_malformed_profile_missing_email_returns_failed",
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_malformed_profile_missing_id_returns_failed",
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_malformed_profile_missing_name_returns_failed"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "Valid profile returns authenticated shape with id/email/name and error=null.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleAuthService.php authenticated return",
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_happy_path_returns_authenticated_with_canonical_user_shape"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "Test file has declare(strict_types=1), namespace Tests\\Unit\\Services\\Auth, extends TestCase.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php header"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "In-file FakeGoogleIdentityClient implements GoogleIdentityClient with public fields; not a PHPUnit mock.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php bottom class"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "Test file contains no createMock/getMockBuilder/MockObject.",
+      "status": "PASS",
+      "proof": [
+        "grep -E 'createMock|getMockBuilder|MockObject' tests/Unit/Services/Auth/GoogleAuthServiceTest.php -> 0 matches"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "Empty code test asserts invalid_code shape + callCount=0.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_empty_authorization_code_returns_invalid_code_and_does_not_call_client"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "Whitespace test passes '   ' and asserts invalid_code + callCount=0.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_whitespace_only_authorization_code_returns_invalid_code_and_does_not_call_client"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "Happy path uses code_abc with fixture and asserts exact authenticated shape + callCount=1 + lastCode='code_abc'.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_happy_path_returns_authenticated_with_canonical_user_shape"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "Client exception test throws GoogleAuthException('invalid_grant'), asserts failed shape, no leak.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_client_exception_returns_failed_without_propagating"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "Missing email test asserts status=failed, user=null, error contains 'malformed'.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_malformed_profile_missing_email_returns_failed"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "Missing id test asserts failed shape with 'malformed' in error.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_malformed_profile_missing_id_returns_failed"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "Missing name test asserts failed shape with 'malformed' in error.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php::test_malformed_profile_missing_name_returns_failed"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "signIn body has no ' new ', '::', or ' static ' tokens (catch allowed).",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleAuthService.php signIn body audit"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "All 4 authored PHP files start with <?php immediately followed by declare(strict_types=1);.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Auth/GoogleIdentityClient.php",
+        "app/Services/Auth/GoogleAuthException.php",
+        "app/Services/Auth/GoogleAuthService.php",
+        "tests/Unit/Services/Auth/GoogleAuthServiceTest.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC24",
+      "text": "composer test GREEN >= 44 tests; no regression across 14 prior cycles.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-google-auth-socialite/artifacts/phpunit-green.txt (OK 51 tests, 233 assertions, EXIT=0)",
+        ".agent/tasks/tdd-google-auth-socialite/artifacts/prior-status.txt (all 14 prior tasks EXIT=0 PASS)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC25",
+      "text": "No em dashes in authored files or spec.",
+      "status": "PASS",
+      "proof": [
+        "grep for U+2014 across app/Services/Auth and tests/Unit/Services/Auth returned 0 matches"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "app/Services/Auth/GoogleIdentityClient.php",
+    "app/Services/Auth/GoogleAuthException.php",
+    "app/Services/Auth/GoogleAuthService.php",
+    "tests/Unit/Services/Auth/GoogleAuthServiceTest.php",
+    ".agent/tasks/tdd-google-auth-socialite/artifacts/baseline-test.txt",
+    ".agent/tasks/tdd-google-auth-socialite/artifacts/phpunit-red.txt",
+    ".agent/tasks/tdd-google-auth-socialite/artifacts/phpunit-green.txt",
+    ".agent/tasks/tdd-google-auth-socialite/artifacts/php-lint.txt",
+    ".agent/tasks/tdd-google-auth-socialite/artifacts/prior-status.txt",
+    ".agent/tasks/tdd-google-auth-socialite/raw/build.txt",
+    ".agent/tasks/tdd-google-auth-socialite/raw/test-unit.txt",
+    ".agent/tasks/tdd-google-auth-socialite/raw/lint.txt",
+    ".agent/tasks/tdd-google-auth-socialite/evidence.md",
+    ".agent/tasks/tdd-google-auth-socialite/evidence.json",
+    ".agent/tasks/tdd-google-auth-socialite/verdict.json",
+    ".agent/tasks/tdd-google-auth-socialite/problems.md"
+  ],
+  "commands_for_fresh_verifier": [
+    "composer dump-autoload",
+    "composer test",
+    "php -l app/Services/Auth/GoogleIdentityClient.php",
+    "php -l app/Services/Auth/GoogleAuthException.php",
+    "php -l app/Services/Auth/GoogleAuthService.php",
+    "php -l tests/Unit/Services/Auth/GoogleAuthServiceTest.php",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py validate --task-id tdd-google-auth-socialite",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id tdd-google-auth-socialite"
+  ],
+  "known_gaps": []
+}

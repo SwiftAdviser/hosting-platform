@@ -1,0 +1,20 @@
+> @php vendor/bin/phpunit
+
+
+An error occurred inside PHPUnit.
+
+Message:  Interface "App\Services\OnChainOS\XLayer\XLayerHttpTransport" not found
+Location: /Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/OnChainOS/XLayerOnChainOSClientTest.php:109
+
+#0 /Users/krutovoy/Projects/hosting-platform/vendor/phpunit/phpunit/src/Runner/TestSuiteLoader.php(116): require_once()
+#1 /Users/krutovoy/Projects/hosting-platform/vendor/phpunit/phpunit/src/Runner/TestSuiteLoader.php(49): PHPUnit\Runner\TestSuiteLoader->loadSuiteClassFile('/Users/krutovoy...')
+#2 /Users/krutovoy/Projects/hosting-platform/vendor/phpunit/phpunit/src/Framework/TestSuite.php(231): PHPUnit\Runner\TestSuiteLoader->load('/Users/krutovoy...')
+#3 /Users/krutovoy/Projects/hosting-platform/vendor/phpunit/phpunit/src/TextUI/Configuration/Xml/TestSuiteMapper.php(105): PHPUnit\Framework\TestSuite->addTestFile('/Users/krutovoy...', Array)
+#4 /Users/krutovoy/Projects/hosting-platform/vendor/phpunit/phpunit/src/TextUI/Configuration/TestSuiteBuilder.php(75): PHPUnit\TextUI\XmlConfiguration\TestSuiteMapper->map('/Users/krutovoy...', Object(PHPUnit\TextUI\Configuration\TestSuiteCollection), '', '')
+#5 /Users/krutovoy/Projects/hosting-platform/vendor/phpunit/phpunit/src/TextUI/Application.php(412): PHPUnit\TextUI\Configuration\TestSuiteBuilder->build(Object(PHPUnit\TextUI\Configuration\Configuration))
+#6 /Users/krutovoy/Projects/hosting-platform/vendor/phpunit/phpunit/src/TextUI/Application.php(182): PHPUnit\TextUI\Application->buildTestSuite(Object(PHPUnit\TextUI\Configuration\Configuration))
+#7 /Users/krutovoy/Projects/hosting-platform/vendor/phpunit/phpunit/phpunit(104): PHPUnit\TextUI\Application->run(Array)
+#8 /Users/krutovoy/Projects/hosting-platform/vendor/bin/phpunit(122): include('/Users/krutovoy...')
+#9 {main}
+Script @php vendor/bin/phpunit handling the test event returned with error code 255
+EXIT=255

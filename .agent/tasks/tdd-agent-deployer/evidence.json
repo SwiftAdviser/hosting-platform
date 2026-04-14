@@ -1,0 +1,303 @@
+{
+  "task_id": "tdd-agent-deployer",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "AgentDeployerService.php rewritten starting with <?php then declare(strict_types=1);",
+      "status": "PASS",
+      "proof": [
+        "app/Services/AgentDeployerService.php line 1 '<?php', line 2 'declare(strict_types=1);'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "namespace App\\Services; and final class AgentDeployerService.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/AgentDeployerService.php declares 'namespace App\\Services;' and 'final class AgentDeployerService'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Constructor uses PHP 8 promotion with three private readonly deps in order via use statements.",
+      "status": "PASS",
+      "proof": [
+        "use App\\Services\\OnChainOSPaymentService; use App\\Services\\KiloClawClientService; use App\\Services\\TelegramBotRegistrarService;",
+        "Constructor: private readonly OnChainOSPaymentService $payment, private readonly KiloClawClientService $kiloclaw, private readonly TelegramBotRegistrarService $telegram"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Single public method public function deploy(array $request): array.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/AgentDeployerService.php line 20: 'public function deploy(array $request): array'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "deploy() returns six canonical keys in every branch.",
+      "status": "PASS",
+      "proof": [
+        "All 5 return branches (invalid_request, telegram_invalid, payment_failed, install_failed, deployed) include status, stage, agent_name, error, kiloclaw_id, session_id",
+        "test_happy_path_deployed_returns_canonical_shape asserts exact six-key shape via assertSame"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Validation loop across four required keys returns invalid_request/validate branch with canonical-ordered error list, no downstream calls.",
+      "status": "PASS",
+      "proof": [
+        "Service loops ['agent_name', 'personality', 'telegram_bot_token', 'amount_usd'] in order; non-empty trimmed string check; amount_usd must be positive int",
+        "test_missing_required_field_returns_invalid_request asserts error contains 'personality' and all three fake call counts are 0",
+        "test_empty_agent_name_returns_invalid_request asserts error contains 'agent_name' and all counts 0",
+        "test_zero_amount_returns_invalid_request asserts error contains 'amount_usd' and all counts 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "Optional allowlist key accepted but not parsed; missing allowlist is not an error.",
+      "status": "PASS",
+      "proof": [
+        "Validation loop does not reference 'allowlist'",
+        "Happy-path fixture passes 'allowlist' => '' and succeeds"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Step 1 is Telegram validateToken, before payment and install.",
+      "status": "PASS",
+      "proof": [
+        "Service body: validation then $this->telegram->validateToken(...) before createCharge/install",
+        "test_telegram_token_invalid_short_circuits_at_telegram_validate: getMeCallCount == 1, onchainos and kiloclaw counts == 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "validateToken false returns telegram_invalid/telegram_validate branch, skips payment and install.",
+      "status": "PASS",
+      "proof": [
+        "Branch returns status telegram_invalid, stage telegram_validate, error 'telegram token invalid', kiloclaw_id null, session_id null",
+        "test_telegram_token_invalid_short_circuits_at_telegram_validate verifies exact shape and ensures downstream fakes never called"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "Step 2 is payment via createCharge(amount_usd, agent_name) after Telegram succeeds.",
+      "status": "PASS",
+      "proof": [
+        "Service line: $charge = $this->payment->createCharge($request['amount_usd'], $request['agent_name']);",
+        "Call ordering visible via happy-path test call counts all == 1"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "Non-pending charge returns payment_failed/payment branch, install not called.",
+      "status": "PASS",
+      "proof": [
+        "Service: if (($charge['status'] ?? null) !== 'pending') returns the payment_failed shape with error fallback and propagates session_id",
+        "test_payment_not_pending_short_circuits_at_payment: uses OnChainOSException preload so charge returns status=failed; asserts payment_failed and kiloclaw callCount 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "Step 3 is KiloClaw install with inline manifest literal.",
+      "status": "PASS",
+      "proof": [
+        "grep 'spawn.' . strtolower(\\$request['agent_name']) matches line 76 exactly once",
+        "Manifest array has keys id, name, version '0.1.0', skills []",
+        "$install = $this->kiloclaw->install($manifest);"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "Install status not in {ready, booting} returns install_failed/install branch with charge session_id.",
+      "status": "PASS",
+      "proof": [
+        "Service: !in_array($install['status'] ?? null, ['ready', 'booting'], true) branch returns full six-key install_failed shape with session_id from charge",
+        "test_install_not_ready_short_circuits_at_install asserts session_id == 'sess_abc' and error contains 'transport boom'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "Happy path returns deployed/complete canonical shape.",
+      "status": "PASS",
+      "proof": [
+        "Service returns ['status' => 'deployed', 'stage' => 'complete', 'agent_name' => $request['agent_name'], 'error' => null, 'kiloclaw_id' => $install['kiloclaw_id'], 'session_id' => $charge['session_id']]",
+        "test_happy_path_deployed_returns_canonical_shape asserts exact fixture via assertSame"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "No ' new ' in deploy() body.",
+      "status": "PASS",
+      "proof": [
+        "awk extract of deploy() body and grep -c ' new ' returns 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "No '::' in deploy() body.",
+      "status": "PASS",
+      "proof": [
+        "awk extract of deploy() body and grep -c '::' returns 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "No ' static ' in deploy() body.",
+      "status": "PASS",
+      "proof": [
+        "awk extract of deploy() body and grep -c ' static ' returns 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "No try/catch keywords in the service file.",
+      "status": "PASS",
+      "proof": [
+        "grep -cE '(^|\\s)(try|catch)(\\s|\\()' app/Services/AgentDeployerService.php returns 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "Test file has strict types, correct namespace, extends TestCase.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/AgentDeployerServiceTest.php: declare(strict_types=1); namespace Tests\\Unit\\Services; use PHPUnit\\Framework\\TestCase; final class AgentDeployerServiceTest extends TestCase"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "Three in-file fakes implementing the three HTTP client interfaces.",
+      "status": "PASS",
+      "proof": [
+        "final class FakeAgentDeployerOnChainOSClient implements OnChainOSClient",
+        "final class FakeAgentDeployerKiloClawHttpClient implements KiloClawHttpClient",
+        "final class FakeAgentDeployerTelegramHttpClient implements TelegramHttpClient",
+        "Each fake exposes public nextResponse (or per-method getMeNextResponse/setWebhookNextResponse) that tests mutate. The 'FakeAgentDeployer' prefix is required because the non-prefixed names are already defined in sibling test files within the same Tests\\Unit\\Services namespace; redeclaring would fatal at load. Spec AC20 explicitly permits 'equivalently named per existing test files'."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "Each test wires 3 fakes into 3 real services into AgentDeployerService; no PHPUnit mocks.",
+      "status": "PASS",
+      "proof": [
+        "makeStack() constructs OnChainOSPaymentService, KiloClawClientService, TelegramBotRegistrarService from fakes then new AgentDeployerService($payment, $kiloclaw, $telegram)",
+        "grep -c 'createMock|getMockBuilder|MockObject' tests/Unit/Services/AgentDeployerServiceTest.php returns 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "Seven locked-name test methods present.",
+      "status": "PASS",
+      "proof": [
+        "test_missing_required_field_returns_invalid_request line 46",
+        "test_empty_agent_name_returns_invalid_request line 66",
+        "test_zero_amount_returns_invalid_request line 85",
+        "test_telegram_token_invalid_short_circuits_at_telegram_validate line 104",
+        "test_payment_not_pending_short_circuits_at_payment line 122",
+        "test_install_not_ready_short_circuits_at_install line 141",
+        "test_happy_path_deployed_returns_canonical_shape line 164"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "Happy-path test uses pinned fixture and asserts pinned canonical return.",
+      "status": "PASS",
+      "proof": [
+        "Request fixture matches spec exactly: atlas / 'A laconic agent that ships code.' / '123:abc' / 10 / allowlist ''",
+        "Fake preloads match spec: telegram ok=true result.id=1; onchainos sess_abc pending expires_at 2026-04-14T10:00:00Z; kiloclaw kc_abc ready",
+        "assertSame against ['status'=>'deployed','stage'=>'complete','agent_name'=>'atlas','error'=>null,'kiloclaw_id'=>'kc_abc','session_id'=>'sess_abc']"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC24",
+      "text": "phpunit-red.txt nonzero and phpunit-green.txt zero exist in task directory.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-agent-deployer/artifacts/phpunit-red.txt EXIT=2 with 7 errors on undefined method deploy() (30 prior tests still pass)",
+        ".agent/tasks/tdd-agent-deployer/artifacts/phpunit-green.txt EXIT=0 with 'OK (37 tests, 142 assertions)'",
+        ".agent/tasks/tdd-agent-deployer/artifacts/pre-build-stub.txt proves production file was still the one-line stub when red was captured"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC25",
+      "text": "Final composer test >= 37 tests and >= 40 assertions exit 0; all 10 prior tasks still PASS.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-agent-deployer/artifacts/composer-test-final.txt reports 'OK (37 tests, 142 assertions)' EXIT=0",
+        "task_loop.py status verdict_overall_status PASS for: bootstrap-proof-loop, scaffold-service-stubs, test-harness, landing-mockup-steve-ive, tdd-telegram-validate-token, wizard-mockup-steve-ive, tdd-onchainos-create-charge, agents-list-mockup-steve-ive, tdd-kiloclaw-install, tdd-telegram-set-webhook (artifacts/status-*.txt)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC26",
+      "text": "Only two code files touched: AgentDeployerService and its test.",
+      "status": "PASS",
+      "proof": [
+        "Only app/Services/AgentDeployerService.php (rewritten) and tests/Unit/Services/AgentDeployerServiceTest.php (new) modified",
+        "phpunit.xml.dist, composer.json, composer.lock, the three sibling services, and all sibling test files are byte-unchanged"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "app/Services/AgentDeployerService.php",
+    "tests/Unit/Services/AgentDeployerServiceTest.php",
+    ".agent/tasks/tdd-agent-deployer/evidence.md",
+    ".agent/tasks/tdd-agent-deployer/evidence.json",
+    ".agent/tasks/tdd-agent-deployer/raw/build.txt",
+    ".agent/tasks/tdd-agent-deployer/raw/test-unit.txt",
+    ".agent/tasks/tdd-agent-deployer/raw/lint.txt",
+    ".agent/tasks/tdd-agent-deployer/raw/test-integration.txt",
+    ".agent/tasks/tdd-agent-deployer/artifacts/baseline-test.txt",
+    ".agent/tasks/tdd-agent-deployer/artifacts/pre-build-stub.txt",
+    ".agent/tasks/tdd-agent-deployer/artifacts/phpunit-red.txt",
+    ".agent/tasks/tdd-agent-deployer/artifacts/phpunit-green.txt",
+    ".agent/tasks/tdd-agent-deployer/artifacts/php-lint.txt",
+    ".agent/tasks/tdd-agent-deployer/artifacts/composer-dump.txt",
+    ".agent/tasks/tdd-agent-deployer/artifacts/composer-test-final.txt",
+    ".agent/tasks/tdd-agent-deployer/artifacts/post-build-ls.txt"
+  ],
+  "commands_for_fresh_verifier": [
+    "composer test",
+    "php -l app/Services/AgentDeployerService.php",
+    "php -l tests/Unit/Services/AgentDeployerServiceTest.php",
+    "grep -n 'final class AgentDeployerService' app/Services/AgentDeployerService.php",
+    "grep -n \"'spawn.' . strtolower(\\$request\\['agent_name'\\])\" app/Services/AgentDeployerService.php",
+    "awk '/public function deploy/,/^    }$/' app/Services/AgentDeployerService.php | grep -c ' new '",
+    "awk '/public function deploy/,/^    }$/' app/Services/AgentDeployerService.php | grep -c '::'",
+    "awk '/public function deploy/,/^    }$/' app/Services/AgentDeployerService.php | grep -c ' static '",
+    "grep -cE '(^|\\s)(try|catch)(\\s|\\()' app/Services/AgentDeployerService.php",
+    "grep -c 'createMock\\|getMockBuilder\\|MockObject' tests/Unit/Services/AgentDeployerServiceTest.php",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py validate --task-id tdd-agent-deployer",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id tdd-agent-deployer"
+  ],
+  "known_gaps": []
+}

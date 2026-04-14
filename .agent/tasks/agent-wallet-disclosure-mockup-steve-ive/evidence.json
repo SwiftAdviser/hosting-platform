@@ -1,0 +1,335 @@
+{
+  "task_id": "agent-wallet-disclosure-mockup-steve-ive",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "File exists at design/agent-wallet.html; design/ dir exists.",
+      "status": "PASS",
+      "proof": [
+        "test -f design/agent-wallet.html exit 0",
+        "test -d design exit 0",
+        "ls design/ | sort returns agent-wallet.html, agents.html, landing.html, running.html, wizard.html"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "Doctype, <html lang>, charset utf-8, viewport meta.",
+      "status": "PASS",
+      "proof": [
+        "Line 1: <!DOCTYPE html>",
+        "Line 2: <html lang=\"en\">",
+        "Line 4: <meta charset=\"utf-8\">",
+        "Line 5: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Exactly one <title>, <= 5 words.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<title>' design/agent-wallet.html = 1",
+        "Title text 'Agent address' = 2 words"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Exactly one primary CTA <a class=\"cta\">Done</a>; summary not in cta class.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<a class=\"cta\"' design/agent-wallet.html = 1",
+        "CTA inner text byte-equals 'Done'",
+        "<summary> element has no class attribute"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "No secondary CTA labels.",
+      "status": "PASS",
+      "proof": [
+        "Case-insensitive grep returns 0 for each of: Learn more, Read more, See more, Get started, Sign up, Sign in, Log in, More info"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Exactly one <details>, default closed.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<details' design/agent-wallet.html = 1",
+        "grep -cE '<details[^>]+open' design/agent-wallet.html = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "Exactly one <summary>, text byte-equals 'Show address'.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<summary' design/agent-wallet.html = 1",
+        "Summary inner text byte-equals 'Show address' (2 words, no trailing punctuation)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Exactly one <code>, text byte-equals locked sample address.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<code' design/agent-wallet.html = 1",
+        "Code inner text byte-equals '0x1234abcd5678ef901234abcd5678ef9012345678' (42 chars)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "No scripts, no src=, no external links, no @import, no ://, no CDN hosts.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<script' = 0",
+        "grep -c 'src=' = 0",
+        "grep -c '<link ' = 0",
+        "grep -c '@import' = 0",
+        "grep -cF '://' = 0",
+        "No matches for fonts.googleapis.com|cdn.|cloudflare.com|jsdelivr.net|unpkg.com"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "Exactly one <style> in <head>; zero inline style= attributes.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<style' design/agent-wallet.html = 1",
+        "grep -c ' style=' design/agent-wallet.html = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "Marketing buzzword ban (17 terms).",
+      "status": "PASS",
+      "proof": [
+        "Case-insensitive count returns 0 for each of: revolutionary, seamless, unleash, harness, empower, best-in-class, world-class, cutting-edge, leverage, synergy, streamline, next-generation, game-changer, transform, we're excited, introducing, unlock"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "Em-dash (U+2014) and en-dash (U+2013) ban.",
+      "status": "PASS",
+      "proof": [
+        "Byte count for U+2014 = 0",
+        "Byte count for U+2013 = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "No ! in visible body text (style block and comments stripped).",
+      "status": "PASS",
+      "proof": [
+        "Python strip of <style>, comments, and tags leaves visible body text with 0 '!' characters"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "Crypto-hidden narrow relaxation: wallet <= 5, other crypto terms = 0.",
+      "status": "PASS",
+      "proof": [
+        "grep -oiw 'wallet' design/agent-wallet.html | wc -l = 1 (<= 5)",
+        "grep -ciw returns 0 for each of: chain, gas, signature, USDC, ETH, X-Layer, EVM, blockchain, crypto"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "Chain-name ban.",
+      "status": "PASS",
+      "proof": [
+        "Case-insensitive grep returns 0 for each of: X-Layer, xlayer, Base, Ethereum, Solana, Polygon, Arbitrum, Optimism"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "Exactly one '0x' substring, inside the locked sample address in the single <code>.",
+      "status": "PASS",
+      "proof": [
+        "grep -oF '0x' design/agent-wallet.html | wc -l = 1",
+        "The single 0x substring sits inside the <code> element containing the sample address"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "Sample address literal present once, byte-exact.",
+      "status": "PASS",
+      "proof": [
+        "grep -cF '0x1234abcd5678ef901234abcd5678ef9012345678' design/agent-wallet.html = 1"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "Page mentions the product noun 'agent'.",
+      "status": "PASS",
+      "proof": [
+        "grep -qi 'agent' design/agent-wallet.html matches the heading 'Your agent's address.', the hint 'Your agent uses this wallet...', and the title 'Agent address'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": ":root tokens byte-identical to landing.html.",
+      "status": "PASS",
+      "proof": [
+        "--bg: #0a0a0b;",
+        "--fg: #f5f5f4;",
+        "--muted: rgba(245, 245, 244, 0.46);",
+        "--rule: rgba(245, 245, 244, 0.08);",
+        "--tint: rgba(245, 245, 244, 0.04);",
+        "--accent: #c6ff3d;",
+        "--radius: 2px;",
+        "--max: 44rem;",
+        "/* theme: dark */ comment precedes the :root { line"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "body font-family byte-exact landing stack.",
+      "status": "PASS",
+      "proof": [
+        "body CSS declares font-family: \"JetBrains Mono\", \"IBM Plex Mono\", \"SF Mono\", \"Fira Code\", ui-monospace, monospace",
+        "None of Inter/Roboto/Arial/Helvetica/system-ui/-apple-system appear"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "var(--accent) referenced only in .cta / a.cta / hover / focus / focus-visible rules.",
+      "status": "PASS",
+      "proof": [
+        "grep -n 'var(--accent)' design/agent-wallet.html returns 2 lines",
+        "line 90: inside 'a.cta { ... }' rule block (background: var(--accent);)",
+        "line 101: inside 'a.cta:hover, a.cta:focus, a.cta:focus-visible { ... }' rule block (outline: 2px solid var(--accent);)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "Responsive via @media max-width or fluid units on heading.",
+      "status": "PASS",
+      "proof": [
+        "@media (max-width: 640px) { h1 { ... } details { ... } } present",
+        "h1 font-size uses clamp(2rem, 5.5vw, 3.5rem)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "File size strictly less than 12288 bytes.",
+      "status": "PASS",
+      "proof": [
+        "wc -c design/agent-wallet.html = 2696 (< 12288)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC24",
+      "text": "Visible body word count strictly less than 80.",
+      "status": "PASS",
+      "proof": [
+        "Stripped-body whitespace-split token count = 24 (< 80)",
+        "Tokens: Agent, address, Your, agent's, address., atlas, Show, address, 0x1234abcd5678ef901234abcd5678ef9012345678, Your, agent, uses, this, wallet, to, hold, balances., Copy, it, from, the, bot, message., Done"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC25",
+      "text": "Exactly one <h1>, inner text byte-equals 'Your agent's address.'.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<h1' design/agent-wallet.html = 1",
+        "h1 inner text byte-equals 'Your agent's address.' (3 words, trailing period)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC26",
+      "text": "No transform: or text-transform: anywhere.",
+      "status": "PASS",
+      "proof": [
+        "grep -cE 'transform[[:space:]]*:' design/agent-wallet.html = 0",
+        "grep -cE 'text-transform[[:space:]]*:' design/agent-wallet.html = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC27",
+      "text": "Collateral check: prior four design files unchanged; exactly 5 files in design/.",
+      "status": "PASS",
+      "proof": [
+        "pre-build sha256 captured to artifacts/prior-designs-pre.sha256 BEFORE edits",
+        "post-build sha256 captured to artifacts/prior-designs-post.sha256 AFTER edits",
+        "diff pre vs post exits 0 (SHA MATCH)",
+        "landing.html sha256 = 87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64 (matches baseline)",
+        "wizard.html sha256 = 8c3dc84dd422ccd9e1e04502205d7992c29e7d6ebd91632e05f6197d3de14f18 (matches baseline)",
+        "agents.html sha256 = 11cc4d2284b60777a01a298082648a9dbda105383dc601b58f6df2e39ec12795 (matches baseline)",
+        "running.html sha256 = 566674ad8f283e9ca697b5915b0db29a44bf3597c836303e7279100106fadafd (matches baseline)",
+        "ls design/ | sort returns exactly five lines: agent-wallet.html, agents.html, landing.html, running.html, wizard.html"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC28",
+      "text": "No regressions on 11 prior tasks (tdd-agent-deployer excluded or skipped if UNKNOWN).",
+      "status": "PASS",
+      "proof": [
+        "bootstrap-proof-loop verdict_overall_status PASS",
+        "scaffold-service-stubs verdict_overall_status PASS",
+        "test-harness verdict_overall_status PASS",
+        "landing-mockup-steve-ive verdict_overall_status PASS",
+        "tdd-telegram-validate-token verdict_overall_status PASS",
+        "wizard-mockup-steve-ive verdict_overall_status PASS",
+        "tdd-onchainos-create-charge verdict_overall_status PASS",
+        "agents-list-mockup-steve-ive verdict_overall_status PASS",
+        "tdd-kiloclaw-install verdict_overall_status PASS",
+        "tdd-telegram-set-webhook verdict_overall_status PASS",
+        "running-state-mockup-steve-ive verdict_overall_status PASS",
+        "tdd-agent-deployer verdict_overall_status PASS (additional, not required)",
+        "Raw output in artifacts/no-regression.txt"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "design/agent-wallet.html"
+  ],
+  "commands_for_fresh_verifier": [
+    "shasum -a 256 design/landing.html design/wizard.html design/agents.html design/running.html",
+    "wc -c design/agent-wallet.html",
+    "grep -c '<h1' design/agent-wallet.html",
+    "grep -c '<details' design/agent-wallet.html",
+    "grep -c '<summary' design/agent-wallet.html",
+    "grep -c '<code' design/agent-wallet.html",
+    "grep -c '<style' design/agent-wallet.html",
+    "grep -c ' style=' design/agent-wallet.html",
+    "grep -n 'var(--accent)' design/agent-wallet.html",
+    "grep -oF '0x' design/agent-wallet.html | wc -l",
+    "grep -cF '0x1234abcd5678ef901234abcd5678ef9012345678' design/agent-wallet.html",
+    "grep -oiw 'wallet' design/agent-wallet.html | wc -l",
+    "grep -cE 'transform[[:space:]]*:' design/agent-wallet.html",
+    "grep -cE 'text-transform[[:space:]]*:' design/agent-wallet.html",
+    "grep -cF '://' design/agent-wallet.html",
+    "ls design/ | sort",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id agent-wallet-disclosure-mockup-steve-ive"
+  ],
+  "known_gaps": []
+}

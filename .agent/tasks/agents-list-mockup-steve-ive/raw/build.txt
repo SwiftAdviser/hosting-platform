@@ -1,0 +1,82 @@
+Build summary: agents-list-mockup-steve-ive
+=============================================
+
+Output file: /Users/krutovoy/Projects/hosting-platform/design/agents.html
+Bytes: 3501 (limit 14336)
+Visible body words: 18 (limit 90)
+Heading: Three agents.
+Title: Your agents.
+Primary CTA: Post agent (button.cta)
+Font family: "JetBrains Mono", "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace
+Accent color: #c6ff3d (var(--accent), referenced only inside button.cta and button.cta:hover/focus/focus-visible rules)
+
+Sample rows (locked by spec):
+  1. atlas    | ready         | @atlasbot | Stop
+  2. nova     | provisioning  | @novabot  | Stop
+  3. sage     | failed        | @sagebot  | Stop
+
+Element counts:
+  <h1>          : 1
+  <title>       : 1
+  <button>      : 4 (3 stop + 1 cta)
+  class="row"   : 3
+  class="cta"   : 1
+  class="stop"  : 3
+  <style>       : 1
+  ' style='     : 0
+
+Forbidden grep sweep (all 0):
+  buzzwords    : 0 across full ban list
+  crypto terms : 0 across X-Layer|EVM|chain|gas|signature|USDC|ETH|blockchain|crypto|0x|wallet
+  em-dash      : 0
+  en-dash      : 0
+  transform:   : 0
+  text-transform: : 0
+  https://     : 0
+  http://      : 0
+  ://          : 0
+  <script      : 0
+  src=         : 0
+  @import      : 0
+
+Pill state counts (case-insensitive, file-wide):
+  provisioning : 1
+  ready        : 1
+  failed       : 1
+
+Prior-design hashes (must not change):
+  Pre  landing : 87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64
+  Post landing : 87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64  (MATCH)
+  Pre  wizard  : 8c3dc84dd422ccd9e1e04502205d7992c29e7d6ebd91632e05f6197d3de14f18
+  Post wizard  : 8c3dc84dd422ccd9e1e04502205d7992c29e7d6ebd91632e05f6197d3de14f18  (MATCH)
+
+No-regression status of prior tasks (all verdict_overall_status):
+  bootstrap-proof-loop       : PASS
+  scaffold-service-stubs     : PASS
+  test-harness               : PASS
+  landing-mockup-steve-ive   : PASS
+  tdd-telegram-validate-token: PASS
+  wizard-mockup-steve-ive    : PASS
+
+Commands run (all exit 0 unless noted):
+  shasum -a 256 design/landing.html design/wizard.html  -> exit 0
+  ls design/                                            -> exit 0
+  ls                                                    -> exit 0
+  sed -n '/:root {/,/^}/p' design/landing.html          -> exit 0
+  Write design/agents.html                              -> exit 0
+  shasum -a 256 design/landing.html design/wizard.html  -> exit 0
+  diff prior-designs-pre.sha256 prior-designs-post.sha256 -> exit 0 (MATCH)
+  wc -c design/agents.html                              -> exit 0
+  wc -w design/agents.html                              -> exit 0
+  python3 visible-words counter                         -> 18
+  grep sweep buzzwords/crypto/dashes/transform          -> all 0
+  grep -n 'var(--accent)' design/agents.html            -> 2 hits, both in button.cta block
+  grep -c '<button' design/agents.html                  -> 4
+  grep -cE 'class="(stop|ghost)"' design/agents.html    -> 3
+  grep -c 'class="row"' design/agents.html              -> 3
+  grep -c '<h1' design/agents.html                      -> 1
+  grep -c '<title>' design/agents.html                  -> 1
+  grep -c '>ready<' design/agents.html                  -> 1
+  grep -c '>provisioning<' design/agents.html           -> 1
+  grep -c '>failed<' design/agents.html                 -> 1
+  python3 task_loop.py status --task-id <each prior>    -> all PASS

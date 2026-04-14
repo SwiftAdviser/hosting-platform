@@ -1,0 +1,6 @@
+bootstrap-proof-loop: PASS
+scaffold-service-stubs: PASS
+test-harness: PASS
+landing-mockup-steve-ive: PASS
+tdd-telegram-validate-token: PASS
+wizard-mockup-steve-ive: PASS

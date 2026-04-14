@@ -1,0 +1,188 @@
+{
+  "task_id": "tdd-kiloclaw-install",
+  "overall_verdict": "PASS",
+  "pass": 1,
+  "verifier_notes": "Fresh verifier: live composer test OK (30 tests, 87 assertions). Red artifact exits 255 with class-load fatal (interface absent) proving strict-TDD pre-production state. Red mtime 1776160224 precedes all production code mtimes. All 10 locked test methods present in test file. All four authored files clean (no em dashes, no network calls, no mocks, no disallowed constructs in install body). Autoload probe resolves all 10 symbols. All 8 prior tasks PASS. Parallel tdd-telegram-set-webhook landed six extra tests which explain the 30/87 total.",
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "reason": "test_manifest_missing_id_returns_invalid_and_does_not_call_client present in test file at line 28; red run (EXIT=255) captured before production code existed; strict-TDD state proven by absence of KiloClawHttpClient interface at red time."
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "reason": "test_manifest_missing_name_returns_invalid_and_does_not_call_client at line 43; included in same red run; asserts status invalid and callCount 0."
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "reason": "test_manifest_missing_version_returns_invalid_and_does_not_call_client at line 58; included in same red run."
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "reason": "test_manifest_missing_skills_returns_invalid_and_does_not_call_client at line 73; included in same red run."
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "reason": "test_happy_path_ready_returns_canonical_shape at line 88; asserts full canonical array with kc_abc/ready/plugin.atlas."
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "reason": "test_happy_path_booting_returns_canonical_shape at line 108; asserts ['status'=>'booting','kiloclaw_id'=>'kc_def','manifest_id'=>'plugin.atlas','error'=>null]."
+    },
+    {
+      "id": "AC7",
+      "status": "PASS",
+      "reason": "test_client_exception_returns_failed_without_propagating at line 128; wrapped in try/catch \\Throwable with $this->fail; asserts failed status and 'transport boom' substring in error."
+    },
+    {
+      "id": "AC8",
+      "status": "PASS",
+      "reason": "test_malformed_response_missing_kiloclaw_id_returns_failed at line 147; fake returns ['status'=>'ready'] only; asserts 'malformed' in error."
+    },
+    {
+      "id": "AC9",
+      "status": "PASS",
+      "reason": "test_malformed_response_invalid_status_returns_failed at line 162; fake returns status 'booting_or_something'; asserts 'malformed' in error."
+    },
+    {
+      "id": "AC10",
+      "status": "PASS",
+      "reason": "test_idempotency_key_is_stable_across_two_calls_same_manifest at line 180; asserts lastArgs[1] identical across calls, starts with 'kiloclaw-', callCount===2."
+    },
+    {
+      "id": "AC11",
+      "status": "PASS",
+      "reason": "phpunit-green.txt EXIT=0 with OK (24 tests, 64 assertions) after production code landed; all ten locked test methods pass."
+    },
+    {
+      "id": "AC12",
+      "status": "PASS",
+      "reason": "Live composer test rerun this session: OK (30 tests, 87 assertions), EXIT=0. Exceeds >=24 tests / >=24 assertions trivially (14 baseline + 10 kiloclaw + 6 parallel telegram-set-webhook)."
+    },
+    {
+      "id": "AC13",
+      "status": "PASS",
+      "reason": "KiloClawHttpClient.php has <?php, declare(strict_types=1) line 2, namespace App\\Services\\KiloClaw, interface with exactly one method install(array $manifest, string $idempotencyKey): array; https URL only inside docblock line 11 ('     * Reference:')."
+    },
+    {
+      "id": "AC14",
+      "status": "PASS",
+      "reason": "KiloClawException.php has <?php, strict_types line 2, namespace App\\Services\\KiloClaw, final class KiloClawException extends \\RuntimeException."
+    },
+    {
+      "id": "AC15",
+      "status": "PASS",
+      "reason": "KiloClawClientService.php: <?php, strict_types line 2, namespace App\\Services, final class, constructor with private readonly KiloClawHttpClient $client, public install(array): array; exactly 2 'public function' occurrences (ctor + install)."
+    },
+    {
+      "id": "AC16",
+      "status": "PASS",
+      "reason": "Test file defines final class FakeKiloClawHttpClient implements KiloClawHttpClient at line 200 with public int $callCount, public array $lastArgs, public array $nextResponse, public ?\\Throwable $nextException, and install() method that increments/records/throws/returns."
+    },
+    {
+      "id": "AC17",
+      "status": "PASS",
+      "reason": "install loops over ['id','name','version','skills'], collects missing/invalid keys in fixed order, returns status invalid with error 'missing or invalid manifest keys: <csv>' before touching client; proven by AC1..AC4 callCount===0."
+    },
+    {
+      "id": "AC18",
+      "status": "PASS",
+      "reason": "Exact expression 'kiloclaw-' . sha1($manifest['id'] . ':' . $manifest['version']) present at line 44 of KiloClawClientService.php (one match)."
+    },
+    {
+      "id": "AC19",
+      "status": "PASS",
+      "reason": "install call wrapped in try { $response = $this->client->install(...); } catch (KiloClawException $e) { return failed with manifest_id and $e->getMessage(); }. No rethrow inside catch."
+    },
+    {
+      "id": "AC20",
+      "status": "PASS",
+      "reason": "Lines 57-69: returns status failed with error 'malformed kiloclaw response' when kiloclaw_id missing or non-string, or status missing, or status not in ['ready','booting','failed']."
+    },
+    {
+      "id": "AC21",
+      "status": "PASS",
+      "reason": "Lines 71-76: final return is ['status'=>$response['status'],'kiloclaw_id'=>$response['kiloclaw_id'],'manifest_id'=>$manifest['id'],'error'=>null]."
+    },
+    {
+      "id": "AC22",
+      "status": "PASS",
+      "reason": "Awk-extracted install body contains zero matches for ' new ', '::', ' static '. Only operator/keyword is catch (KiloClawException $e)."
+    },
+    {
+      "id": "AC23",
+      "status": "PASS",
+      "reason": "Zero occurrences of createMock|getMockBuilder|MockObject in test file. FakeKiloClawHttpClient has the four required public fields ($callCount,$lastArgs,$nextResponse,$nextException)."
+    },
+    {
+      "id": "AC24",
+      "status": "PASS",
+      "reason": "php -l returns 'No syntax errors detected' for all four authored files."
+    },
+    {
+      "id": "AC25",
+      "status": "PASS",
+      "reason": "Autoload probe prints ok: for all ten symbols including App\\Services\\KiloClaw\\KiloClawHttpClient and KiloClawException."
+    },
+    {
+      "id": "AC26",
+      "status": "PASS",
+      "reason": "No file_get_contents|curl_init|fsockopen|fopen('http|http:// matches. Only https:// match is inside docblock line 11 of the interface file (' * Reference: https://kiloclaw.example/api/install (v0.1 stubbed).'), which is allowed."
+    },
+    {
+      "id": "AC27",
+      "status": "PASS",
+      "reason": "phpunit-red.txt mtime 1776160224 < KiloClawHttpClient.php (1776160234), KiloClawException.php (1776160238), KiloClawClientService.php (1776160259). Red artifact exit 255 with 'Interface App\\Services\\KiloClaw\\KiloClawHttpClient not found' proves pre-production state."
+    },
+    {
+      "id": "AC28",
+      "status": "PASS",
+      "reason": "phpunit-green.txt shows OK (24 tests, 64 assertions), EXIT=0. Meets >=24 floor."
+    },
+    {
+      "id": "AC29",
+      "status": "PASS",
+      "reason": "task_loop.py status for all 8 prior tasks (bootstrap-proof-loop, scaffold-service-stubs, test-harness, landing-mockup-steve-ive, tdd-telegram-validate-token, wizard-mockup-steve-ive, tdd-onchainos-create-charge, agents-list-mockup-steve-ive) returns verdict_overall_status: PASS."
+    },
+    {
+      "id": "AC30",
+      "status": "PASS",
+      "reason": "app/Services/KiloClaw/ contains only KiloClawHttpClient.php and KiloClawException.php. app/Services/KiloClawClientService.php rewritten. tests/Unit/Services/KiloClawClientServiceTest.php new. No changes to OnChainOS files, composer.json, phpunit.xml.dist, CLAUDE.md, AGENTS.md, docs, or design files by this task. Parallel telegram-set-webhook task changes are out of scope."
+    },
+    {
+      "id": "AC31",
+      "status": "PASS",
+      "reason": "Zero U+2014/U+2013 matches in four authored files, spec.md, evidence.md, evidence.json."
+    }
+  ],
+  "commands_run": [
+    "composer test",
+    "php -l app/Services/KiloClaw/KiloClawHttpClient.php",
+    "php -l app/Services/KiloClaw/KiloClawException.php",
+    "php -l app/Services/KiloClawClientService.php",
+    "php -l tests/Unit/Services/KiloClawClientServiceTest.php",
+    "php -r autoload probe (10 symbols)",
+    "stat -f %m on red artifact and production code",
+    "awk method-body extraction + grep new/::/static",
+    "grep disallowed network constructs",
+    "grep em/en dashes",
+    "task_loop.py status --task-id <each of 8 prior tasks>"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/tdd-kiloclaw-install/spec.md",
+    ".agent/tasks/tdd-kiloclaw-install/evidence.md",
+    ".agent/tasks/tdd-kiloclaw-install/evidence.json",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-green.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/autoload-check.txt",
+    "app/Services/KiloClaw/KiloClawHttpClient.php",
+    "app/Services/KiloClaw/KiloClawException.php",
+    "app/Services/KiloClawClientService.php",
+    "tests/Unit/Services/KiloClawClientServiceTest.php"
+  ]
+}

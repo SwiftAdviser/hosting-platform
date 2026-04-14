@@ -1,0 +1,282 @@
+No composer.lock file present. Updating dependencies to latest instead of installing from lock file. See https://getcomposer.org/install for more information.
+Loading composer repositories with package information
+Updating dependencies
+Lock file operations: 106 installs, 0 updates, 0 removals
+  - Locking brick/math (0.14.8)
+  - Locking carbonphp/carbon-doctrine-types (3.2.0)
+  - Locking dflydev/dot-access-data (v3.0.3)
+  - Locking doctrine/inflector (2.1.0)
+  - Locking doctrine/lexer (3.0.1)
+  - Locking dragonmantank/cron-expression (v3.6.0)
+  - Locking egulias/email-validator (4.0.4)
+  - Locking firebase/php-jwt (v7.0.5)
+  - Locking fruitcake/php-cors (v1.4.0)
+  - Locking graham-campbell/result-type (v1.1.4)
+  - Locking guzzlehttp/guzzle (7.10.0)
+  - Locking guzzlehttp/promises (2.3.0)
+  - Locking guzzlehttp/psr7 (2.9.0)
+  - Locking guzzlehttp/uri-template (v1.0.5)
+  - Locking laravel/framework (v12.56.0)
+  - Locking laravel/prompts (v0.3.16)
+  - Locking laravel/serializable-closure (v2.0.12)
+  - Locking laravel/socialite (v5.26.1)
+  - Locking league/commonmark (2.8.2)
+  - Locking league/config (v1.2.0)
+  - Locking league/flysystem (3.33.0)
+  - Locking league/flysystem-local (3.31.0)
+  - Locking league/mime-type-detection (1.16.0)
+  - Locking league/oauth1-client (v1.11.0)
+  - Locking league/uri (7.8.1)
+  - Locking league/uri-interfaces (7.8.1)
+  - Locking monolog/monolog (3.10.0)
+  - Locking myclabs/deep-copy (1.13.4)
+  - Locking nesbot/carbon (3.11.4)
+  - Locking nette/schema (v1.3.5)
+  - Locking nette/utils (v4.1.3)
+  - Locking nikic/php-parser (v5.7.0)
+  - Locking nunomaduro/termwind (v2.4.0)
+  - Locking paragonie/constant_time_encoding (v3.1.3)
+  - Locking paragonie/random_compat (v9.99.100)
+  - Locking phar-io/manifest (2.0.4)
+  - Locking phar-io/version (3.2.1)
+  - Locking phpoption/phpoption (1.9.5)
+  - Locking phpseclib/phpseclib (3.0.51)
+  - Locking phpunit/php-code-coverage (11.0.12)
+  - Locking phpunit/php-file-iterator (5.1.1)
+  - Locking phpunit/php-invoker (5.0.1)
+  - Locking phpunit/php-text-template (4.0.1)
+  - Locking phpunit/php-timer (7.0.1)
+  - Locking phpunit/phpunit (11.5.55)
+  - Locking psr/clock (1.0.0)
+  - Locking psr/container (2.0.2)
+  - Locking psr/event-dispatcher (1.0.0)
+  - Locking psr/http-client (1.0.3)
+  - Locking psr/http-factory (1.1.0)
+  - Locking psr/http-message (2.0)
+  - Locking psr/log (3.0.2)
+  - Locking psr/simple-cache (3.0.0)
+  - Locking ralouphie/getallheaders (3.0.3)
+  - Locking ramsey/collection (2.1.1)
+  - Locking ramsey/uuid (4.9.2)
+  - Locking sebastian/cli-parser (3.0.2)
+  - Locking sebastian/code-unit (3.0.3)
+  - Locking sebastian/code-unit-reverse-lookup (4.0.1)
+  - Locking sebastian/comparator (6.3.3)
+  - Locking sebastian/complexity (4.0.1)
+  - Locking sebastian/diff (6.0.2)
+  - Locking sebastian/environment (7.2.1)
+  - Locking sebastian/exporter (6.3.2)
+  - Locking sebastian/global-state (7.0.2)
+  - Locking sebastian/lines-of-code (3.0.1)
+  - Locking sebastian/object-enumerator (6.0.1)
+  - Locking sebastian/object-reflector (4.0.1)
+  - Locking sebastian/recursion-context (6.0.3)
+  - Locking sebastian/type (5.1.3)
+  - Locking sebastian/version (5.0.2)
+  - Locking staabm/side-effects-detector (1.0.5)
+  - Locking symfony/clock (v8.0.8)
+  - Locking symfony/console (v7.4.8)
+  - Locking symfony/css-selector (v8.0.8)
+  - Locking symfony/deprecation-contracts (v3.6.0)
+  - Locking symfony/error-handler (v7.4.8)
+  - Locking symfony/event-dispatcher (v8.0.8)
+  - Locking symfony/event-dispatcher-contracts (v3.6.0)
+  - Locking symfony/finder (v7.4.8)
+  - Locking symfony/http-foundation (v7.4.8)
+  - Locking symfony/http-kernel (v7.4.8)
+  - Locking symfony/mailer (v7.4.8)
+  - Locking symfony/mime (v7.4.8)
+  - Locking symfony/polyfill-ctype (v1.35.0)
+  - Locking symfony/polyfill-intl-grapheme (v1.35.0)
+  - Locking symfony/polyfill-intl-idn (v1.35.0)
+  - Locking symfony/polyfill-intl-normalizer (v1.35.0)
+  - Locking symfony/polyfill-mbstring (v1.35.0)
+  - Locking symfony/polyfill-php80 (v1.35.0)
+  - Locking symfony/polyfill-php83 (v1.35.0)
+  - Locking symfony/polyfill-php84 (v1.35.0)
+  - Locking symfony/polyfill-php85 (v1.35.0)
+  - Locking symfony/polyfill-uuid (v1.35.0)
+  - Locking symfony/process (v7.4.8)
+  - Locking symfony/routing (v7.4.8)
+  - Locking symfony/service-contracts (v3.6.1)
+  - Locking symfony/string (v8.0.8)
+  - Locking symfony/translation (v8.0.8)
+  - Locking symfony/translation-contracts (v3.6.1)
+  - Locking symfony/uid (v7.4.8)
+  - Locking symfony/var-dumper (v7.4.8)
+  - Locking theseer/tokenizer (1.3.1)
+  - Locking tijsverkoyen/css-to-inline-styles (v2.4.0)
+  - Locking vlucas/phpdotenv (v5.6.3)
+  - Locking voku/portable-ascii (2.0.3)
+Writing lock file
+Installing dependencies from lock file (including require-dev)
+Package operations: 106 installs, 0 updates, 0 removals
+  - Downloading symfony/polyfill-mbstring (v1.35.0)
+  - Downloading symfony/http-foundation (v7.4.8)
+  - Downloading symfony/polyfill-php80 (v1.35.0)
+  - Downloading symfony/polyfill-intl-grapheme (v1.35.0)
+  - Downloading symfony/polyfill-ctype (v1.35.0)
+  - Downloading symfony/string (v8.0.8)
+  - Downloading symfony/console (v7.4.8)
+  - Downloading laravel/serializable-closure (v2.0.12)
+  - Downloading phpseclib/phpseclib (3.0.51)
+  - Downloading symfony/css-selector (v8.0.8)
+  - Downloading symfony/var-dumper (v7.4.8)
+  - Downloading symfony/polyfill-uuid (v1.35.0)
+  - Downloading symfony/uid (v7.4.8)
+  - Downloading symfony/routing (v7.4.8)
+  - Downloading symfony/process (v7.4.8)
+  - Downloading symfony/polyfill-php85 (v1.35.0)
+  - Downloading symfony/polyfill-php84 (v1.35.0)
+  - Downloading symfony/polyfill-php83 (v1.35.0)
+  - Downloading symfony/mime (v7.4.8)
+  - Downloading symfony/event-dispatcher (v8.0.8)
+  - Downloading symfony/mailer (v7.4.8)
+  - Downloading symfony/error-handler (v7.4.8)
+  - Downloading symfony/http-kernel (v7.4.8)
+  - Downloading symfony/finder (v7.4.8)
+  - Downloading symfony/translation (v8.0.8)
+  - Downloading symfony/clock (v8.0.8)
+  - Downloading nesbot/carbon (3.11.4)
+  - Downloading laravel/framework (v12.56.0)
+  - Downloading firebase/php-jwt (v7.0.5)
+  - Downloading laravel/socialite (v5.26.1)
+  0/30 [>---------------------------]   0%
+  4/30 [===>------------------------]  13%
+  7/30 [======>---------------------]  23%
+ 10/30 [=========>------------------]  33%
+ 12/30 [===========>----------------]  40%
+ 16/30 [==============>-------------]  53%
+ 18/30 [================>-----------]  60%
+ 22/30 [====================>-------]  73%
+ 24/30 [======================>-----]  80%
+ 27/30 [=========================>--]  90%
+ 28/30 [==========================>-]  93%
+ 29/30 [===========================>]  96%
+ 30/30 [============================] 100%
+  - Installing doctrine/inflector (2.1.0): Extracting archive
+  - Installing doctrine/lexer (3.0.1): Extracting archive
+  - Installing dragonmantank/cron-expression (v3.6.0): Extracting archive
+  - Installing symfony/polyfill-mbstring (v1.35.0): Extracting archive
+  - Installing symfony/deprecation-contracts (v3.6.0): Extracting archive
+  - Installing symfony/http-foundation (v7.4.8): Extracting archive
+  - Installing fruitcake/php-cors (v1.4.0): Extracting archive
+  - Installing guzzlehttp/promises (2.3.0): Extracting archive
+  - Installing symfony/polyfill-php80 (v1.35.0): Extracting archive
+  - Installing guzzlehttp/uri-template (v1.0.5): Extracting archive
+  - Installing symfony/polyfill-intl-normalizer (v1.35.0): Extracting archive
+  - Installing symfony/polyfill-intl-grapheme (v1.35.0): Extracting archive
+  - Installing symfony/polyfill-ctype (v1.35.0): Extracting archive
+  - Installing symfony/string (v8.0.8): Extracting archive
+  - Installing psr/container (2.0.2): Extracting archive
+  - Installing symfony/service-contracts (v3.6.1): Extracting archive
+  - Installing symfony/console (v7.4.8): Extracting archive
+  - Installing laravel/prompts (v0.3.16): Extracting archive
+  - Installing laravel/serializable-closure (v2.0.12): Extracting archive
+  - Installing paragonie/random_compat (v9.99.100): Extracting archive
+  - Installing paragonie/constant_time_encoding (v3.1.3): Extracting archive
+  - Installing phpseclib/phpseclib (3.0.51): Extracting archive
+  - Installing ralouphie/getallheaders (3.0.3): Extracting archive
+  - Installing psr/http-message (2.0): Extracting archive
+  - Installing psr/http-factory (1.1.0): Extracting archive
+  - Installing guzzlehttp/psr7 (2.9.0): Extracting archive
+  - Installing psr/http-client (1.0.3): Extracting archive
+  - Installing guzzlehttp/guzzle (7.10.0): Extracting archive
+  - Installing league/oauth1-client (v1.11.0): Extracting archive
+  - Installing voku/portable-ascii (2.0.3): Extracting archive
+  - Installing phpoption/phpoption (1.9.5): Extracting archive
+  - Installing graham-campbell/result-type (v1.1.4): Extracting archive
+  - Installing vlucas/phpdotenv (v5.6.3): Extracting archive
+  - Installing symfony/css-selector (v8.0.8): Extracting archive
+  - Installing tijsverkoyen/css-to-inline-styles (v2.4.0): Extracting archive
+  - Installing symfony/var-dumper (v7.4.8): Extracting archive
+  - Installing symfony/polyfill-uuid (v1.35.0): Extracting archive
+  - Installing symfony/uid (v7.4.8): Extracting archive
+  - Installing symfony/routing (v7.4.8): Extracting archive
+  - Installing symfony/process (v7.4.8): Extracting archive
+  - Installing symfony/polyfill-php85 (v1.35.0): Extracting archive
+  - Installing symfony/polyfill-php84 (v1.35.0): Extracting archive
+  - Installing symfony/polyfill-php83 (v1.35.0): Extracting archive
+  - Installing symfony/polyfill-intl-idn (v1.35.0): Extracting archive
+  - Installing symfony/mime (v7.4.8): Extracting archive
+  - Installing psr/event-dispatcher (1.0.0): Extracting archive
+  - Installing symfony/event-dispatcher-contracts (v3.6.0): Extracting archive
+  - Installing symfony/event-dispatcher (v8.0.8): Extracting archive
+  - Installing psr/log (3.0.2): Extracting archive
+  - Installing egulias/email-validator (4.0.4): Extracting archive
+  - Installing symfony/mailer (v7.4.8): Extracting archive
+  - Installing symfony/error-handler (v7.4.8): Extracting archive
+  - Installing symfony/http-kernel (v7.4.8): Extracting archive
+  - Installing symfony/finder (v7.4.8): Extracting archive
+  - Installing ramsey/collection (2.1.1): Extracting archive
+  - Installing brick/math (0.14.8): Extracting archive
+  - Installing ramsey/uuid (4.9.2): Extracting archive
+  - Installing psr/simple-cache (3.0.0): Extracting archive
+  - Installing nunomaduro/termwind (v2.4.0): Extracting archive
+  - Installing symfony/translation-contracts (v3.6.1): Extracting archive
+  - Installing symfony/translation (v8.0.8): Extracting archive
+  - Installing psr/clock (1.0.0): Extracting archive
+  - Installing symfony/clock (v8.0.8): Extracting archive
+  - Installing carbonphp/carbon-doctrine-types (3.2.0): Extracting archive
+  - Installing nesbot/carbon (3.11.4): Extracting archive
+  - Installing monolog/monolog (3.10.0): Extracting archive
+  - Installing league/uri-interfaces (7.8.1): Extracting archive
+  - Installing league/uri (7.8.1): Extracting archive
+  - Installing league/mime-type-detection (1.16.0): Extracting archive
+  - Installing league/flysystem-local (3.31.0): Extracting archive
+  - Installing league/flysystem (3.33.0): Extracting archive
+  - Installing nette/utils (v4.1.3): Extracting archive
+  - Installing nette/schema (v1.3.5): Extracting archive
+  - Installing dflydev/dot-access-data (v3.0.3): Extracting archive
+  - Installing league/config (v1.2.0): Extracting archive
+  - Installing league/commonmark (2.8.2): Extracting archive
+  - Installing laravel/framework (v12.56.0): Extracting archive
+  - Installing firebase/php-jwt (v7.0.5): Extracting archive
+  - Installing laravel/socialite (v5.26.1): Extracting archive
+  - Installing staabm/side-effects-detector (1.0.5): Extracting archive
+  - Installing sebastian/version (5.0.2): Extracting archive
+  - Installing sebastian/type (5.1.3): Extracting archive
+  - Installing sebastian/recursion-context (6.0.3): Extracting archive
+  - Installing sebastian/object-reflector (4.0.1): Extracting archive
+  - Installing sebastian/object-enumerator (6.0.1): Extracting archive
+  - Installing sebastian/global-state (7.0.2): Extracting archive
+  - Installing sebastian/exporter (6.3.2): Extracting archive
+  - Installing sebastian/environment (7.2.1): Extracting archive
+  - Installing sebastian/diff (6.0.2): Extracting archive
+  - Installing sebastian/comparator (6.3.3): Extracting archive
+  - Installing sebastian/code-unit (3.0.3): Extracting archive
+  - Installing sebastian/cli-parser (3.0.2): Extracting archive
+  - Installing phpunit/php-timer (7.0.1): Extracting archive
+  - Installing phpunit/php-text-template (4.0.1): Extracting archive
+  - Installing phpunit/php-invoker (5.0.1): Extracting archive
+  - Installing phpunit/php-file-iterator (5.1.1): Extracting archive
+  - Installing theseer/tokenizer (1.3.1): Extracting archive
+  - Installing nikic/php-parser (v5.7.0): Extracting archive
+  - Installing sebastian/lines-of-code (3.0.1): Extracting archive
+  - Installing sebastian/complexity (4.0.1): Extracting archive
+  - Installing sebastian/code-unit-reverse-lookup (4.0.1): Extracting archive
+  - Installing phpunit/php-code-coverage (11.0.12): Extracting archive
+  - Installing phar-io/version (3.2.1): Extracting archive
+  - Installing phar-io/manifest (2.0.4): Extracting archive
+  - Installing myclabs/deep-copy (1.13.4): Extracting archive
+  - Installing phpunit/phpunit (11.5.55): Extracting archive
+   0/106 [>---------------------------]   0%
+  25/106 [======>---------------------]  23%
+  44/106 [===========>----------------]  41%
+  62/106 [================>-----------]  58%
+  81/106 [=====================>------]  76%
+  96/106 [=========================>--]  90%
+ 106/106 [============================] 100%
+50 package suggestions were added by new dependencies, use `composer suggest` to see details.
+Generating optimized autoload files
+> Illuminate\Foundation\ComposerScripts::postAutoloadDump
+> @php artisan package:discover --ansi
+
+  [37;44m INFO [39;49m Discovering packages.  
+
+  laravel/socialite [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+  nesbot/carbon [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+  nunomaduro/termwind [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+
+79 packages you are using are looking for funding.
+Use the `composer fund` command to find out more!

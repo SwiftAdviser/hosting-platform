@@ -1,0 +1,29 @@
+Build summary: landing-mockup-steve-ive
+
+Output file: design/landing.html
+Byte count: 2047 (limit 12288, ~16.6%)
+Visible body word count: 20 (limit 60)
+Title: "One click. Agent hosted." (4 words)
+CTA text: "Post agent"
+CTA selector: a.cta
+Theme: dark (committed via /* theme: dark */ comment in :root)
+Font family stack: "JetBrains Mono", "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace
+Primary font: "JetBrains Mono" (non-default; not in ban list)
+Fallback count after primary: 5
+Accent color: #c6ff3d (lime), declared once in :root as --accent
+Accent usage: only on a.cta background and a.cta:hover/:focus/:focus-visible outline
+Background: dark #0a0a0b with a subtle neutral white-tint radial gradient at top, no accent leak
+Responsive: clamp() on h1 + p font sizes plus @media (max-width: 640px) tweak
+No <script>, no src=, no <link>, no @import, no inline style="" attributes
+No buzzwords, no crypto terms, no em-dashes, no en-dashes, no exclamation marks in body text
+
+Screenshots: not captured. No headless browser is available in this task environment.
+The page is a static HTML file and was hand-audited via grep + python checks against every AC.
+
+Artifacts:
+- artifacts/pre-build-ls.txt
+- artifacts/post-build-ls.txt
+- artifacts/size-check.txt
+- artifacts/grep-forbidden.txt
+- artifacts/accent-count.txt
+- artifacts/file-info.txt

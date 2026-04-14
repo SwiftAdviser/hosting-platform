@@ -1,0 +1,88 @@
+> @php vendor/bin/phpunit
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /Users/krutovoy/Projects/hosting-platform/phpunit.xml.dist
+
+...................................................FFFFFFFFF      60 / 60 (100%)
+
+Time: 00:00.157, Memory: 30.00 MB
+
+There were 9 failures:
+
+1) Tests\Feature\Http\DeployControllerTest::test_happy_path_deployed_returns_201
+Expected response status code [201] but received 404.
+Failed asserting that 404 is identical to 201.
+
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:175
+/Users/krutovoy/Projects/hosting-platform/tests/Feature/Http/DeployControllerTest.php:74
+
+2) Tests\Feature\Http\DeployControllerTest::test_missing_personality_returns_422
+Expected response status code [422] but received 404.
+Failed asserting that 404 is identical to 422.
+
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:175
+/Users/krutovoy/Projects/hosting-platform/tests/Feature/Http/DeployControllerTest.php:92
+
+3) Tests\Feature\Http\DeployControllerTest::test_telegram_invalid_returns_422
+Expected response status code [422] but received 404.
+Failed asserting that 404 is identical to 422.
+
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:175
+/Users/krutovoy/Projects/hosting-platform/tests/Feature/Http/DeployControllerTest.php:125
+
+4) Tests\Feature\Http\DeployControllerTest::test_payment_failed_returns_402
+Expected response status code [402] but received 404.
+Failed asserting that 404 is identical to 402.
+
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:175
+/Users/krutovoy/Projects/hosting-platform/tests/Feature/Http/DeployControllerTest.php:159
+
+5) Tests\Feature\Http\DeployControllerTest::test_install_failed_returns_502
+Expected response status code [502] but received 404.
+Failed asserting that 404 is identical to 502.
+
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:175
+/Users/krutovoy/Projects/hosting-platform/tests/Feature/Http/DeployControllerTest.php:196
+
+6) Tests\Feature\Http\OnChainOSWebhookControllerTest::test_missing_signature_header_returns_400
+Expected response status code [400] but received 404.
+Failed asserting that 404 is identical to 400.
+
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:175
+/Users/krutovoy/Projects/hosting-platform/tests/Feature/Http/OnChainOSWebhookControllerTest.php:23
+
+7) Tests\Feature\Http\OnChainOSWebhookControllerTest::test_invalid_signature_returns_401
+Expected response status code [401] but received 404.
+Failed asserting that 404 is identical to 401.
+
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:175
+/Users/krutovoy/Projects/hosting-platform/tests/Feature/Http/OnChainOSWebhookControllerTest.php:35
+
+8) Tests\Feature\Http\OnChainOSWebhookControllerTest::test_valid_signature_returns_200
+Expected response status code [200] but received 404.
+Failed asserting that 404 is identical to 200.
+
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:175
+/Users/krutovoy/Projects/hosting-platform/tests/Feature/Http/OnChainOSWebhookControllerTest.php:47
+
+9) Tests\Feature\Http\TelegramWebhookControllerTest::test_post_returns_ok_true
+Expected response status code [200] but received 404.
+Failed asserting that 404 is identical to 200.
+
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponseAssert.php:45
+/Users/krutovoy/Projects/hosting-platform/vendor/laravel/framework/src/Illuminate/Testing/TestResponse.php:175
+/Users/krutovoy/Projects/hosting-platform/tests/Feature/Http/TelegramWebhookControllerTest.php:15
+
+FAILURES!
+Tests: 60, Assertions: 242, Failures: 9.
+Script @php vendor/bin/phpunit handling the test event returned with error code 1
+EXIT=1

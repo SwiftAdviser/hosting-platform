@@ -1,0 +1,309 @@
+{
+  "task_id": "tdd-telegram-set-webhook",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "RED artifact exists with nonzero exit and exactly 6 new webhook tests failing with locked names, before registerWebhook body exists.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-telegram-set-webhook/artifacts/phpunit-red.txt EXIT=2",
+        "phpunit-red.txt shows 5 errors + 1 failure for: test_register_webhook_empty_token_returns_invalid_no_client_call, test_register_webhook_non_https_url_returns_invalid_no_client_call, test_register_webhook_invalid_host_returns_invalid_no_client_call, test_register_webhook_happy_path_returns_registered, test_register_webhook_telegram_rejected_returns_failed (errors) and test_register_webhook_client_exception_returns_failed (fail via try/fail)",
+        "All 5 errors report 'Call to undefined method App\\Services\\TelegramBotRegistrarService::registerWebhook()' proving production body absent at red time",
+        ".agent/tasks/tdd-telegram-set-webhook/artifacts/pre-build-service.txt confirms no registerWebhook at red capture time"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "In the same RED run, the 5 existing validateToken tests still pass; at least 11 tests executed with exactly the 6 new failing.",
+      "status": "PASS",
+      "proof": [
+        "phpunit-red.txt: 30 tests run, 24 passing dots before the 6 failures (.......................EEEEFE.)",
+        "All 5 validateToken tests (test_empty_token_returns_false_without_calling_client, test_valid_token_ok_true_returns_true, test_invalid_token_ok_false_returns_false, test_transport_exception_returns_false, test_whitespace_only_token_returns_false_without_calling_client) passed in red run alongside other suites"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Interface extended with setWebhook and in-file fake updated simultaneously so validateToken tests stay green.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/Telegram/TelegramHttpClient.php now declares both getMe and setWebhook",
+        "tests/Unit/Services/TelegramBotRegistrarServiceTest.php FakeTelegramHttpClient implements both getMe and setWebhook",
+        "phpunit-red.txt shows no fatal-on-load; all 5 validateToken tests green in red phase"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "After registerWebhook lands, all 6 new tests turn green; visible in phpunit-green.txt.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-telegram-set-webhook/artifacts/phpunit-green.txt EXIT=0, 'OK (30 tests, 87 assertions)'",
+        "All 6 new test method names present in tests/Unit/Services/TelegramBotRegistrarServiceTest.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "composer test exits 0 with at least 20 tests and 20 assertions.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-telegram-set-webhook/artifacts/composer-test-final.txt EXIT=0",
+        "'OK (30 tests, 87 assertions)' (>= 20 tests, >= 20 assertions)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "TelegramHttpClient.php has strict_types, namespace, interface, and exactly getMe + setWebhook methods; getMe byte-identical.",
+      "status": "PASS",
+      "proof": [
+        "grep -n 'declare(strict_types=1);' app/Services/Telegram/TelegramHttpClient.php -> line 2",
+        "grep -n 'interface TelegramHttpClient' -> line 6",
+        "grep -n 'public function getMe(string $token): array;' -> matches",
+        "grep -n 'public function setWebhook(string $token, string $webhookUrl): array;' -> matches",
+        "Only added content is below the pre-existing getMe line; getMe signature line unchanged"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "TelegramTransportException.php is unchanged from the tdd-telegram-validate-token baseline.",
+      "status": "PASS",
+      "proof": [
+        "File not modified by this task; not in build-log changed files list",
+        "git status --porcelain would not list app/Services/Telegram/TelegramTransportException.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "TelegramBotRegistrarService.php has strict_types, namespace, final class, unchanged constructor, validateToken present, new registerWebhook method.",
+      "status": "PASS",
+      "proof": [
+        "grep 'declare(strict_types=1);' app/Services/TelegramBotRegistrarService.php matches",
+        "grep 'final class TelegramBotRegistrarService' matches",
+        "grep 'private readonly TelegramHttpClient $client' matches (constructor unchanged)",
+        "grep 'public function validateToken(string $token): bool' matches",
+        "grep 'public function registerWebhook(string $token, string $webhookUrl): array' matches"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "validateToken method body is byte-identical to the pinned post-green snapshot from tdd-telegram-validate-token.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-telegram-set-webhook/artifacts/validate-token-diff.txt is empty (0 lines)",
+        "Pre snapshot pre-build-validate-token-body.txt matches extracted post-green body byte-for-byte"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "Empty token returns invalid shape and does not call setWebhook; proven by empty_token test.",
+      "status": "PASS",
+      "proof": [
+        "test_register_webhook_empty_token_returns_invalid_no_client_call asserts status='invalid', webhook_url=null, error='empty token', setWebhookCallCount === 0",
+        "phpunit-green.txt: OK (30 tests, 87 assertions)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "Whitespace-only token returns same invalid shape without calling client; covered by empty-token test.",
+      "status": "PASS",
+      "proof": [
+        "test_register_webhook_empty_token_returns_invalid_no_client_call calls registerWebhook('', ...) AND registerWebhook('   ', ...) with both asserted",
+        "Both '' and '   ' literals present in the test method"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "Non-https URL returns invalid without calling client; error contains 'https'.",
+      "status": "PASS",
+      "proof": [
+        "test_register_webhook_non_https_url_returns_invalid_no_client_call asserts status='invalid', webhook_url=null, error contains 'https', setWebhookCallCount === 0",
+        "Production returns error 'webhook url must start with https'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "Invalid host (https://nohostdot has no dot) returns invalid without client call; error contains 'host'.",
+      "status": "PASS",
+      "proof": [
+        "test_register_webhook_invalid_host_returns_invalid_no_client_call asserts status='invalid', error contains 'host', setWebhookCallCount === 0",
+        "Production rule: strip 'https://' prefix, then host must be non-empty AND contain '.'; 'nohostdot' contains no '.' so invalid"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "Happy path with '123:abc' + 'https://example.com/hook' and fake ok=true returns registered shape exactly; fake recorded 1 call with correct args.",
+      "status": "PASS",
+      "proof": [
+        "test_register_webhook_happy_path_returns_registered asserts the full array equals ['status' => 'registered', 'webhook_url' => 'https://example.com/hook', 'error' => null]",
+        "assertSame 1, $fake->setWebhookCallCount; assertSame ['123:abc', 'https://example.com/hook'], $fake->setWebhookLastArgs"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "Client throws TelegramTransportException('transport boom'); service returns failed shape with that error, no propagation.",
+      "status": "PASS",
+      "proof": [
+        "test_register_webhook_client_exception_returns_failed wraps call in try/catch that calls fail('leaked') if any throwable escapes",
+        "Asserts full array equals ['status' => 'failed', 'webhook_url' => 'https://example.com/hook', 'error' => 'transport boom']"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "Telegram-rejected (ok=false) returns failed shape with description as error.",
+      "status": "PASS",
+      "proof": [
+        "test_register_webhook_telegram_rejected_returns_failed asserts full array equals ['status' => 'failed', 'webhook_url' => 'https://example.com/hook', 'error' => 'Bad Request: bad webhook']"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "registerWebhook body contains no ' new ', '::', ' static '; only one 'https://' literal in production file (the prefix check); no 'http://' anywhere in production.",
+      "status": "PASS",
+      "proof": [
+        "Method body uses trim, str_starts_with, substr, strpos (function calls, no '::')",
+        "Single 'https://' literal in the production file is in str_starts_with prefix check",
+        "No 'http://' literal anywhere in app/Services/TelegramBotRegistrarService.php or interface file",
+        "Catch clause uses class name 'TelegramTransportException' without '::' (allowed)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "Test file contains no createMock, getMockBuilder, or MockObject references.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/TelegramBotRegistrarServiceTest.php uses a plain concrete FakeTelegramHttpClient class implementing TelegramHttpClient",
+        "grep of file finds zero matches for createMock|getMockBuilder|MockObject"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "Test file fake implements both getMe and setWebhook.",
+      "status": "PASS",
+      "proof": [
+        "FakeTelegramHttpClient declares public function getMe(string $token): array and public function setWebhook(string $token, string $webhookUrl): array",
+        "grep 'public function getMe' and 'public function setWebhook' both match in test file"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "Test file defines setWebhookCallCount, setWebhookLastArgs, setWebhookNextResponse, setWebhookNextException fields and paths.",
+      "status": "PASS",
+      "proof": [
+        "FakeTelegramHttpClient declares all four fields: public int $setWebhookCallCount, public array $setWebhookLastArgs, public array $setWebhookNextResponse, public ?\\Throwable $setWebhookNextException",
+        "setWebhook method increments setWebhookCallCount, sets setWebhookLastArgs, throws setWebhookNextException if set, returns setWebhookNextResponse"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "php -l exits 0 on all three modified PHP files.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-telegram-set-webhook/artifacts/php-lint.txt: 'No syntax errors detected' on all three files"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "Autoload probe: all listed classes/interfaces resolve.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-telegram-set-webhook/artifacts/composer-dump.txt: 'Generated optimized autoload files containing 1534 classes', EXIT=0",
+        "Final composer test EXIT=0 proves autoload resolves all referenced services and the interface/exception in the Telegram namespace"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "No live network call primitives in modified files; only allowed https literals are the prefix check and test fixtures.",
+      "status": "PASS",
+      "proof": [
+        "No file_get_contents, curl_init, curl_exec, fsockopen, or fopen('http in app/Services/TelegramBotRegistrarService.php, app/Services/Telegram/*.php, or tests/Unit/Services/TelegramBotRegistrarServiceTest.php",
+        "Test fixtures 'https://example.com/hook', 'http://example.com/hook', 'https://nohostdot' are the only URL-like literals and are in the test file (allowed per spec)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC24",
+      "text": "No em dashes (U+2014) in any touched file or spec.",
+      "status": "PASS",
+      "proof": [
+        "All authored content uses ASCII hyphen-minus or colons; no U+2014 byte sequence introduced in the three source files or this evidence bundle"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC25",
+      "text": "No regressions on prior finalized tasks.",
+      "status": "PASS",
+      "proof": [
+        "task_loop.py status PASS verdict for: bootstrap-proof-loop, scaffold-service-stubs, test-harness, landing-mockup-steve-ive, tdd-onchainos-create-charge, tdd-telegram-validate-token, agents-list-mockup-steve-ive, wizard-mockup-steve-ive (8 PASS)",
+        "In-flight parallel tasks (tdd-agent-deployer, tdd-kiloclaw-install, agent-wallet-disclosure-mockup-steve-ive, running-state-mockup-steve-ive) show UNKNOWN because their verifier has not run yet; this task did not touch their files",
+        "Artifacts: .agent/tasks/tdd-telegram-set-webhook/artifacts/status-*.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC26",
+      "text": "Scope strictly limited to the 3 source files + task artifacts; no top-level config edits.",
+      "status": "PASS",
+      "proof": [
+        "Only modified: app/Services/Telegram/TelegramHttpClient.php, app/Services/TelegramBotRegistrarService.php, tests/Unit/Services/TelegramBotRegistrarServiceTest.php",
+        "Task artifacts under .agent/tasks/tdd-telegram-set-webhook/ created/updated only",
+        "composer.json, phpunit.xml.dist, .gitignore not modified",
+        "Parallel tdd-kiloclaw-install files in app/Services/KiloClaw/ were not touched by this task"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "app/Services/Telegram/TelegramHttpClient.php",
+    "app/Services/TelegramBotRegistrarService.php",
+    "tests/Unit/Services/TelegramBotRegistrarServiceTest.php",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/baseline-test.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/pre-build-service.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/pre-build-interface.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/pre-build-test.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/pre-build-validate-token-body.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/phpunit-red.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/phpunit-green.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/php-lint.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/validate-token-diff.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/composer-dump.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/composer-test-final.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/artifacts/post-build-ls.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/raw/build.txt",
+    ".agent/tasks/tdd-telegram-set-webhook/evidence.md",
+    ".agent/tasks/tdd-telegram-set-webhook/evidence.json"
+  ],
+  "commands_for_fresh_verifier": [
+    "composer test",
+    "php -l app/Services/Telegram/TelegramHttpClient.php",
+    "php -l app/Services/TelegramBotRegistrarService.php",
+    "php -l tests/Unit/Services/TelegramBotRegistrarServiceTest.php",
+    "composer dump-autoload -o",
+    "grep -n 'interface TelegramHttpClient' app/Services/Telegram/TelegramHttpClient.php",
+    "grep -n 'public function setWebhook(string $token, string $webhookUrl): array' app/Services/Telegram/TelegramHttpClient.php",
+    "grep -n 'public function registerWebhook(string $token, string $webhookUrl): array' app/Services/TelegramBotRegistrarService.php",
+    "diff .agent/tasks/tdd-telegram-set-webhook/artifacts/pre-build-validate-token-body.txt <(awk '/public function validateToken/,/^    }$/' app/Services/TelegramBotRegistrarService.php)"
+  ],
+  "known_gaps": []
+}

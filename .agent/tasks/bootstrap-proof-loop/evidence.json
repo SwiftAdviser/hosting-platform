@@ -1,0 +1,124 @@
+{
+  "task_id": "bootstrap-proof-loop",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": ".agent/tasks/bootstrap-proof-loop/ contains spec.md, evidence.md, evidence.json, verdict.json, problems.md, raw/build.txt, raw/test-unit.txt, raw/test-integration.txt, raw/lint.txt, raw/screenshot-1.png.",
+      "status": "PASS",
+      "proof": [
+        "ls .agent/tasks/bootstrap-proof-loop/ shows spec.md, evidence.md, evidence.json, verdict.json, problems.md, raw/",
+        "ls .agent/tasks/bootstrap-proof-loop/raw/ shows bootstrap-checks.txt, build.txt, lint.txt, screenshot-1.png, test-integration.txt, test-unit.txt",
+        ".agent/tasks/bootstrap-proof-loop/raw/bootstrap-checks.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "Project-scoped Claude subagents installed at .claude/agents/task-{spec-freezer,builder,verifier,fixer}.md.",
+      "status": "PASS",
+      "proof": [
+        "ls .claude/agents/ shows task-builder.md, task-fixer.md, task-spec-freezer.md, task-verifier.md",
+        ".agent/tasks/bootstrap-proof-loop/raw/bootstrap-checks.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Project-scoped Codex subagents installed at .codex/agents/task-{spec-freezer,builder,verifier,fixer}.toml.",
+      "status": "PASS",
+      "proof": [
+        "ls .codex/agents/ shows task-builder.toml, task-fixer.toml, task-spec-freezer.toml, task-verifier.toml",
+        ".agent/tasks/bootstrap-proof-loop/raw/bootstrap-checks.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "AGENTS.md exists at repo root and contains a managed repo-task-proof-loop block.",
+      "status": "PASS",
+      "proof": [
+        "grep -n 'repo-task-proof-loop:start' AGENTS.md returns line 1",
+        "grep -n 'repo-task-proof-loop:end' AGENTS.md returns line 26",
+        "AGENTS.md describes required sequence, hard rules, and installed agents"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "CLAUDE.md contains a managed repo-task-proof-loop block; pre-existing project guidance is preserved.",
+      "status": "PASS",
+      "proof": [
+        "grep -n 'repo-task-proof-loop:start' CLAUDE.md returns line 55",
+        "grep -n 'repo-task-proof-loop:end' CLAUDE.md returns line 80",
+        "head -52 CLAUDE.md still contains the PRD pointer, Status, Locked decisions table, Principle, Scaffolding, Commands, and Source call sections"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "task_loop.py validate --task-id bootstrap-proof-loop exits 0 and reports valid.",
+      "status": "PASS",
+      "proof": [
+        "Command: .claude/skills/repo-task-proof-loop/scripts/task_loop.py validate --task-id bootstrap-proof-loop",
+        "Exit code: 0",
+        "Output: {\"valid\": true, \"missing_files\": [], \"errors\": []}",
+        ".agent/tasks/bootstrap-proof-loop/raw/bootstrap-checks.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "task_loop.py status --task-id bootstrap-proof-loop returns a status summary without error.",
+      "status": "PASS",
+      "proof": [
+        "Command: .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id bootstrap-proof-loop",
+        "Exit code: 0",
+        "Output: exists=true, required_files_present all true",
+        ".agent/tasks/bootstrap-proof-loop/raw/bootstrap-checks.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "spec.md has explicit non-placeholder acceptance criteria.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/bootstrap-proof-loop/spec.md defines AC1 through AC8 with full text",
+        "No 'TODO' remains in the Acceptance criteria, Constraints, Non-goals, or Verification plan sections"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "AGENTS.md",
+    "CLAUDE.md",
+    ".claude/agents/task-spec-freezer.md",
+    ".claude/agents/task-builder.md",
+    ".claude/agents/task-verifier.md",
+    ".claude/agents/task-fixer.md",
+    ".codex/agents/task-spec-freezer.toml",
+    ".codex/agents/task-builder.toml",
+    ".codex/agents/task-verifier.toml",
+    ".codex/agents/task-fixer.toml",
+    ".agent/tasks/bootstrap-proof-loop/spec.md",
+    ".agent/tasks/bootstrap-proof-loop/evidence.md",
+    ".agent/tasks/bootstrap-proof-loop/evidence.json",
+    ".agent/tasks/bootstrap-proof-loop/raw/build.txt",
+    ".agent/tasks/bootstrap-proof-loop/raw/test-unit.txt",
+    ".agent/tasks/bootstrap-proof-loop/raw/test-integration.txt",
+    ".agent/tasks/bootstrap-proof-loop/raw/lint.txt",
+    ".agent/tasks/bootstrap-proof-loop/raw/bootstrap-checks.txt"
+  ],
+  "commands_for_fresh_verifier": [
+    "ls .agent/tasks/bootstrap-proof-loop/",
+    "ls .agent/tasks/bootstrap-proof-loop/raw/",
+    "ls .claude/agents/",
+    "ls .codex/agents/",
+    "grep -n 'repo-task-proof-loop:start\\|repo-task-proof-loop:end' AGENTS.md CLAUDE.md",
+    "head -52 CLAUDE.md",
+    ".claude/skills/repo-task-proof-loop/scripts/task_loop.py validate --task-id bootstrap-proof-loop",
+    ".claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id bootstrap-proof-loop"
+  ],
+  "known_gaps": []
+}

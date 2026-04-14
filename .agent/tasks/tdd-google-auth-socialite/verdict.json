@@ -1,0 +1,153 @@
+{
+  "task_id": "tdd-google-auth-socialite",
+  "overall_verdict": "PASS",
+  "pass": 1,
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "reason": "app/Services/Auth/GoogleIdentityClient.php lines 1-6 open with <?php + declare(strict_types=1); and namespace App\\Services\\Auth; then declare interface GoogleIdentityClient."
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "reason": "Sole method public function fetchProfile(string $authorizationCode): array; on line 16. Docblock lines 8-15 describe return keys id/email/name, @throws GoogleAuthException, and cites https://accounts.google.com/o/oauth2/v2/auth inside comment."
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "reason": "app/Services/Auth/GoogleAuthException.php has <?php + declare(strict_types=1); namespace App\\Services\\Auth; and final class GoogleAuthException extends \\RuntimeException (line 6)."
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "reason": "app/Services/Auth/GoogleAuthService.php has <?php + declare(strict_types=1);, namespace App\\Services\\Auth;, final class GoogleAuthService with promoted private readonly GoogleIdentityClient $client in constructor (lines 6-11)."
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "reason": "Exact signature public function signIn(string $authorizationCode): array on line 13 of GoogleAuthService.php."
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "reason": "Lines 15-21: trim($authorizationCode) === '' short-circuit returns ['status' => 'invalid_code','user' => null,'error' => 'empty authorization code'] before the try block; client is not called."
+    },
+    {
+      "id": "AC7",
+      "status": "PASS",
+      "reason": "Same trim === '' check on line 15 catches whitespace-only strings; test_whitespace_only_authorization_code_returns_invalid_code_and_does_not_call_client exercises it and passes."
+    },
+    {
+      "id": "AC8",
+      "status": "PASS",
+      "reason": "Line 24 inside try: $profile = $this->client->fetchProfile($authorizationCode); single call. Happy path test asserts $fake->callCount === 1."
+    },
+    {
+      "id": "AC9",
+      "status": "PASS",
+      "reason": "Lines 25-31 catch (GoogleAuthException $e) returns ['status' => 'failed','user' => null,'error' => $e->getMessage()]; test_client_exception_returns_failed_without_propagating verifies no throw escapes and shape matches."
+    },
+    {
+      "id": "AC10",
+      "status": "PASS",
+      "reason": "Lines 33-44 check isset + non-empty for id/email/name and return ['status' => 'failed','user' => null,'error' => 'malformed google profile']; the three missing-key tests pass."
+    },
+    {
+      "id": "AC11",
+      "status": "PASS",
+      "reason": "Lines 46-54 return ['status' => 'authenticated','user' => ['id' => ..., 'email' => ..., 'name' => ...],'error' => null]; happy-path test asserts exact shape against pinned fixture code_abc / 123456789 / roman@example.com / Roman Krutovoy."
+    },
+    {
+      "id": "AC12",
+      "status": "PASS",
+      "reason": "tests/Unit/Services/Auth/GoogleAuthServiceTest.php exists with declare(strict_types=1); namespace Tests\\Unit\\Services\\Auth; and extends PHPUnit\\Framework\\TestCase (lines 1-11)."
+    },
+    {
+      "id": "AC13",
+      "status": "PASS",
+      "reason": "Lines 146-162 define final class FakeGoogleIdentityClient implements GoogleIdentityClient with public $callCount, $lastCode, $nextProfile, $nextException; fetchProfile increments callCount, records lastCode, throws nextException or returns nextProfile. Not a PHPUnit mock."
+    },
+    {
+      "id": "AC14",
+      "status": "PASS",
+      "reason": "Grep for createMock|getMockBuilder|MockObject over GoogleAuthServiceTest.php returns zero matches."
+    },
+    {
+      "id": "AC15",
+      "status": "PASS",
+      "reason": "test_empty_authorization_code_returns_invalid_code_and_does_not_call_client defined line 18; asserts invalid_code shape and $fake->callCount === 0."
+    },
+    {
+      "id": "AC16",
+      "status": "PASS",
+      "reason": "test_whitespace_only_authorization_code_returns_invalid_code_and_does_not_call_client defined line 31; passes '   ', asserts invalid_code shape and $fake->callCount === 0."
+    },
+    {
+      "id": "AC17",
+      "status": "PASS",
+      "reason": "test_happy_path_returns_authenticated_with_canonical_user_shape defined line 44; uses pinned fixture code_abc / 123456789 / roman@example.com / Roman Krutovoy; asserts exact result shape, callCount === 1, lastCode === 'code_abc'."
+    },
+    {
+      "id": "AC18",
+      "status": "PASS",
+      "reason": "test_client_exception_returns_failed_without_propagating defined line 72; fake throws new GoogleAuthException('invalid_grant'); asserts exact failed shape; try/catch around signIn calls fail() if any throwable leaks."
+    },
+    {
+      "id": "AC19",
+      "status": "PASS",
+      "reason": "test_malformed_profile_missing_email_returns_failed defined line 94; fake email = ''; asserts status failed, user null, error contains 'malformed'."
+    },
+    {
+      "id": "AC20",
+      "status": "PASS",
+      "reason": "test_malformed_profile_missing_id_returns_failed defined line 111; fake id = ''; same failed-shape assertions with 'malformed' substring."
+    },
+    {
+      "id": "AC21",
+      "status": "PASS",
+      "reason": "test_malformed_profile_missing_name_returns_failed defined line 128; fake name = ''; same failed-shape assertions with 'malformed' substring."
+    },
+    {
+      "id": "AC22",
+      "status": "PASS",
+      "reason": "Extracted signIn body (lines 14-55) scanned for ' new ', '::', ' static ' tokens; each returned count 0. Only catch (GoogleAuthException $e) present, which the spec explicitly permits."
+    },
+    {
+      "id": "AC23",
+      "status": "PASS",
+      "reason": "All four authored files open with <?php on line 1 immediately followed by declare(strict_types=1); on line 2: GoogleIdentityClient.php, GoogleAuthException.php, GoogleAuthService.php, GoogleAuthServiceTest.php."
+    },
+    {
+      "id": "AC24",
+      "status": "PASS",
+      "reason": "Ran composer test from /Users/krutovoy/Projects/hosting-platform now: PHPUnit 11.5.55, PHP 8.4.1. 'OK (51 tests, 233 assertions)'. 51 >= 44 floor."
+    },
+    {
+      "id": "AC25",
+      "status": "PASS",
+      "reason": "Python3 U+2014 and U+2013 scan across GoogleIdentityClient.php, GoogleAuthException.php, GoogleAuthService.php, GoogleAuthServiceTest.php, spec.md, evidence.md, evidence.json returned total_hits 0."
+    }
+  ],
+  "commands_run": [
+    "composer test",
+    "grep createMock|getMockBuilder|MockObject tests/Unit/Services/Auth/GoogleAuthServiceTest.php",
+    "python3 em-dash scanner across 4 authored files + spec.md + evidence.md + evidence.json",
+    "python3 signIn body token scan for ' new ', '::', ' static '",
+    "task_loop.py status --task-id <14 prior tasks>"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/tdd-google-auth-socialite/spec.md",
+    ".agent/tasks/tdd-google-auth-socialite/evidence.md",
+    ".agent/tasks/tdd-google-auth-socialite/evidence.json",
+    "app/Services/Auth/GoogleIdentityClient.php",
+    "app/Services/Auth/GoogleAuthException.php",
+    "app/Services/Auth/GoogleAuthService.php",
+    "tests/Unit/Services/Auth/GoogleAuthServiceTest.php"
+  ],
+  "notes": {
+    "live_composer_test": "OK (51 tests, 233 assertions) — PHPUnit 11.5.55 / PHP 8.4.1",
+    "prior_tasks_regression_check": "All 14 prior proof-loop tasks report verdict_overall_status PASS: land-laravel-framework, bootstrap-proof-loop, scaffold-service-stubs, test-harness, tdd-telegram-validate-token, tdd-telegram-set-webhook, tdd-kiloclaw-install, tdd-onchainos-create-charge, tdd-agent-deployer, landing-mockup-steve-ive, wizard-mockup-steve-ive, running-state-mockup-steve-ive, agents-list-mockup-steve-ive, agent-wallet-disclosure-mockup-steve-ive.",
+    "out_of_scope_wave_b1": "tdd-onchainos-xlayer-client and postgres-migrations are being verified by parallel subagents and are out-of-scope for this verdict."
+  }
+}

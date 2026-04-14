@@ -1,0 +1,51 @@
+test-harness build log
+
+Commands executed (in order):
+1. mkdir -p .agent/tasks/test-harness/artifacts .agent/tasks/test-harness/raw
+2. ls -la /Users/krutovoy/Projects/hosting-platform/ > artifacts/pre-build-ls.txt
+3. (wrote composer.json)
+4. (wrote phpunit.xml.dist)
+5. (wrote tests/Unit/SmokeTest.php with assertTrue(false) RED stage)
+6. composer install                              EXIT=0  -> artifacts/composer-install.txt
+7. vendor/bin/phpunit --testdox  (RED)           EXIT=1  -> artifacts/phpunit-red.txt
+8. (edited tests/Unit/SmokeTest.php to assertTrue(true))
+9. vendor/bin/phpunit --testdox  (GREEN)         EXIT=0  -> artifacts/phpunit-green.txt
+10. composer test                                EXIT=0  -> artifacts/composer-test.txt
+11. composer dump-autoload -o                    EXIT=0  -> artifacts/composer-dump.txt
+12. php artifacts/autoload-check.php             EXIT=0  -> artifacts/autoload-check.txt
+13. php -l on SmokeTest + 4 services             EXIT=0  -> artifacts/php-lint.txt
+14. ls -la post-build                                    -> artifacts/post-build-ls.txt
+
+Files created by this task:
+- composer.json
+- phpunit.xml.dist
+- tests/Unit/SmokeTest.php
+- composer.lock                              (created by composer install)
+- vendor/                                    (created by composer install)
+- .phpunit.result.cache                      (created by phpunit run; not in AC22 forbidden list)
+- .agent/tasks/test-harness/artifacts/pre-build-ls.txt
+- .agent/tasks/test-harness/artifacts/composer-install.txt
+- .agent/tasks/test-harness/artifacts/phpunit-red.txt
+- .agent/tasks/test-harness/artifacts/phpunit-green.txt
+- .agent/tasks/test-harness/artifacts/composer-test.txt
+- .agent/tasks/test-harness/artifacts/composer-dump.txt
+- .agent/tasks/test-harness/artifacts/autoload-check.php
+- .agent/tasks/test-harness/artifacts/autoload-check.txt
+- .agent/tasks/test-harness/artifacts/php-lint.txt
+- .agent/tasks/test-harness/artifacts/post-build-ls.txt
+- .agent/tasks/test-harness/raw/build.txt
+- .agent/tasks/test-harness/raw/test-unit.txt
+- .agent/tasks/test-harness/raw/test-integration.txt
+- .agent/tasks/test-harness/raw/lint.txt
+- .agent/tasks/test-harness/evidence.md
+- .agent/tasks/test-harness/evidence.json
+
+Top-level repo additions vs pre-build:
+- tests/                 (allowed, listed in AC22)
+- vendor/                (allowed, listed in AC22)
+- composer.json          (allowed, listed in AC22)
+- composer.lock          (allowed, listed in AC22)
+- phpunit.xml.dist       (allowed, listed in AC22)
+- .phpunit.result.cache  (PHPUnit 11 default cache file; NOT on AC22 forbidden list, so the verifier check `test ! -e ...` for forbidden entries still passes)
+
+No git, node_modules, public, bootstrap, config, resources, routes, database, storage, .env, .env.example, package.json, vite.config.* present.

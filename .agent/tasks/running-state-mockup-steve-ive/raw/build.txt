@@ -1,0 +1,59 @@
+Task: running-state-mockup-steve-ive
+Repo: /Users/krutovoy/Projects/hosting-platform
+Target file: design/running.html
+
+Locked content:
+  Heading: Spawning your agent.
+  Subline: This usually takes under sixty seconds.
+  Title:   Spawning
+  Font family: "JetBrains Mono", "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace
+
+Metrics:
+  Byte count: 1397 (< 10240)
+  Visible body word count: 9 (< 40)
+    "Spawning your agent. This usually takes under sixty seconds."
+  Heading word count: 3
+  Subline word count: 6 (AC7 range 6..12 inclusive)
+  Visible body ! count: 0
+  var(--accent) references: 0
+  --accent: declarations: 1
+  text-transform: / transform: count: 0 / 0
+  em/en dash count: 0 / 0
+
+Prior-design sha256 baseline (pre-build == post-build):
+  design/landing.html  87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64
+  design/wizard.html   8c3dc84dd422ccd9e1e04502205d7992c29e7d6ebd91632e05f6197d3de14f18
+  design/agents.html   11cc4d2284b60777a01a298082648a9dbda105383dc601b58f6df2e39ec12795
+
+Commands executed (exit code 0 unless noted):
+  shasum -a 256 design/landing.html design/wizard.html design/agents.html > artifacts/prior-designs-pre.sha256    [0]
+  pre-build ls captured to artifacts/pre-build-ls.txt                          [0]
+  sed -n '/:root {/,/^}/p' design/landing.html > artifacts/landing-root.txt    [0]
+  Write design/running.html (1397 bytes)                                       [0]
+  shasum -a 256 design/landing.html design/wizard.html design/agents.html > artifacts/prior-designs-post.sha256    [0]
+  diff pre vs post sha256                                                      [0]  (SHA MATCH)
+  wc -c design/running.html > artifacts/size-check.txt                         [0]
+  python3 body-word-count > artifacts/word-count.txt                           [0]  (9 words)
+  grep sweep forbidden > artifacts/grep-forbidden.txt                          [0]  (all counts correct)
+  python3 visible-body ! count                                                 [0]  (0)
+  ls design/ > artifacts/post-build-ls.txt                                     [0]
+  for t in 10 prior tasks: python3 task_loop.py status --task-id $t            [0 each]
+    All 10 report verdict_overall_status: PASS
+
+No-regression status (10 prior tasks, excluding tdd-agent-deployer):
+  bootstrap-proof-loop         PASS
+  scaffold-service-stubs       PASS
+  test-harness                 PASS
+  landing-mockup-steve-ive     PASS
+  tdd-telegram-validate-token  PASS
+  wizard-mockup-steve-ive      PASS
+  tdd-onchainos-create-charge  PASS
+  agents-list-mockup-steve-ive PASS
+  tdd-kiloclaw-install         PASS
+  tdd-telegram-set-webhook     PASS
+
+Guardrails honored:
+  design/landing.html, wizard.html, agents.html untouched (sha256 matches baseline).
+  No composer, bun, php artisan, git, gh invocations.
+  No app/, tests/, composer.json, phpunit.xml.dist, vendor/ touched.
+  Only files created under design/running.html and .agent/tasks/running-state-mockup-steve-ive/.

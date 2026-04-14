@@ -1,0 +1,14 @@
+drwxr-xr-x@    - krutovoy 13 Apr 23:19 .agent
+drwxr-xr-x@    - krutovoy 13 Apr 23:19 .claude
+drwxr-xr-x@    - krutovoy 13 Apr 23:19 .codex
+drwxr-xr-x@    - krutovoy 14 Apr 16:20 app
+drwxr-xr-x@    - krutovoy 13 Apr 23:18 docs
+drwxr-xr-x@    - krutovoy 14 Apr 16:41 tests
+drwxr-xr-x@    - krutovoy 14 Apr 16:41 vendor
+.rw-r--r--@ 6.1k krutovoy 13 Apr 23:16 .DS_Store
+.rw-r--r--@  153 krutovoy 14 Apr 16:41 .phpunit.result.cache
+.rw-r--r--@ 1.1k krutovoy 14 Apr 16:04 AGENTS.md
+.rw-r--r--@ 3.5k krutovoy 14 Apr 16:04 CLAUDE.md
+.rw-r--r--@  647 krutovoy 14 Apr 16:41 composer.json
+.rw-r--r--@  66k krutovoy 14 Apr 16:41 composer.lock
+.rw-r--r--@  398 krutovoy 14 Apr 16:41 phpunit.xml.dist

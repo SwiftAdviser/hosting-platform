@@ -1,0 +1,8 @@
+No composer/build step required. Files added:
+- app/Services/OnChainOS/XLayer/XLayerHttpTransport.php
+- app/Services/OnChainOS/XLayer/XLayerHttpException.php
+- app/Services/OnChainOS/XLayer/XLayerOnChainOSClient.php
+- tests/Unit/Services/OnChainOS/XLayerOnChainOSClientTest.php
+Red exit: 255 (missing interface, captured 2026-04-13)
+Green exit: 0 (41 tests, 161 assertions)
+Autoload probe: 13/13 symbols resolved.

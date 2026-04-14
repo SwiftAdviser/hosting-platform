@@ -1,0 +1,451 @@
+{
+  "task_id": "http-routes-controllers",
+  "overall_status": "PASS",
+  "summary": {
+    "baseline_tests": 51,
+    "baseline_assertions": 233,
+    "red_tests": 60,
+    "red_failures": 9,
+    "red_exit": 1,
+    "green_tests": 60,
+    "green_assertions": 250,
+    "green_exit": 0,
+    "prior_tasks_pass": 17
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "DeployController file header with strict types and namespace.",
+      "status": "PASS",
+      "proof": [
+        "app/Http/Controllers/Api/DeployController.php lines 1-5"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "final class DeployController extends Controller with Request, JsonResponse, AgentDeployerService, Controller imports.",
+      "status": "PASS",
+      "proof": [
+        "Line 12: 'final class DeployController extends Controller'",
+        "Lines 7-10: use statements"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "public function store(Request, AgentDeployerService): JsonResponse with container-injected deployer.",
+      "status": "PASS",
+      "proof": [
+        "Line 14: store signature"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Validation rules match the five locked literal strings.",
+      "status": "PASS",
+      "proof": [
+        "Lines 17-21: validate array entries"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "Exactly one $deployer->deploy() call site.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '$deployer->deploy(' returns 1"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "status -> HTTP code map locked to deployed=201, payment_failed=402, invalid_request=422, telegram_invalid=422, install_failed=502, default=500.",
+      "status": "PASS",
+      "proof": [
+        "Lines 26-34"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "store() has no new/try/catch/DB/other service calls beyond the deploy call.",
+      "status": "PASS",
+      "proof": [
+        "Lines 14-37 reviewed; zero forbidden tokens"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "OnChainOSWebhookController file header.",
+      "status": "PASS",
+      "proof": [
+        "lines 1-5"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "final class OnChainOSWebhookController extends Controller with Request, JsonResponse, WebhookSignatureVerifier imports.",
+      "status": "PASS",
+      "proof": [
+        "Line 12 plus lines 7-10"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "public function handle(Request, WebhookSignatureVerifier): JsonResponse.",
+      "status": "PASS",
+      "proof": [
+        "Line 14"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "X-OnChainOS-Signature header read; null/empty returns 400 without calling verifier.",
+      "status": "PASS",
+      "proof": [
+        "Lines 16-20"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "verifier->verify() false returns 401 with locked body.",
+      "status": "PASS",
+      "proof": [
+        "Lines 22-24"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "True path returns response()->json(['status' => 'ok'], 200) without side effects.",
+      "status": "PASS",
+      "proof": [
+        "Line 26"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "handle() has no try/catch/new inside body.",
+      "status": "PASS",
+      "proof": [
+        "Lines 14-27"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "TelegramWebhookController file header.",
+      "status": "PASS",
+      "proof": [
+        "lines 1-5"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "final class TelegramWebhookController extends Controller with Request, JsonResponse imports.",
+      "status": "PASS",
+      "proof": [
+        "Line 11 plus lines 7-9"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "public function handle(int agentId, Request): JsonResponse.",
+      "status": "PASS",
+      "proof": [
+        "Line 13"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "Body returns response()->json(['ok' => true], 200) only.",
+      "status": "PASS",
+      "proof": [
+        "Line 15"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "WebhookSignatureVerifier file with strict types and namespace.",
+      "status": "PASS",
+      "proof": [
+        "lines 1-5"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "final class with private readonly string secret promoted constructor, no config/env inside class body.",
+      "status": "PASS",
+      "proof": [
+        "Lines 7-12"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "verify(string signature, string payload): bool using hash_equals($this->secret, $signature).",
+      "status": "PASS",
+      "proof": [
+        "Lines 14-17"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "Verifier methods contain no new/try/catch/:: static calls.",
+      "status": "PASS",
+      "proof": [
+        "Entire file reviewed"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "Route::post('/deploys', [DeployController::class, 'store']);",
+      "status": "PASS",
+      "proof": [
+        "routes/api.php line 8"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC24",
+      "text": "Route::post('/webhooks/onchainos', [OnChainOSWebhookController::class, 'handle']);",
+      "status": "PASS",
+      "proof": [
+        "routes/api.php line 9"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC25",
+      "text": "Route::post('/telegram/webhook/{agentId}', [TelegramWebhookController::class, 'handle']);",
+      "status": "PASS",
+      "proof": [
+        "routes/api.php line 10"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC26",
+      "text": "Three use imports at top of routes/api.php.",
+      "status": "PASS",
+      "proof": [
+        "Lines 3-5"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC27",
+      "text": "php artisan route:list shows all three POST routes mapped to correct controllers.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/route-list.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC28",
+      "text": "Existing Unit testsuite block preserved in phpunit.xml.dist.",
+      "status": "PASS",
+      "proof": [
+        "Snapshot vs artifacts/pre-phpunit-xml.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC29",
+      "text": "New Feature testsuite block added as sibling of Unit.",
+      "status": "PASS",
+      "proof": [
+        "phpunit.xml.dist lines 10-12"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC30",
+      "text": "tests/TestCase.php extends Laravel Foundation TestCase with CreatesApplication trait.",
+      "status": "PASS",
+      "proof": [
+        "Rewritten file"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC31",
+      "text": "tests/CreatesApplication.php trait boots bootstrap/app.php.",
+      "status": "PASS",
+      "proof": [
+        "New file"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC32",
+      "text": "DeployControllerTest file with strict types, namespace, final class.",
+      "status": "PASS",
+      "proof": [
+        "File header plus line 16"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC33",
+      "text": "Fake AgentDeployerService wired via container closure with in-file anonymous-class interface fakes; zero createMock/getMockBuilder/MockObject tokens. Parent-sanctioned alternative because AgentDeployerService is final.",
+      "status": "PASS",
+      "proof": [
+        "grep -c createMock|getMockBuilder|MockObject tests/Feature/Http returns 0",
+        "bindDeployer helper"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC34",
+      "text": "Five test method names present verbatim.",
+      "status": "PASS",
+      "proof": [
+        "test_happy_path_deployed_returns_201, test_missing_personality_returns_422, test_telegram_invalid_returns_422, test_payment_failed_returns_402, test_install_failed_returns_502"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC35",
+      "text": "Five postJson('/api/deploys', ...) call sites, each asserting the locked HTTP status.",
+      "status": "PASS",
+      "proof": [
+        "grep -c postJson('/api/deploys' returns 5"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC36",
+      "text": "Happy path test asserts JSON with six locked keys and values.",
+      "status": "PASS",
+      "proof": [
+        "assertJson(['status' => 'deployed', 'stage' => 'complete', 'agent_name' => 'atlas', 'error' => null, 'kiloclaw_id' => 'kc_abc', 'session_id' => 'sess_abc'])"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC37",
+      "text": "OnChainOSWebhookControllerTest file with strict types, namespace, final class.",
+      "status": "PASS",
+      "proof": [
+        "File header"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC38",
+      "text": "Three test method names present verbatim.",
+      "status": "PASS",
+      "proof": [
+        "test_missing_signature_header_returns_400, test_invalid_signature_returns_401, test_valid_signature_returns_200"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC39",
+      "text": "Each test posts to /api/webhooks/onchainos with X-OnChainOS-Signature header; verifier bound in setUp with 'test-secret'; no PHPUnit mocks.",
+      "status": "PASS",
+      "proof": [
+        "Test file lines 11-46"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC40",
+      "text": "TelegramWebhookControllerTest has one test posting /api/telegram/webhook/42 and asserting ok:true.",
+      "status": "PASS",
+      "proof": [
+        "Entire test file"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC41",
+      "text": "config/services.php gains onchainos.webhook_secret; AppServiceProvider singleton binding constructs WebhookSignatureVerifier from config value.",
+      "status": "PASS",
+      "proof": [
+        "config/services.php and AppServiceProvider.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC42",
+      "text": "phpunit-red.txt non-empty exit 1, phpunit-green.txt non-empty exit 0.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/http-routes-controllers/phpunit-red.txt",
+        ".agent/tasks/http-routes-controllers/phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC43",
+      "text": "Green run: OK (60 tests, 250 assertions) exit 0; prior 51 + 9 new.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/phpunit-green.txt tail"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC44",
+      "text": "10 service files and 5 prior unit test files byte-identical; this task wrote none of them.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/protected-sha.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC45",
+      "text": "All touched files within AC45 allowlist.",
+      "status": "PASS",
+      "proof": [
+        "See changed_files list"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "app/Http/Controllers/Api/DeployController.php",
+    "app/Http/Controllers/Api/OnChainOSWebhookController.php",
+    "app/Http/Controllers/Api/TelegramWebhookController.php",
+    "app/Services/OnChainOS/WebhookSignatureVerifier.php",
+    "app/Providers/AppServiceProvider.php",
+    "config/services.php",
+    "routes/api.php",
+    "phpunit.xml.dist",
+    "tests/TestCase.php",
+    "tests/CreatesApplication.php",
+    "tests/Feature/Http/DeployControllerTest.php",
+    "tests/Feature/Http/OnChainOSWebhookControllerTest.php",
+    "tests/Feature/Http/TelegramWebhookControllerTest.php"
+  ],
+  "commands_for_fresh_verifier": [
+    "composer test",
+    "php artisan route:list --path=api",
+    "php -l app/Http/Controllers/Api/DeployController.php",
+    "php -l app/Http/Controllers/Api/OnChainOSWebhookController.php",
+    "php -l app/Http/Controllers/Api/TelegramWebhookController.php",
+    "php -l app/Services/OnChainOS/WebhookSignatureVerifier.php",
+    "grep -n 'Route::post' routes/api.php",
+    "grep -c 'createMock\\|getMockBuilder\\|MockObject' tests/Feature/Http/*.php"
+  ],
+  "known_gaps": []
+}

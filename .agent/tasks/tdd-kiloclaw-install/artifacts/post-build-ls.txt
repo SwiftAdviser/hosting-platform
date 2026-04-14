@@ -1,0 +1,24 @@
+=== top-level ===
+app
+design
+docs
+tests
+vendor
+AGENTS.md
+CLAUDE.md
+composer.json
+composer.lock
+phpunit.xml.dist
+
+=== app/Services/ ===
+KiloClaw
+OnChainOS
+Telegram
+AgentDeployerService.php
+KiloClawClientService.php
+OnChainOSPaymentService.php
+TelegramBotRegistrarService.php
+
+=== app/Services/KiloClaw/ ===
+KiloClawException.php
+KiloClawHttpClient.php

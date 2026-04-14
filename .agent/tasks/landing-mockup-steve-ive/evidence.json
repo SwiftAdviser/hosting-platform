@@ -1,0 +1,262 @@
+{
+  "task_id": "landing-mockup-steve-ive",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "File exists at design/landing.html with parent design/ directory.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/file-info.txt",
+        "artifacts/post-build-ls.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "First non-empty line is <!DOCTYPE html>; <html> has lang attribute.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/file-info.txt: head -1 -> <!DOCTYPE html>",
+        "design/landing.html line 2: <html lang=\"en\">"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Charset utf-8 and viewport meta with width=device-width, initial-scale=1.",
+      "status": "PASS",
+      "proof": [
+        "design/landing.html line 4: <meta charset=\"utf-8\">",
+        "design/landing.html line 5: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Exactly one <title>; <=5 words; statement.",
+      "status": "PASS",
+      "proof": [
+        "<title> count = 1",
+        "Title: 'One click. Agent hosted.' (4 words)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "Exactly one CTA, verb phrase <=3 words, button or anchor.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/accent-count.txt",
+        "<button> count = 0; <a > count = 1",
+        "CTA: <a class=\"cta\" href=\"#post\">Post agent</a>",
+        "'Post agent' matches ^(Post|Deploy|Spawn|Launch|Ship|Run|Start) [A-Za-z]+$"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "No secondary CTA, no 'Learn more', no nav.",
+      "status": "PASS",
+      "proof": [
+        "<button> count = 0",
+        "case-insensitive 'learn more' count = 0",
+        "no nav, no link list"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "No script, no src=, no external link, no @import, no CDN host.",
+      "status": "PASS",
+      "proof": [
+        "<script count = 0",
+        "src= count = 0",
+        "<link count = 0",
+        "@import count = 0",
+        "fonts.googleapis.com count = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Single <style> in <head>; no inline style= attributes.",
+      "status": "PASS",
+      "proof": [
+        "<style count = 1",
+        "' style=' count = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "No marketing buzzwords (revolutionary, seamless, ..., transform, introducing, unlock).",
+      "status": "PASS",
+      "proof": [
+        "artifacts/grep-forbidden.txt: every banned word count = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "No em-dash (U+2014) or en-dash (U+2013).",
+      "status": "PASS",
+      "proof": [
+        "artifacts/grep-forbidden.txt: em-dash 0, en-dash 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "No exclamation marks in body text after stripping <!DOCTYPE / comments / attributes.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/grep-forbidden.txt: raw bang = 1 (the <!DOCTYPE marker), post-strip bang = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "Crypto hidden: zero matches for chain/gas/USDC/ETH/0x/blockchain/crypto/wallet/etc.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/grep-forbidden.txt: every crypto term count = 0 (including wallet)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "Mentions 'agent' at least once.",
+      "status": "PASS",
+      "proof": [
+        "h1 'Agent hosted.', lede 'Paste your agent.', CTA 'Post agent'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": ":root with at least 3 tokens including bg/fg/accent.",
+      "status": "PASS",
+      "proof": [
+        ":root declares --bg, --fg, --muted, --rule, --tint, --accent, --radius, --max"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "No hardcoded color literals outside :root.",
+      "status": "PASS",
+      "proof": [
+        "Python regex sweep: hex/rgb/rgba/hsl/hsla matches outside :root = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "Non-default font family with 3+ fallbacks.",
+      "status": "PASS",
+      "proof": [
+        "body font-family: 'JetBrains Mono', 'IBM Plex Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace",
+        "Primary 'JetBrains Mono' not in ban list; 5 fallbacks"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "Theme commitment documented (dark or light) or prefers-color-scheme.",
+      "status": "PASS",
+      "proof": [
+        "Top of <style> block: /* theme: dark */"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "Single accent var, only on CTA selectors.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/accent-count.txt",
+        "L15 declaration in :root, L71 a.cta background, L82 a.cta:hover/:focus/:focus-visible outline",
+        "no other var(--accent) usage"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "Responsive sizing via @media or fluid units on headline.",
+      "status": "PASS",
+      "proof": [
+        "h1 font-size uses clamp(2.5rem, 7vw, 5.5rem)",
+        "@media (max-width: 640px) block present"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "File size strictly under 12288 bytes.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/size-check.txt: stat -f%z = 2047"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "Visible body word count under 60.",
+      "status": "PASS",
+      "proof": [
+        "Python tag-strip word count = 20"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "No collateral damage; only design/ and design/landing.html added.",
+      "status": "PASS",
+      "proof": [
+        "diff artifacts/pre-build-ls.txt artifacts/post-build-ls.txt -> only 'design' added at repo root"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "design/landing.html",
+    ".agent/tasks/landing-mockup-steve-ive/artifacts/pre-build-ls.txt",
+    ".agent/tasks/landing-mockup-steve-ive/artifacts/post-build-ls.txt",
+    ".agent/tasks/landing-mockup-steve-ive/artifacts/size-check.txt",
+    ".agent/tasks/landing-mockup-steve-ive/artifacts/grep-forbidden.txt",
+    ".agent/tasks/landing-mockup-steve-ive/artifacts/accent-count.txt",
+    ".agent/tasks/landing-mockup-steve-ive/artifacts/file-info.txt",
+    ".agent/tasks/landing-mockup-steve-ive/raw/build.txt",
+    ".agent/tasks/landing-mockup-steve-ive/evidence.md",
+    ".agent/tasks/landing-mockup-steve-ive/evidence.json"
+  ],
+  "commands_for_fresh_verifier": [
+    "test -f design/landing.html && test -d design",
+    "head -1 design/landing.html | grep -qi '^<!doctype html>'",
+    "grep -qE '<html[^>]+lang=' design/landing.html",
+    "grep -qiE '<meta[^>]+charset=\"?utf-?8' design/landing.html",
+    "grep -qE '<meta[^>]+name=\"viewport\"[^>]+content=\"width=device-width, initial-scale=1(\\.0)?\"' design/landing.html",
+    "[ \"$(grep -c '<title>' design/landing.html)\" = '1' ]",
+    "[ \"$(grep -c '<style' design/landing.html)\" = '1' ]",
+    "! grep -q '<script' design/landing.html",
+    "! grep -q 'src=' design/landing.html",
+    "! grep -q '@import' design/landing.html",
+    "! grep -qi 'fonts.googleapis.com' design/landing.html",
+    "! grep -q ' style=' design/landing.html",
+    "! grep -qi 'learn more' design/landing.html",
+    "[ \"$(grep -c '<button' design/landing.html)\" -le '1' ]",
+    "for w in revolutionary seamless unleash harness empower best-in-class world-class cutting-edge leverage synergy streamline next-generation game-changer transform 'we'\"'\"'re excited' introducing unlock; do ! grep -qi -- \"$w\" design/landing.html || exit 1; done",
+    "for w in 'X-Layer' EVM chain gas signature USDC ETH 0x blockchain crypto; do ! grep -qi -- \"$w\" design/landing.html || exit 1; done",
+    "[ \"$(grep -ci wallet design/landing.html)\" -le '1' ]",
+    "grep -qi agent design/landing.html",
+    "grep -q ':root' design/landing.html",
+    "grep -qE 'clamp\\(|[0-9.]+vw' design/landing.html",
+    "[ \"$(stat -f%z design/landing.html)\" -lt '12288' ]",
+    ".claude/skills/repo-task-proof-loop/scripts/task_loop.py validate --task-id landing-mockup-steve-ive",
+    ".claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id landing-mockup-steve-ive"
+  ],
+  "known_gaps": [
+    "No live-rendered screenshot; no headless browser in this task environment. Page was hand-audited statically."
+  ]
+}

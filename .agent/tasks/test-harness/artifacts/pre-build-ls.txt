@@ -1,0 +1,8 @@
+drwxr-xr-x@    - krutovoy 13 Apr 23:19 .agent
+drwxr-xr-x@    - krutovoy 13 Apr 23:19 .claude
+drwxr-xr-x@    - krutovoy 13 Apr 23:19 .codex
+drwxr-xr-x@    - krutovoy 14 Apr 16:20 app
+drwxr-xr-x@    - krutovoy 13 Apr 23:18 docs
+.rw-r--r--@ 6.1k krutovoy 13 Apr 23:16 .DS_Store
+.rw-r--r--@ 1.1k krutovoy 14 Apr 16:04 AGENTS.md
+.rw-r--r--@ 3.5k krutovoy 14 Apr 16:04 CLAUDE.md

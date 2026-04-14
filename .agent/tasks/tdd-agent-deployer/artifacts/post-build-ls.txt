@@ -1,0 +1,14 @@
+=== app/Services ===
+KiloClaw
+OnChainOS
+Telegram
+AgentDeployerService.php
+KiloClawClientService.php
+OnChainOSPaymentService.php
+TelegramBotRegistrarService.php
+
+=== tests/Unit/Services ===
+AgentDeployerServiceTest.php
+KiloClawClientServiceTest.php
+OnChainOSPaymentServiceTest.php
+TelegramBotRegistrarServiceTest.php

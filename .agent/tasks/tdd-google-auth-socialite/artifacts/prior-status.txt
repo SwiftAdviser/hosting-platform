@@ -1,0 +1,380 @@
+== bootstrap-proof-loop ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "bootstrap-proof-loop",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/bootstrap-proof-loop",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== test-harness ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "test-harness",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/test-harness",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== scaffold-service-stubs ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "scaffold-service-stubs",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/scaffold-service-stubs",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== landing-mockup-steve-ive ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "landing-mockup-steve-ive",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/landing-mockup-steve-ive",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== wizard-mockup-steve-ive ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "wizard-mockup-steve-ive",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/wizard-mockup-steve-ive",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== agents-list-mockup-steve-ive ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "agents-list-mockup-steve-ive",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/agents-list-mockup-steve-ive",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== running-state-mockup-steve-ive ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "running-state-mockup-steve-ive",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/running-state-mockup-steve-ive",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== agent-wallet-disclosure-mockup-steve-ive ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "agent-wallet-disclosure-mockup-steve-ive",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/agent-wallet-disclosure-mockup-steve-ive",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== land-laravel-framework ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "land-laravel-framework",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/land-laravel-framework",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== postgres-migrations ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "postgres-migrations",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/postgres-migrations",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "UNKNOWN",
+  "verdict_overall_status": "UNKNOWN",
+  "non_pass_criteria": [
+    {
+      "id": "AC1",
+      "status": "UNKNOWN",
+      "reason": "Verifier has not run yet."
+    }
+  ]
+}
+EXIT=0
+== http-routes-controllers ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "http-routes-controllers",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/http-routes-controllers",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "UNKNOWN",
+  "verdict_overall_status": "UNKNOWN",
+  "non_pass_criteria": [
+    {
+      "id": "AC1",
+      "status": "UNKNOWN",
+      "reason": "Verifier has not run yet."
+    }
+  ]
+}
+EXIT=0
+== tdd-onchainos-create-charge ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "tdd-onchainos-create-charge",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/tdd-onchainos-create-charge",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== tdd-telegram-validate-token ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "tdd-telegram-validate-token",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/tdd-telegram-validate-token",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== tdd-telegram-set-webhook ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "tdd-telegram-set-webhook",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/tdd-telegram-set-webhook",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== tdd-agent-deployer ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "tdd-agent-deployer",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/tdd-agent-deployer",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0
+== tdd-kiloclaw-install ==
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "tdd-kiloclaw-install",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/tdd-kiloclaw-install",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
+EXIT=0

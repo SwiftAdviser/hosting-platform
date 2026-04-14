@@ -1,0 +1,73 @@
+== buzzwords (each should be 0) ==
+revolutionary        0
+seamless             0
+unleash              0
+harness              0
+empower              0
+best-in-class        0
+world-class          0
+cutting-edge         0
+leverage             0
+synergy              0
+streamline           0
+next-generation      0
+game-changer         0
+transform            0
+we're excited        0
+introducing          0
+unlock               0
+
+== css props (0) ==
+transform:        0
+text-transform:   0
+
+== dashes (0) ==
+U+2014: 0
+U+2013: 0
+
+== wallet (<=5) ==
+       1
+
+== crypto terms (0) ==
+chain        0
+gas          0
+signature    0
+USDC         0
+ETH          0
+X-Layer      0
+EVM          0
+blockchain   0
+crypto       0
+
+== chain names (0) ==
+X-Layer      0
+xlayer       0
+Base         0
+Ethereum     0
+Solana       0
+Polygon      0
+Arbitrum     0
+Optimism     0
+
+== 0x (1) ==
+       1
+== :// (0) ==
+0
+== <script (0) ==
+0
+== <link (0) ==
+0
+== @import (0) ==
+0
+== <button (0) ==
+0
+
+== structural counts ==
+<details  1
+<summary  1
+<code     1
+<h1       1
+<style    1
+<title    1
+ style=   0
+a.cta     1

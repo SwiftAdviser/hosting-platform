@@ -1,0 +1,51 @@
+> vendor/bin/phpunit
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /Users/krutovoy/Projects/hosting-platform/phpunit.xml.dist
+
+EEEEEEE..............................                             37 / 37 (100%)
+
+Time: 00:00.008, Memory: 8.00 MB
+
+There were 7 errors:
+
+1) Tests\Unit\Services\AgentDeployerServiceTest::test_missing_required_field_returns_invalid_request
+Error: Call to undefined method App\Services\AgentDeployerService::deploy()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/AgentDeployerServiceTest.php:53
+
+2) Tests\Unit\Services\AgentDeployerServiceTest::test_empty_agent_name_returns_invalid_request
+Error: Call to undefined method App\Services\AgentDeployerService::deploy()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/AgentDeployerServiceTest.php:73
+
+3) Tests\Unit\Services\AgentDeployerServiceTest::test_zero_amount_returns_invalid_request
+Error: Call to undefined method App\Services\AgentDeployerService::deploy()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/AgentDeployerServiceTest.php:92
+
+4) Tests\Unit\Services\AgentDeployerServiceTest::test_telegram_token_invalid_short_circuits_at_telegram_validate
+Error: Call to undefined method App\Services\AgentDeployerService::deploy()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/AgentDeployerServiceTest.php:109
+
+5) Tests\Unit\Services\AgentDeployerServiceTest::test_payment_not_pending_short_circuits_at_payment
+Error: Call to undefined method App\Services\AgentDeployerService::deploy()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/AgentDeployerServiceTest.php:128
+
+6) Tests\Unit\Services\AgentDeployerServiceTest::test_install_not_ready_short_circuits_at_install
+Error: Call to undefined method App\Services\AgentDeployerService::deploy()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/AgentDeployerServiceTest.php:152
+
+7) Tests\Unit\Services\AgentDeployerServiceTest::test_happy_path_deployed_returns_canonical_shape
+Error: Call to undefined method App\Services\AgentDeployerService::deploy()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/AgentDeployerServiceTest.php:186
+
+ERRORS!
+Tests: 37, Assertions: 87, Errors: 7.
+Script vendor/bin/phpunit handling the test event returned with error code 2
+EXIT=2

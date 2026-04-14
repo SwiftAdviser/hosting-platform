@@ -1,0 +1,47 @@
+{
+  "task_id": "running-state-mockup-steve-ive",
+  "overall_verdict": "PASS",
+  "pass": 1,
+  "verifier_notes": "Fresh independent verification. design/running.html is 1397 bytes, single <style>, option A accent (zero var(--accent) references, one --accent: declaration), heading 'Spawning your agent.', subline 'This usually takes under sixty seconds.' (6 words, within AC7 6-12 range). :root tokens byte-identical to landing.html for all 8 keys. Font-family stack matches exactly. Landing/wizard/agents sha256 match locked baselines. All 10 prior tasks report verdict_overall_status PASS.",
+  "criteria": [
+    {"id": "AC1", "status": "PASS", "reason": "design/running.html exists; design/ dir exists; ls returns the four expected files."},
+    {"id": "AC2", "status": "PASS", "reason": "Line 1 is <!DOCTYPE html>, <html lang=\"en\">, <meta charset=\"utf-8\">, <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> all present."},
+    {"id": "AC3", "status": "PASS", "reason": "Exactly one <title>; text 'Spawning' (1 word, <= 5)."},
+    {"id": "AC4", "status": "PASS", "reason": "grep counts for <button, <form, <input, <select, <textarea, <nav, <footer, <a href=, <a opening tags, <script all return 0."},
+    {"id": "AC5", "status": "PASS", "reason": "grep -c '<h1' = 1; h1 inner text byte-equals 'Spawning your agent.' (3 words, trailing period)."},
+    {"id": "AC6", "status": "PASS", "reason": "Heading contains both 'Spawning' and 'agent'."},
+    {"id": "AC7", "status": "PASS", "reason": "Single <p>, inner text byte-equals 'This usually takes under sixty seconds.' (6 words, within AC7 6-12 range, no ! ? em-dash en-dash)."},
+    {"id": "AC8", "status": "PASS", "reason": "Case-insensitive grep for all 17 buzzwords returns 0 matches."},
+    {"id": "AC9", "status": "PASS", "reason": "Python byte scan: U+2014 count 0, U+2013 count 0."},
+    {"id": "AC10", "status": "PASS", "reason": "After stripping <style>, HTML comments, and tags, visible body text contains 0 '!' characters."},
+    {"id": "AC11", "status": "PASS", "reason": "Case-insensitive word-boundary grep for X-Layer, EVM, chain, gas, signature, USDC, ETH, blockchain, crypto, 0x, wallet returns 0 matches."},
+    {"id": "AC12", "status": "PASS", "reason": "Zero <script, zero src=, zero <link, zero @import, zero :// anywhere in file; no CDN host references."},
+    {"id": "AC13", "status": "PASS", "reason": "Exactly one <style> in <head>; zero ' style=' inline attributes."},
+    {"id": "AC14", "status": "PASS", "reason": "All 8 :root tokens (--bg, --fg, --muted, --rule, --tint, --accent, --radius, --max) parsed and compared byte-identical to landing.html; /* theme: dark */ comment present."},
+    {"id": "AC15", "status": "PASS", "reason": "body font-family equals '\"JetBrains Mono\", \"IBM Plex Mono\", \"SF Mono\", \"Fira Code\", ui-monospace, monospace' byte-exact; no Inter/Roboto/Arial/Helvetica/system-ui/-apple-system."},
+    {"id": "AC16", "status": "PASS", "reason": "grep -c 'var(--accent)' = 0; grep -c '--accent:' = 1 (option A lock verified)."},
+    {"id": "AC17", "status": "PASS", "reason": "Both @media (max-width: 640px) and clamp() fluid units on h1 font-size are present."},
+    {"id": "AC18", "status": "PASS", "reason": "wc -c design/running.html = 1397, strictly less than 10240."},
+    {"id": "AC19", "status": "PASS", "reason": "Stripped body word count = 10, strictly less than 40."},
+    {"id": "AC20", "status": "PASS", "reason": "grep -c '<h1' = 1; grep -cE '<h[2-6]' = 0."},
+    {"id": "AC21", "status": "PASS", "reason": "grep -c 'text-transform' = 0; regex for transform property name returns 0."},
+    {"id": "AC22", "status": "PASS", "reason": "shasum -a 256 confirms landing=87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64, wizard=8c3dc84dd422ccd9e1e04502205d7992c29e7d6ebd91632e05f6197d3de14f18, agents=11cc4d2284b60777a01a298082648a9dbda105383dc601b58f6df2e39ec12795 (all match baseline); ls design/ returns exactly agents.html landing.html running.html wizard.html."},
+    {"id": "AC23", "status": "PASS", "reason": "All 10 prior tasks report verdict_overall_status PASS via task_loop.py status: bootstrap-proof-loop, scaffold-service-stubs, test-harness, landing-mockup-steve-ive, tdd-telegram-validate-token, wizard-mockup-steve-ive, tdd-onchainos-create-charge, agents-list-mockup-steve-ive, tdd-kiloclaw-install, tdd-telegram-set-webhook."}
+  ],
+  "commands_run": [
+    "shasum -a 256 design/landing.html design/wizard.html design/agents.html design/running.html",
+    "wc -c design/running.html",
+    "ls design/ | sort",
+    "ripgrep for interactive tags, buzzwords, crypto terms",
+    "python3 inline script: :root/font-family byte compare, h1/p/title extraction, body word count, !/em-dash scan, var(--accent) count, transform scan",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id <each of 10 prior tasks>"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/running-state-mockup-steve-ive/spec.md",
+    ".agent/tasks/running-state-mockup-steve-ive/evidence.json",
+    "design/running.html",
+    "design/landing.html",
+    "design/wizard.html",
+    "design/agents.html"
+  ]
+}

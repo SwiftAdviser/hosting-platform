@@ -1,0 +1,118 @@
+tdd-agent-deployer BUILD log
+============================
+
+Date: 2026-04-13
+Working directory: /Users/krutovoy/Projects/hosting-platform
+PHP: 8.4.1 (herd-lite)
+Composer: 2.8.3
+
+Step 1. Baseline snapshot
+-------------------------
+$ composer test > .agent/tasks/tdd-agent-deployer/artifacts/baseline-test.txt 2>&1
+EXIT=0
+  OK (30 tests, 87 assertions)
+
+$ cp app/Services/AgentDeployerService.php .agent/tasks/tdd-agent-deployer/artifacts/pre-build-stub.txt
+  pre-build stub captured (class body contains only comment)
+
+Step 2. RED: write failing test file only
+-----------------------------------------
+Created: tests/Unit/Services/AgentDeployerServiceTest.php
+  - namespace Tests\Unit\Services
+  - declare(strict_types=1)
+  - extends PHPUnit\Framework\TestCase
+  - three inline fakes:
+      FakeAgentDeployerOnChainOSClient implements OnChainOSClient
+      FakeAgentDeployerKiloClawHttpClient implements KiloClawHttpClient
+      FakeAgentDeployerTelegramHttpClient implements TelegramHttpClient
+  - seven test methods (all seven spec-locked names)
+  - no createMock/getMockBuilder/MockObject
+  - production AgentDeployerService.php still at one-line stub
+
+Step 3. RED phpunit run
+-----------------------
+$ composer test > .agent/tasks/tdd-agent-deployer/artifacts/phpunit-red.txt 2>&1
+EXIT=2
+  37 / 37 tests collected
+  7 ERRORS: "Error: Call to undefined method App\Services\AgentDeployerService::deploy()"
+  30 prior tests still PASS (Assertions: 87)
+
+Step 4. GREEN: rewrite AgentDeployerService.php
+-----------------------------------------------
+Rewrote: app/Services/AgentDeployerService.php
+  - <?php declare(strict_types=1);
+  - namespace App\Services;
+  - use App\Services\KiloClawClientService;
+  - use App\Services\OnChainOSPaymentService;
+  - use App\Services\TelegramBotRegistrarService;
+  - final class AgentDeployerService with constructor promotion
+      (OnChainOSPaymentService $payment,
+       KiloClawClientService $kiloclaw,
+       TelegramBotRegistrarService $telegram)
+  - public function deploy(array $request): array
+  - validate -> telegram -> payment -> install -> deployed
+  - manifest literal: 'spawn.' . strtolower($request['agent_name'])
+  - no new, no ::, no static, no try/catch in deploy body
+
+Step 5. GREEN phpunit run
+-------------------------
+$ composer test > .agent/tasks/tdd-agent-deployer/artifacts/phpunit-green.txt 2>&1
+EXIT=0
+  OK (37 tests, 142 assertions)
+
+Step 6. php -l lint
+-------------------
+$ php -l app/Services/AgentDeployerService.php              -> No syntax errors detected
+$ php -l tests/Unit/Services/AgentDeployerServiceTest.php   -> No syntax errors detected
+$ php -l app/Services/OnChainOSPaymentService.php           -> No syntax errors detected
+$ php -l app/Services/KiloClawClientService.php             -> No syntax errors detected
+$ php -l app/Services/TelegramBotRegistrarService.php       -> No syntax errors detected
+EXIT=0
+
+Step 7. composer dump-autoload -o
+---------------------------------
+$ composer dump-autoload -o > .agent/tasks/tdd-agent-deployer/artifacts/composer-dump.txt 2>&1
+EXIT=0
+
+Step 8. Final composer test
+---------------------------
+$ composer test > .agent/tasks/tdd-agent-deployer/artifacts/composer-test-final.txt 2>&1
+EXIT=0
+  OK (37 tests, 142 assertions)
+
+Step 9. Regression check: task_loop.py status for 10 prior tasks
+----------------------------------------------------------------
+bootstrap-proof-loop          EXIT=0 verdict_overall_status PASS
+scaffold-service-stubs        EXIT=0 verdict_overall_status PASS
+test-harness                  EXIT=0 verdict_overall_status PASS
+landing-mockup-steve-ive      EXIT=0 verdict_overall_status PASS
+tdd-telegram-validate-token   EXIT=0 verdict_overall_status PASS
+wizard-mockup-steve-ive       EXIT=0 verdict_overall_status PASS
+tdd-onchainos-create-charge   EXIT=0 verdict_overall_status PASS
+agents-list-mockup-steve-ive  EXIT=0 verdict_overall_status PASS
+tdd-kiloclaw-install          EXIT=0 verdict_overall_status PASS
+tdd-telegram-set-webhook      EXIT=0 verdict_overall_status PASS
+
+Step 10. Post-build directory listings
+--------------------------------------
+app/Services/:
+  KiloClaw/ OnChainOS/ Telegram/
+  AgentDeployerService.php
+  KiloClawClientService.php
+  OnChainOSPaymentService.php
+  TelegramBotRegistrarService.php
+
+tests/Unit/Services/:
+  AgentDeployerServiceTest.php
+  KiloClawClientServiceTest.php
+  OnChainOSPaymentServiceTest.php
+  TelegramBotRegistrarServiceTest.php
+
+Files written/modified in this task
+-----------------------------------
+- app/Services/AgentDeployerService.php            (rewritten)
+- tests/Unit/Services/AgentDeployerServiceTest.php (new)
+- .agent/tasks/tdd-agent-deployer/artifacts/*      (evidence artifacts)
+- .agent/tasks/tdd-agent-deployer/raw/*            (this log + test logs)
+- .agent/tasks/tdd-agent-deployer/evidence.md      (rewritten)
+- .agent/tasks/tdd-agent-deployer/evidence.json    (rewritten)

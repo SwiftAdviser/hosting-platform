@@ -1,0 +1,106 @@
+tdd-telegram-validate-token build log
+======================================
+
+Strict TDD red->green->refactor cycle. Tests first, observed phpunit RED, then production code, observed phpunit GREEN.
+
+Pre-build snapshot
+------------------
+Captured: artifacts/pre-build-services.txt
+- app/Services/ contents: AgentDeployerService.php, KiloClawClientService.php, OnChainOSPaymentService.php, TelegramBotRegistrarService.php
+- TelegramBotRegistrarService.php was a 7-line scaffold stub with no methods.
+
+Baseline composer test
+----------------------
+Command: composer test
+Captured: artifacts/baseline-test.txt
+Result: OK (1 test, 1 assertion)
+Exit: 0
+
+RED step (tests first, no production code beyond stub)
+------------------------------------------------------
+Files written in this step:
+  tests/Unit/Services/TelegramBotRegistrarServiceTest.php (NEW)
+    - namespace Tests\Unit\Services
+    - extends PHPUnit\Framework\TestCase
+    - 5 test methods (one per AC1..AC5)
+    - Uses an inline anonymous class implementing App\Services\Telegram\TelegramHttpClient as a fake (no PHPUnit mocks).
+
+Command: composer test
+Captured: artifacts/phpunit-red.txt
+Result: 5 errors. Tests: 6, Assertions: 1, Errors: 5.
+  All 5 telegram tests errored with "Interface App\Services\Telegram\TelegramHttpClient not found" or "Class App\Services\Telegram\TelegramTransportException not found".
+  SmokeTest still passed (1 dot).
+Exit: 2 (nonzero, RED confirmed)
+
+GREEN step (production code lands)
+----------------------------------
+Files written/modified in this step (in order):
+  app/Services/Telegram/TelegramHttpClient.php (NEW): interface with single method getMe(string $token): array
+  app/Services/Telegram/TelegramTransportException.php (NEW): final class extends RuntimeException
+  app/Services/TelegramBotRegistrarService.php (MODIFIED): rewritten as final class with constructor injection of TelegramHttpClient and validateToken(string $token): bool
+
+validateToken behavior:
+  - trim($token) === '' short-circuits, returns false (no client call)
+  - try $this->client->getMe($token); catch TelegramTransportException -> return false
+  - return ($response['ok'] ?? false) === true
+
+Method body audit: greps for "new ", "::", " static " in the file return zero matches.
+
+Command: composer test
+Captured: artifacts/phpunit-green.txt
+Result: OK (6 tests, 12 assertions)
+Exit: 0
+
+Lint
+----
+Command: php -l on each new/modified PHP file
+Captured: artifacts/php-lint.txt
+Result: "No syntax errors detected" for all 4 files.
+
+Autoload probe (AC16)
+---------------------
+Script: artifacts/autoload-check.php (requires vendor/autoload.php, checks 6 classes/interface)
+Captured: artifacts/autoload-check.txt
+Result: ok for all 6 (AgentDeployerService, KiloClawClientService, OnChainOSPaymentService, TelegramBotRegistrarService, Telegram\TelegramHttpClient, Telegram\TelegramTransportException)
+
+Composer dump-autoload optimized
+--------------------------------
+Command: composer dump-autoload -o
+Captured: artifacts/composer-dump.txt
+Result: Generated optimized autoload files containing 1528 classes
+Exit: 0
+
+Final composer test (post optimized autoload)
+---------------------------------------------
+Command: composer test
+Captured: artifacts/composer-test-final.txt
+Result: OK (6 tests, 12 assertions)
+Exit: 0
+
+Regression status of prior tasks (AC20)
+---------------------------------------
+Command: python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id <task>
+Captured: artifacts/status-<task>.txt
+- bootstrap-proof-loop: verdict_overall_status = PASS
+- scaffold-service-stubs: verdict_overall_status = PASS
+- test-harness: verdict_overall_status = PASS
+- landing-mockup-steve-ive: verdict_overall_status = PASS
+
+Post-build ls (AC21)
+--------------------
+Captured: artifacts/post-build-ls.txt
+New paths vs pre-build:
+  app/Services/Telegram/ (new dir)
+  app/Services/Telegram/TelegramHttpClient.php (new)
+  app/Services/Telegram/TelegramTransportException.php (new)
+  tests/Unit/Services/ (new dir)
+  tests/Unit/Services/TelegramBotRegistrarServiceTest.php (new)
+Modified:
+  app/Services/TelegramBotRegistrarService.php (rewritten)
+No top-level changes. No edits to composer.json, phpunit.xml.dist, AGENTS.md, CLAUDE.md, design/, docs/.
+
+Final exit codes
+----------------
+Red phpunit run: exit 2 (nonzero, expected)
+Green phpunit run: exit 0
+Final test count: 6 tests, 12 assertions

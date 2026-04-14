@@ -1,0 +1,30 @@
+<?php
+declare(strict_types=1);
+
+namespace App\Services;
+
+use App\Services\Telegram\TelegramHttpClient;
+use App\Services\Telegram\TelegramTransportException;
+
+final class TelegramBotRegistrarService
+{
+    public function __construct(
+        private readonly TelegramHttpClient $client,
+    ) {
+    }
+
+    public function validateToken(string $token): bool
+    {
+        if (trim($token) === '') {
+            return false;
+        }
+
+        try {
+            $response = $this->client->getMe($token);
+        } catch (TelegramTransportException) {
+            return false;
+        }
+
+        return ($response['ok'] ?? false) === true;
+    }
+}

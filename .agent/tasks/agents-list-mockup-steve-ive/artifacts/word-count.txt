@@ -1,0 +1,2 @@
+VISIBLE WORDS: 18
+WORDS: ['Your', 'agents.', 'Three', 'agents.', 'atlas', 'ready', '@atlasbot', 'Stop', 'nova', 'provisioning', '@novabot', 'Stop', 'sage', 'failed', '@sagebot', 'Stop', 'Post', 'agent']

@@ -1,0 +1,280 @@
+{
+  "task_id": "tdd-onchainos-xlayer-client",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "OnChainOSClient.php byte-identical to pre-task state.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/pre-sha.txt: d4c5d7d9babd848e081aefb005d03c326cf38ab0d8c61f5d72b2876eab3694bc  app/Services/OnChainOS/OnChainOSClient.php",
+        ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/post-sha.txt contains identical line; diff exit 0."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "OnChainOSException.php byte-identical to pre-task state.",
+      "status": "PASS",
+      "proof": [
+        "pre-sha: ee657f8efa7dd11484972ad1ad7da66738025b745db7622856f532d4a6e13012",
+        "diff pre-sha.txt post-sha.txt returned exit 0."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "OnChainOSPaymentService.php byte-identical to pre-task state.",
+      "status": "PASS",
+      "proof": [
+        "pre-sha: 66ab94621d19770f571e344ad75eb67c4ba4527196992552fbabcc133b993acf",
+        "diff exit 0."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "OnChainOSPaymentServiceTest.php byte-identical and 8 tests still green.",
+      "status": "PASS",
+      "proof": [
+        "pre-sha: 0ccace84071c89ab41e599052c905411d196922eadce27bf29dc9b794552d956",
+        ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/phpunit-green.txt: OK (41 tests, 161 assertions) includes prior 8 OnChainOSPaymentServiceTest methods."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "XLayerHttpTransport interface file present with single post() method.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/OnChainOS/XLayer/XLayerHttpTransport.php declares strict types, namespace App\\Services\\OnChainOS\\XLayer, interface XLayerHttpTransport with public function post(string $path, array $body, array $headers): array."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "XLayerHttpException final class extends RuntimeException.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/OnChainOS/XLayer/XLayerHttpException.php: final class XLayerHttpException extends \\RuntimeException with empty body."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "XLayerOnChainOSClient final class implements OnChainOSClient.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/OnChainOS/XLayer/XLayerOnChainOSClient.php: final class XLayerOnChainOSClient implements OnChainOSClient (uses App\\Services\\OnChainOS\\OnChainOSClient)."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Readonly-promoted constructor with transport plus three strings; no facades, env(), or config().",
+      "status": "PASS",
+      "proof": [
+        "Constructor lines 12..17 use private readonly on all four parameters.",
+        "grep for env(|config(|Illuminate returns zero matches in XLayerOnChainOSClient.php."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "createCharge signature matches the interface exactly.",
+      "status": "PASS",
+      "proof": [
+        "public function createCharge(int $amountUsd, string $agentName, string $idempotencyKey): array matches OnChainOSClient::createCharge verbatim."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "Happy path returns {session_id, status, expires_at} only.",
+      "status": "PASS",
+      "proof": [
+        "test_happy_path_returns_canonical_shape uses assertSame with exact 3-key array.",
+        "createCharge return statement builds exactly those three keys."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "Idempotency key passed through to transport untouched.",
+      "status": "PASS",
+      "proof": [
+        "Headers map sets 'Idempotency-Key' => $idempotencyKey with no transformation.",
+        "test_happy_path_returns_canonical_shape asserts $headers['Idempotency-Key'] === 'spawn-abc123'."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "createCharge body contains no `new` except throws and no `::` except built-ins.",
+      "status": "PASS",
+      "proof": [
+        "grep `new ` in XLayerOnChainOSClient.php returns 4 matches, all `throw new OnChainOSException(...)` on lines 39, 41, 45, 50.",
+        "Method body uses only function calls (str_contains, stripos, isset) with no :: tokens.",
+        "Allowed whitelist: throw new OnChainOSException(...) per spec AC12 exception exception."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "XLayerHttpException rethrown as OnChainOSException with previous chained.",
+      "status": "PASS",
+      "proof": [
+        "Catch block throws `new OnChainOSException('...', 0, $e)` passing original as third arg.",
+        "test_transport_exception_translates_to_onchainos_exception asserts $e->getPrevious() === $original."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "Malformed upstream response throws OnChainOSException with 'malformed' substring.",
+      "status": "PASS",
+      "proof": [
+        "createCharge throws OnChainOSException('malformed xlayer response') when session_id or status missing; throws OnChainOSException('malformed xlayer response status') when status outside {pending,failed,completed}.",
+        "test_malformed_upstream_throws_with_malformed_marker uses expectExceptionMessageMatches('/malformed/i')."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "Auth failure throws OnChainOSException with 'auth' substring; no credentials leaked.",
+      "status": "PASS",
+      "proof": [
+        "Catch block detects '401', '403', 'unauthorized', 'forbidden' and throws OnChainOSException('auth failure', 0, $e).",
+        "test_auth_failure_throws_without_leaking_credentials walks getPrevious() chain and asserts none of sk-api-key-REDACTED, sk-secret-key-REDACTED, passphrase-REDACTED appear.",
+        "Client never embeds $apiKey/$secretKey/$passphrase into exception messages."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "New test file with in-file fake implementing XLayerHttpTransport.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOS/XLayerOnChainOSClientTest.php namespace Tests\\Unit\\Services\\OnChainOS, extends PHPUnit\\Framework\\TestCase, defines 4 test methods.",
+        "FakeXLayerHttpTransport is a hand-written class implementing XLayerHttpTransport with $callCount, $lastArgs, $nextResponse, $nextException and post() recording [$path,$body,$headers].",
+        "No createMock/getMockBuilder/MockObject usages."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "Four required test cases present (happy, transport, malformed, auth).",
+      "status": "PASS",
+      "proof": [
+        "test_happy_path_returns_canonical_shape",
+        "test_transport_exception_translates_to_onchainos_exception",
+        "test_malformed_upstream_throws_with_malformed_marker",
+        "test_auth_failure_throws_without_leaking_credentials"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "Header map contains Idempotency-Key verbatim.",
+      "status": "PASS",
+      "proof": [
+        "Happy path test asserts $headers['Idempotency-Key'] === 'spawn-abc123' via assertSame."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "composer test exits 0 with >= 41 tests and no deletions.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/phpunit-green.txt: 'OK (41 tests, 161 assertions)' EXIT=0.",
+        "Baseline 37 from artifacts/baseline-test.txt preserved (41 = 37 + 4)."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "composer.json not modified.",
+      "status": "PASS",
+      "proof": [
+        "pre-sha.txt contains composer.json sha c3edf159cf70ba3cc9f2d931a9be4ac0ca89eba53092d6ca93367fa753354de2.",
+        "post-sha.txt contains identical hash (diff exit 0)."
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "14 prior task verdicts untouched.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/status-bootstrap-proof-loop.txt verdict_overall_status PASS",
+        "artifacts/status-test-harness.txt PASS",
+        "artifacts/status-scaffold-service-stubs.txt PASS",
+        "artifacts/status-land-laravel-framework.txt PASS",
+        "artifacts/status-tdd-agent-deployer.txt PASS",
+        "artifacts/status-tdd-kiloclaw-install.txt PASS",
+        "artifacts/status-tdd-telegram-validate-token.txt PASS",
+        "artifacts/status-tdd-telegram-set-webhook.txt PASS",
+        "artifacts/status-tdd-onchainos-create-charge.txt PASS",
+        "artifacts/status-landing-mockup-steve-ive.txt PASS",
+        "artifacts/status-wizard-mockup-steve-ive.txt PASS",
+        "artifacts/status-running-state-mockup-steve-ive.txt PASS",
+        "artifacts/status-agents-list-mockup-steve-ive.txt PASS",
+        "artifacts/status-agent-wallet-disclosure-mockup-steve-ive.txt PASS"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "No em dash in any file authored or modified by this task.",
+      "status": "PASS",
+      "proof": [
+        "Python scan for U+2014 across the 3 production files and 1 test file returns zero matches."
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "app/Services/OnChainOS/XLayer/XLayerHttpTransport.php",
+    "app/Services/OnChainOS/XLayer/XLayerHttpException.php",
+    "app/Services/OnChainOS/XLayer/XLayerOnChainOSClient.php",
+    "tests/Unit/Services/OnChainOS/XLayerOnChainOSClientTest.php",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/baseline-test.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/pre-sha.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/phpunit-red.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/phpunit-green.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/php-lint.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/autoload-check.php",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/autoload-check.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/post-sha.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-bootstrap-proof-loop.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-test-harness.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-scaffold-service-stubs.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-land-laravel-framework.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-tdd-agent-deployer.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-tdd-kiloclaw-install.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-tdd-telegram-validate-token.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-tdd-telegram-set-webhook.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-tdd-onchainos-create-charge.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-landing-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-wizard-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-running-state-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-agents-list-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/status-agent-wallet-disclosure-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/raw/build.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/raw/test-unit.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/raw/lint.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/evidence.md",
+    ".agent/tasks/tdd-onchainos-xlayer-client/evidence.json"
+  ],
+  "commands_for_fresh_verifier": [
+    "shasum -a 256 app/Services/OnChainOS/OnChainOSClient.php app/Services/OnChainOS/OnChainOSException.php app/Services/OnChainOSPaymentService.php tests/Unit/Services/OnChainOSPaymentServiceTest.php composer.json",
+    "composer test",
+    "php -l app/Services/OnChainOS/XLayer/XLayerHttpTransport.php",
+    "php -l app/Services/OnChainOS/XLayer/XLayerHttpException.php",
+    "php -l app/Services/OnChainOS/XLayer/XLayerOnChainOSClient.php",
+    "php -l tests/Unit/Services/OnChainOS/XLayerOnChainOSClientTest.php",
+    "php .agent/tasks/tdd-onchainos-xlayer-client/artifacts/autoload-check.php"
+  ],
+  "known_gaps": []
+}

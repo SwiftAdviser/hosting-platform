@@ -1,0 +1,7 @@
+<?php
+namespace App\Services;
+
+class KiloClawClientService
+{
+    // Wraps the KiloClaw/OpenClaw host API. See docs/integrations.md §KiloClaw
+}

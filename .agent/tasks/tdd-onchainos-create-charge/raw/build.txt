@@ -1,0 +1,34 @@
+Build log for tdd-onchainos-create-charge (second TDD cycle)
+
+Commands run (in order):
+1. mkdir -p .agent/tasks/tdd-onchainos-create-charge/artifacts .agent/tasks/tdd-onchainos-create-charge/raw -> exit 0
+2. ls app/Services/ > artifacts/pre-build-services.txt -> exit 0
+3. cat app/Services/OnChainOSPaymentService.php > artifacts/pre-build-stub.txt -> exit 0
+4. composer test (baseline) -> exit 0; OK (6 tests, 12 assertions)
+5. Wrote tests/Unit/Services/OnChainOSPaymentServiceTest.php (RED; production code not yet landed)
+6. composer test (RED run) -> exit 255; "Interface App\\Services\\OnChainOS\\OnChainOSClient not found"; captured to artifacts/phpunit-red.txt
+7. mkdir -p app/Services/OnChainOS -> exit 0
+8. Wrote app/Services/OnChainOS/OnChainOSClient.php (interface, single method createCharge)
+9. Wrote app/Services/OnChainOS/OnChainOSException.php (final RuntimeException subclass)
+10. Rewrote app/Services/OnChainOSPaymentService.php (replaced single-line scaffold stub with full implementation)
+11. composer test (GREEN run) -> exit 0; OK (14 tests, 34 assertions); captured to artifacts/phpunit-green.txt
+12. php -l on all four authored files -> all report "No syntax errors detected"; captured to artifacts/php-lint.txt
+13. php artifacts/autoload-check.php -> exit 0; all eight expected symbols resolve; captured to artifacts/autoload-check.txt
+14. composer dump-autoload -o -> exit 0; 1531 classes; captured to artifacts/composer-dump.txt
+15. composer test (final) -> exit 0; OK (14 tests, 34 assertions); captured to artifacts/composer-test-final.txt
+16. python3 task_loop.py status for six prior tasks -> all verdict_overall_status: PASS; captured to artifacts/status-<task>.txt
+17. Post-build ls captured to artifacts/post-build-ls.txt
+
+Files created:
+- tests/Unit/Services/OnChainOSPaymentServiceTest.php (new)
+- app/Services/OnChainOS/OnChainOSClient.php (new)
+- app/Services/OnChainOS/OnChainOSException.php (new)
+
+Files modified:
+- app/Services/OnChainOSPaymentService.php (replaced scaffold stub body with strict-types full implementation)
+
+Directories created:
+- app/Services/OnChainOS/
+
+Final test counts: 14 tests, 34 assertions (1 smoke + 5 telegram + 8 onchainos).
+RED exit code: 255. GREEN exit code: 0.

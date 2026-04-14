@@ -1,0 +1,1 @@
+n/a: hosting-platform is pre-code as of 2026-04-13. No composer.json, package.json, Dockerfile, or Laravel scaffold exists. Bootstrap-proof-loop only installs workflow scaffolding and does not touch a build pipeline.

@@ -1,0 +1,4 @@
+No syntax errors detected in app/Services/OnChainOS/OnChainOSClient.php
+No syntax errors detected in app/Services/OnChainOS/OnChainOSException.php
+No syntax errors detected in app/Services/OnChainOSPaymentService.php
+No syntax errors detected in tests/Unit/Services/OnChainOSPaymentServiceTest.php

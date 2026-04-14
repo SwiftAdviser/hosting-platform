@@ -1,0 +1,274 @@
+{
+  "task_id": "running-state-mockup-steve-ive",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "File exists at design/running.html; design/ dir exists.",
+      "status": "PASS",
+      "proof": [
+        "test -f design/running.html exit 0",
+        "ls design/ returns agents.html landing.html running.html wizard.html"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "Doctype, html lang, charset utf-8, viewport meta.",
+      "status": "PASS",
+      "proof": [
+        "Line 1: <!DOCTYPE html>",
+        "Line 2: <html lang=\"en\">",
+        "Line 4: <meta charset=\"utf-8\">",
+        "Line 5: <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Exactly one <title>, <= 5 words.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<title>' design/running.html = 1",
+        "Title text: 'Spawning' (1 word)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Zero interactive elements.",
+      "status": "PASS",
+      "proof": [
+        "<button, <form, <input, <select, <textarea, <nav, <footer, <a href=, <script each grep count = 0 (see artifacts/grep-forbidden.txt)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "Exactly one <h1>, inner text byte-equals 'Spawning your agent.'",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<h1' design/running.html = 1",
+        "h1 inner text: 'Spawning your agent.' (3 words, trailing period, no ? or !)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Heading mentions agent/spawn/spawning/provisioning.",
+      "status": "PASS",
+      "proof": [
+        "h1 contains 'Spawning' and 'agent'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "Single <p> inner text byte-equals 'This usually takes under sixty seconds.'",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<p' design/running.html = 1",
+        "p inner text: 'This usually takes under sixty seconds.' (6 words, within 6..12 range, no ! ? em-dash en-dash)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Marketing buzzword ban.",
+      "status": "PASS",
+      "proof": [
+        "grep -ci returns 0 for each of: revolutionary, seamless, unleash, harness, empower, best-in-class, world-class, cutting-edge, leverage, synergy, streamline, next-generation, game-changer, transform, we're excited, introducing, unlock"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "Em-dash (U+2014) and en-dash (U+2013) ban.",
+      "status": "PASS",
+      "proof": [
+        "python3 byte scan: chr(0x2014) count 0; chr(0x2013) count 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "No ! in visible body text (<style> and comments stripped).",
+      "status": "PASS",
+      "proof": [
+        "Stripped visible body text contains 0 '!' characters"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "Crypto-hidden ban for 11 terms.",
+      "status": "PASS",
+      "proof": [
+        "grep -ciw returns 0 for each of: X-Layer, EVM, chain, gas, signature, USDC, ETH, blockchain, crypto, 0x, wallet"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "No scripts, external resources, @import, :// outside comments, or CDN hosts.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<script' = 0",
+        "grep -c ' src=' = 0",
+        "grep -c '@import' = 0",
+        "':// count after stripping HTML and CSS comments = 0",
+        "grep -ciE 'fonts.googleapis.com|cdn.|cloudflare.com|jsdelivr.net|unpkg.com' = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "Exactly one <style> block in <head>; zero inline style= attributes.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<style' design/running.html = 1",
+        "grep -c ' style=' design/running.html = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": ":root tokens byte-identical to landing.html; /* theme: dark */ comment precedes.",
+      "status": "PASS",
+      "proof": [
+        "--bg: #0a0a0b",
+        "--fg: #f5f5f4",
+        "--muted: rgba(245, 245, 244, 0.46)",
+        "--rule: rgba(245, 245, 244, 0.08)",
+        "--tint: rgba(245, 245, 244, 0.04)",
+        "--accent: #c6ff3d",
+        "--radius: 2px",
+        "--max: 44rem",
+        "'/* theme: dark */' comment precedes the :root { line in running.html"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "body font-family byte-exact landing stack.",
+      "status": "PASS",
+      "proof": [
+        "body CSS declares font-family: \"JetBrains Mono\", \"IBM Plex Mono\", \"SF Mono\", \"Fira Code\", ui-monospace, monospace",
+        "None of Inter/Roboto/Arial/Helvetica/system-ui/-apple-system appear"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "Option A: zero var(--accent) references; exactly one --accent: declaration.",
+      "status": "PASS",
+      "proof": [
+        "grep -c 'var(--accent)' design/running.html = 0",
+        "grep -c -- '--accent:' design/running.html = 1"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "Responsive via @media (max-width:...) OR fluid units on heading.",
+      "status": "PASS",
+      "proof": [
+        "@media (max-width: 640px) { h1 { ... } } present",
+        "h1 font-size uses clamp(2rem, 6vw, 4.5rem)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "File size strictly less than 10240 bytes.",
+      "status": "PASS",
+      "proof": [
+        "wc -c design/running.html = 1397 bytes (< 10240)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "Visible body word count strictly less than 40.",
+      "status": "PASS",
+      "proof": [
+        "Stripped body text: 'Spawning your agent. This usually takes under sixty seconds.'",
+        "whitespace-split token count = 9 (< 40)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "Exactly one <h1>, zero <h2>..<h6>.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '<h1' = 1",
+        "grep -cE '<h[2-6]' = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "No text-transform: or transform: anywhere.",
+      "status": "PASS",
+      "proof": [
+        "grep -c 'text-transform' = 0",
+        "grep -cE '(^|[^-a-z])transform[[:space:]]*:' = 0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "Collateral check: landing/wizard/agents untouched; ls design/ returns 4 entries.",
+      "status": "PASS",
+      "proof": [
+        "pre-build sha256 captured to artifacts/prior-designs-pre.sha256 BEFORE edits",
+        "post-build sha256 captured to artifacts/prior-designs-post.sha256 AFTER edits",
+        "diff pre post exit 0 (SHA MATCH)",
+        "landing.html sha256 = 87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64 (matches baseline)",
+        "wizard.html sha256 = 8c3dc84dd422ccd9e1e04502205d7992c29e7d6ebd91632e05f6197d3de14f18 (matches baseline)",
+        "agents.html sha256 = 11cc4d2284b60777a01a298082648a9dbda105383dc601b58f6df2e39ec12795 (matches baseline)",
+        "ls design/ | sort returns: agents.html, landing.html, running.html, wizard.html"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "No regressions on 10 prior tasks (excluding tdd-agent-deployer).",
+      "status": "PASS",
+      "proof": [
+        "bootstrap-proof-loop verdict_overall_status PASS",
+        "scaffold-service-stubs verdict_overall_status PASS",
+        "test-harness verdict_overall_status PASS",
+        "landing-mockup-steve-ive verdict_overall_status PASS",
+        "tdd-telegram-validate-token verdict_overall_status PASS",
+        "wizard-mockup-steve-ive verdict_overall_status PASS",
+        "tdd-onchainos-create-charge verdict_overall_status PASS",
+        "agents-list-mockup-steve-ive verdict_overall_status PASS",
+        "tdd-kiloclaw-install verdict_overall_status PASS",
+        "tdd-telegram-set-webhook verdict_overall_status PASS",
+        "Raw output in artifacts/no-regression.txt"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "design/running.html"
+  ],
+  "commands_for_fresh_verifier": [
+    "shasum -a 256 design/landing.html design/wizard.html design/agents.html",
+    "wc -c design/running.html",
+    "grep -c '<h1' design/running.html",
+    "grep -c '<p' design/running.html",
+    "grep -c '<style' design/running.html",
+    "grep -c ' style=' design/running.html",
+    "grep -c 'var(--accent)' design/running.html",
+    "grep -c -- '--accent:' design/running.html",
+    "grep -c 'text-transform' design/running.html",
+    "grep -cE '(^|[^-a-z])transform[[:space:]]*:' design/running.html",
+    "grep -c '@import' design/running.html",
+    "ls design/ | sort",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id running-state-mockup-steve-ive"
+  ],
+  "known_gaps": []
+}

@@ -1,0 +1,12 @@
+=== AgentDeployerService.php ===
+No syntax errors detected in app/Services/AgentDeployerService.php
+exit=0
+=== KiloClawClientService.php ===
+No syntax errors detected in app/Services/KiloClawClientService.php
+exit=0
+=== TelegramBotRegistrarService.php ===
+No syntax errors detected in app/Services/TelegramBotRegistrarService.php
+exit=0
+=== OnChainOSPaymentService.php ===
+No syntax errors detected in app/Services/OnChainOSPaymentService.php
+exit=0

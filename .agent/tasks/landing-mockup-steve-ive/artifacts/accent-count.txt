@@ -1,0 +1,10 @@
+=== CTA text occurrences ===
+1
+
+=== var(--accent) occurrences ===
+2
+
+=== --accent declarations and refs (full lines) ===
+15:  --accent: #c6ff3d;
+71:  background: var(--accent);
+82:  outline: 2px solid var(--accent);

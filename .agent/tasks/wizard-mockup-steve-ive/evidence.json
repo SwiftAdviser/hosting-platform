@@ -1,0 +1,214 @@
+{
+  "task_id": "wizard-mockup-steve-ive",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "File exists at design/wizard.html and parent directory exists.",
+      "status": "PASS",
+      "proof": ["ls design/ -> landing.html, wizard.html", "artifacts/post-build-ls.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "HTML5 doctype, lang attr, charset utf-8, viewport meta.",
+      "status": "PASS",
+      "proof": ["head -1 design/wizard.html -> <!DOCTYPE html>", "<html lang=\"en\">", "<meta charset=\"utf-8\">", "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">"],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Exactly one <title>, <= 5 words.",
+      "status": "PASS",
+      "proof": ["grep -c '<title>' = 1", "title = 'New agent.' (2 words)"],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Exactly one CTA, text 'Post agent', <button type=\"submit\">.",
+      "status": "PASS",
+      "proof": ["<button class=\"cta\" type=\"submit\">Post agent</button> on line 135", "matches verb-phrase allowlist"],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "No secondary CTA, no banned phrases, exactly one <button>.",
+      "status": "PASS",
+      "proof": ["zero matches for Learn more|Read more|See more|Get started|Sign up|Sign in|Log in|More info|Back|Cancel in visible text", "grep -c '<button' = 1", "artifacts/grep-forbidden.txt", "artifacts/element-counts.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Exactly four form fields with required shape.",
+      "status": "PASS",
+      "proof": ["input[type=text][name=name][required]", "textarea[name=personality][required]", "input[type=text][name=bot_token][required]", "input[type=text][name=allowlist] (no required)", "plus one submit button"],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "Every input/textarea has an associated <label for=ID>.",
+      "status": "PASS",
+      "proof": ["<label for=name>", "<label for=personality>", "<label for=bot_token>", "<label for=allowlist>", "ids match input ids"],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Exactly one <form>, method=post, action without ://.",
+      "status": "PASS",
+      "proof": ["grep -c '<form' = 1", "<form method=\"post\" action=\"#post\">", "grep -c '://' = 0"],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "No <script>, src=, <link>, @import, ://, CDN.",
+      "status": "PASS",
+      "proof": ["grep -c '<script'=0", "grep -c 'src='=0", "grep -c '<link'=0", "grep -c '@import'=0", "grep -cE 'https?://'=0", "grep -c '://'=0", "artifacts/element-counts.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "All CSS in one <style>, no inline style=.",
+      "status": "PASS",
+      "proof": ["grep -c '<style' = 1", "grep -c ' style=' = 0"],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "Marketing buzzword ban.",
+      "status": "PASS",
+      "proof": ["zero matches for revolutionary, seamless, unleash, harness, empower, best-in-class, world-class, cutting-edge, leverage, synergy, streamline, next-generation, game-changer, transform, we're excited, introducing, unlock", "artifacts/grep-forbidden.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "No em-dash (U+2014) or en-dash (U+2013).",
+      "status": "PASS",
+      "proof": ["U+2014 count = 0", "U+2013 count = 0"],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "No exclamation marks in visible body text (CSS !important excluded).",
+      "status": "PASS",
+      "proof": ["python3 strip-style-comments-tags then count '!' = 0"],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "Crypto hidden ban.",
+      "status": "PASS",
+      "proof": ["zero matches for X-Layer, EVM, chain, gas, signature, USDC, blockchain, crypto, 0x", "ETH word-boundary count = 0", "wallet count = 0", "artifacts/grep-forbidden.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "Mentions agent at least once.",
+      "status": "PASS",
+      "proof": ["agent count case-insensitive = 3 (title, h1, CTA)"],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": ":root tokens byte-identical to landing.html for --bg, --fg, --accent, --muted, --rule, --tint, --radius, --max.",
+      "status": "PASS",
+      "proof": ["--bg: #0a0a0b;", "--fg: #f5f5f4;", "--muted: rgba(245, 245, 244, 0.46);", "--rule: rgba(245, 245, 244, 0.08);", "--tint: rgba(245, 245, 244, 0.04);", "--accent: #c6ff3d;", "--radius: 2px;", "--max: 44rem;", "artifacts/landing-root.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "Font stack matches landing.html, starts with JetBrains Mono, no banned defaults.",
+      "status": "PASS",
+      "proof": ["body { font-family: \"JetBrains Mono\", \"IBM Plex Mono\", \"SF Mono\", \"Fira Code\", ui-monospace, monospace; }", "no Inter/Roboto/Arial/Helvetica/system-ui/-apple-system"],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "var(--accent) only on CTA selectors.",
+      "status": "PASS",
+      "proof": ["grep -n 'var(--accent)' returns 2 lines", "line 97 inside button.cta { background: var(--accent); }", "line 105 inside button.cta:hover, button.cta:focus, button.cta:focus-visible { outline: 2px solid var(--accent); }", "no input/textarea/label rule references --accent", "artifacts/accent-count.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "Responsive sizing via @media or fluid units.",
+      "status": "PASS",
+      "proof": ["@media (max-width: 640px) present", "clamp(2.25rem, 6vw, 4rem) on h1 font-size", "clamp() on body padding"],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "File size strictly under 14336 bytes.",
+      "status": "PASS",
+      "proof": ["stat -f%z design/wizard.html = 3049", "artifacts/size-check.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "Visible body word count strictly under 80.",
+      "status": "PASS",
+      "proof": ["python3 strip-style-tags-comments then word count = 21", "artifacts/word-count.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "Only design/wizard.html added; landing.html not modified; no other repo changes.",
+      "status": "PASS",
+      "proof": ["pre-build vs post-build ls diff shows only wizard.html added inside design/", "top-level ls unchanged", "artifacts/pre-build-ls.txt", "artifacts/post-build-ls.txt"],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "design/landing.html byte-identical to pre-task state.",
+      "status": "PASS",
+      "proof": ["pre sha256 87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64", "post sha256 matches", "diff between artifacts/landing-pre.sha256 and artifacts/landing-post.sha256 exits 0", ".agent/tasks/wizard-mockup-steve-ive/landing.sha256"],
+      "gaps": []
+    },
+    {
+      "id": "AC24",
+      "text": "Each field has placeholder XOR helper hint, never both.",
+      "status": "PASS",
+      "proof": ["name: placeholder yes, hint no", "personality: placeholder no, .hint paragraph yes", "bot_token: placeholder yes, hint no", "allowlist: placeholder yes, hint no"],
+      "gaps": []
+    },
+    {
+      "id": "AC25",
+      "text": "Submit is the only <button> in the DOM.",
+      "status": "PASS",
+      "proof": ["grep -c '<button' design/wizard.html = 1", "artifacts/element-counts.txt"],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "design/wizard.html"
+  ],
+  "commands_for_fresh_verifier": [
+    "test -f design/wizard.html && test -d design",
+    "head -1 design/wizard.html",
+    "grep -E '<html[^>]+lang=' design/wizard.html",
+    "grep -iE '<meta[^>]+charset=\"?utf-?8' design/wizard.html",
+    "grep -E '<meta[^>]+name=\"viewport\"[^>]+content=\"width=device-width, initial-scale=1' design/wizard.html",
+    "grep -c '<title>' design/wizard.html",
+    "grep -c '<button' design/wizard.html",
+    "grep -c '<form' design/wizard.html",
+    "grep -c '<style' design/wizard.html",
+    "grep -c ' style=' design/wizard.html",
+    "grep -c '<script' design/wizard.html",
+    "grep -c 'src=' design/wizard.html",
+    "grep -c '@import' design/wizard.html",
+    "grep -cE 'https?://' design/wizard.html",
+    "grep -c '<link' design/wizard.html",
+    "grep -c '://' design/wizard.html",
+    "grep -iE 'revolutionary|seamless|unleash|harness|empower|best-in-class|world-class|cutting-edge|leverage|synergy|streamline|next-generation|game-changer|transform|introducing|unlock' design/wizard.html",
+    "grep -iE 'X-Layer|EVM|chain|gas|signature|USDC|\\bETH\\b|blockchain|crypto|0x' design/wizard.html",
+    "grep -ic 'wallet' design/wizard.html",
+    "grep -ic 'agent' design/wizard.html",
+    "grep -nE 'var\\(--accent' design/wizard.html",
+    "grep -nE '@media|clamp\\(' design/wizard.html",
+    "stat -f%z design/wizard.html",
+    "wc -c design/wizard.html",
+    "wc -w design/wizard.html",
+    "shasum -a 256 design/landing.html",
+    "ls design/"
+  ],
+  "known_gaps": []
+}

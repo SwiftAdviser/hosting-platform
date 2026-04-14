@@ -1,0 +1,321 @@
+{
+  "task_id": "tdd-onchainos-create-charge",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "Failing empty-agent-name test written first; red artifact nonzero with scaffold-only production code at red time.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOSPaymentServiceTest.php::test_empty_agent_name_returns_invalid_and_does_not_call_client",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt EXIT=255 (Interface App\\Services\\OnChainOS\\OnChainOSClient not found)",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/pre-build-stub.txt shows scaffold-only stub at red time",
+        ".agent/tasks/tdd-onchainos-create-charge/raw/build.txt records red-before-production ordering"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "Failing whitespace-only agent-name test with callCount assertion included in red run.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOSPaymentServiceTest.php::test_whitespace_only_agent_name_returns_invalid_and_does_not_call_client",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Failing zero-amount test with callCount assertion included in red run.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOSPaymentServiceTest.php::test_zero_amount_returns_invalid_and_does_not_call_client",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Failing negative-amount test with callCount assertion included in red run.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOSPaymentServiceTest.php::test_negative_amount_returns_invalid_and_does_not_call_client",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "Failing happy-path test asserting canonical shape with pinned session_id sess_abc.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOSPaymentServiceTest.php::test_happy_path_returns_canonical_shape",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Failing client-exception test using OnChainOSException without propagation.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOSPaymentServiceTest.php::test_client_exception_returns_failed_without_propagating",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "Failing malformed-response test with no session_id key asserting failed plus error key.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOSPaymentServiceTest.php::test_malformed_response_without_session_id_returns_failed",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Failing idempotency-key stability test across two same-day calls asserting equal keys with spawn- prefix.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOSPaymentServiceTest.php::test_idempotency_key_is_stable_across_two_calls_same_utc_day",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "After production code lands, AC1..AC8 tests turn green.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-green.txt: OK (14 tests, 34 assertions), EXIT=0",
+        "All eight onchainos test methods execute in the 14-test total"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "composer test exits 0 from repo root with Tests: N>=14 and Assertions: M>=14.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/composer-test-final.txt: OK (14 tests, 34 assertions), EXIT=0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "OnChainOSClient.php exists with strict_types, namespace, interface, and single createCharge method; only https:// inside comment.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/OnChainOS/OnChainOSClient.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "OnChainOSException.php exists with strict_types, namespace, and final class extending RuntimeException.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/OnChainOS/OnChainOSException.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "OnChainOSPaymentService.php has strict_types, namespace, final class, readonly client constructor, and createCharge(int,string):array; no other public methods.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/OnChainOSPaymentService.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "createCharge short-circuits on amountUsd<=0 or trim(agentName)===''; returns invalid shape without calling client.",
+      "status": "PASS",
+      "proof": [
+        "Guard branch in app/Services/OnChainOSPaymentService.php",
+        "AC1..AC4 tests assert callCount=0 and pass in phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "createCharge catches OnChainOSException and returns failed shape with error key, no propagation.",
+      "status": "PASS",
+      "proof": [
+        "try/catch in app/Services/OnChainOSPaymentService.php",
+        "AC6 test passes in phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "Missing session_id or status treated as malformed; returns failed with error key; no throw.",
+      "status": "PASS",
+      "proof": [
+        "isset guard in app/Services/OnChainOSPaymentService.php",
+        "AC7 test passes in phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "Idempotency key built as 'spawn-' . sha1($agentName . ':' . $amountUsd . ':' . gmdate('Y-m-d')).",
+      "status": "PASS",
+      "proof": [
+        "Literal expression present in app/Services/OnChainOSPaymentService.php",
+        "AC8 test asserts stability and spawn- prefix and passes in phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "createCharge method body contains no ' new ', '::', or ' static '.",
+      "status": "PASS",
+      "proof": [
+        "awk dump of method body in .agent/tasks/tdd-onchainos-create-charge/raw/build.txt contains no matches for the three tokens"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "Test uses fake, not PHPUnit mock, with callCount, lastArgs, nextResponse, nextException recorders.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/OnChainOSPaymentServiceTest.php defines final class FakeOnChainOSClient implements OnChainOSClient with int $callCount, array $lastArgs, array $nextResponse, ?\\Throwable $nextException",
+        "grep confirms zero createMock / getMockBuilder / MockObject occurrences in the test file"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "php -l exits 0 on every authored PHP file.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/php-lint.txt: 'No syntax errors detected' on all four files"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "Autoload probe resolves all eight expected symbols via class_exists or interface_exists.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/autoload-check.txt: ok printed for all eight symbols, EXIT=0",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/autoload-check.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "No live network call; no banned HTTP primitives; https:// only inside comments.",
+      "status": "PASS",
+      "proof": [
+        "Zero matches for file_get_contents / curl_init / curl_exec / fsockopen / fopen('http in the four authored files",
+        "Only https:// reference is inside the docblock of OnChainOSClient::createCharge (line starts with ' * ')"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "phpunit-red.txt exists, nonzero exit, produced before production code beyond scaffold stub landed.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt: EXIT=255, 'An error occurred inside PHPUnit' and 'Interface App\\Services\\OnChainOS\\OnChainOSClient not found'",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/pre-build-stub.txt captures scaffold stub",
+        ".agent/tasks/tdd-onchainos-create-charge/raw/build.txt records red-before-production ordering"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC24",
+      "text": "phpunit-green.txt exists, exit 0, >=14 tests, >=14 assertions.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-green.txt: OK (14 tests, 34 assertions), EXIT=0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC25",
+      "text": "No regressions; all six prior tasks still report verdict_overall_status PASS.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-bootstrap-proof-loop.txt: PASS",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-scaffold-service-stubs.txt: PASS",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-test-harness.txt: PASS",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-landing-mockup-steve-ive.txt: PASS",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-tdd-telegram-validate-token.txt: PASS",
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-wizard-mockup-steve-ive.txt: PASS"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC26",
+      "text": "No collateral top-level additions outside the scoped files; protected files untouched.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-onchainos-create-charge/artifacts/post-build-ls.txt: only new dir is app/Services/OnChainOS/",
+        "No edits to composer.json, phpunit.xml.dist, .gitignore, tests/Unit/Services/TelegramBotRegistrarServiceTest.php, app/Services/Telegram/*, app/Services/AgentDeployerService.php, or app/Services/KiloClawClientService.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC27",
+      "text": "No em dashes (U+2014) in any authored file or spec.md.",
+      "status": "PASS",
+      "proof": [
+        "Grep for U+2014 in four authored files and spec.md returns zero matches"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "app/Services/OnChainOS/OnChainOSClient.php",
+    "app/Services/OnChainOS/OnChainOSException.php",
+    "app/Services/OnChainOSPaymentService.php",
+    "tests/Unit/Services/OnChainOSPaymentServiceTest.php",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/pre-build-services.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/pre-build-stub.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/baseline-test.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-red.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/phpunit-green.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/php-lint.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/autoload-check.php",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/autoload-check.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/composer-dump.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/composer-test-final.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/post-build-ls.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-bootstrap-proof-loop.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-scaffold-service-stubs.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-test-harness.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-landing-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-tdd-telegram-validate-token.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/artifacts/status-wizard-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/raw/build.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/raw/test-unit.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/raw/test-integration.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/raw/lint.txt",
+    ".agent/tasks/tdd-onchainos-create-charge/evidence.md",
+    ".agent/tasks/tdd-onchainos-create-charge/evidence.json"
+  ],
+  "commands_for_fresh_verifier": [
+    "composer test",
+    "php -l app/Services/OnChainOS/OnChainOSClient.php",
+    "php -l app/Services/OnChainOS/OnChainOSException.php",
+    "php -l app/Services/OnChainOSPaymentService.php",
+    "php -l tests/Unit/Services/OnChainOSPaymentServiceTest.php",
+    "php .agent/tasks/tdd-onchainos-create-charge/artifacts/autoload-check.php",
+    "composer dump-autoload -o",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id bootstrap-proof-loop",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id scaffold-service-stubs",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id test-harness",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id landing-mockup-steve-ive",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id tdd-telegram-validate-token",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id wizard-mockup-steve-ive"
+  ],
+  "known_gaps": []
+}

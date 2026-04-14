@@ -1,0 +1,45 @@
+> vendor/bin/phpunit
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /Users/krutovoy/Projects/hosting-platform/phpunit.xml.dist
+
+EEEEE.                                                              6 / 6 (100%)
+
+Time: 00:00.004, Memory: 8.00 MB
+
+There were 5 errors:
+
+1) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_empty_token_returns_false_without_calling_client
+Error: Interface "App\Services\Telegram\TelegramHttpClient" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:15
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:39
+
+2) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_valid_token_ok_true_returns_true
+Error: Interface "App\Services\Telegram\TelegramHttpClient" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:15
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:50
+
+3) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_invalid_token_ok_false_returns_false
+Error: Interface "App\Services\Telegram\TelegramHttpClient" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:15
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:62
+
+4) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_transport_exception_returns_false
+Error: Class "App\Services\Telegram\TelegramTransportException" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:73
+
+5) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_whitespace_only_token_returns_false_without_calling_client
+Error: Interface "App\Services\Telegram\TelegramHttpClient" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:15
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:84
+
+ERRORS!
+Tests: 6, Assertions: 1, Errors: 5.
+Script vendor/bin/phpunit handling the test event returned with error code 2
+EXIT=2

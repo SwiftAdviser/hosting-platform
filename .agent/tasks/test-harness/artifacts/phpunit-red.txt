@@ -1,0 +1,21 @@
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /Users/krutovoy/Projects/hosting-platform/phpunit.xml.dist
+
+F                                                                   1 / 1 (100%)
+
+Time: 00:00.006, Memory: 8.00 MB
+
+Smoke (Tests\Unit\Smoke)
+ ✘ Smoke assertion is true
+   │
+   │ RED step: this must fail before we flip to true
+   │ Failed asserting that false is true.
+   │
+   │ /Users/krutovoy/Projects/hosting-platform/tests/Unit/SmokeTest.php:10
+   │
+
+FAILURES!
+Tests: 1, Assertions: 1, Failures: 1.
+EXIT=1

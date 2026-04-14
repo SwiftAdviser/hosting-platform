@@ -1,0 +1,142 @@
+{
+  "task_id": "tdd-onchainos-xlayer-client",
+  "overall_verdict": "PASS",
+  "pass": 1,
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "reason": "Live shasum of app/Services/OnChainOS/OnChainOSClient.php equals d4c5d7d9babd848e081aefb005d03c326cf38ab0d8c61f5d72b2876eab3694bc, identical to spec pin."
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "reason": "Live shasum of app/Services/OnChainOS/OnChainOSException.php equals ee657f8efa7dd11484972ad1ad7da66738025b745db7622856f532d4a6e13012."
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "reason": "Live shasum of app/Services/OnChainOSPaymentService.php equals 66ab94621d19770f571e344ad75eb67c4ba4527196992552fbabcc133b993acf."
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "reason": "Live shasum of tests/Unit/Services/OnChainOSPaymentServiceTest.php equals 0ccace84071c89ab41e599052c905411d196922eadce27bf29dc9b794552d956; its 8 methods are included in the live 51/51 green run."
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "reason": "app/Services/OnChainOS/XLayer/XLayerHttpTransport.php has declare(strict_types=1), namespace App\\Services\\OnChainOS\\XLayer, interface XLayerHttpTransport with single method post(string $path, array $body, array $headers): array (line 16)."
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "reason": "app/Services/OnChainOS/XLayer/XLayerHttpException.php: declare(strict_types=1), namespace matches, 'final class XLayerHttpException extends \\RuntimeException' with empty body (lines 1-8)."
+    },
+    {
+      "id": "AC7",
+      "status": "PASS",
+      "reason": "app/Services/OnChainOS/XLayer/XLayerOnChainOSClient.php line 9: 'final class XLayerOnChainOSClient implements OnChainOSClient', strict types and namespace set."
+    },
+    {
+      "id": "AC8",
+      "status": "PASS",
+      "reason": "Constructor lines 11-17 take XLayerHttpTransport $transport plus $apiKey/$secretKey/$passphrase, all private readonly. Grep for env(|config(|Illuminate|Facade returned zero matches in the class."
+    },
+    {
+      "id": "AC9",
+      "status": "PASS",
+      "reason": "Line 19: 'public function createCharge(int $amountUsd, string $agentName, string $idempotencyKey): array' matches OnChainOSClient interface verbatim."
+    },
+    {
+      "id": "AC10",
+      "status": "PASS",
+      "reason": "Test seeds nextResponse with session_id=sess_abc, status=pending, expires_at=2026-04-14T10:00:00Z and assertSame asserts exact 3-key canonical return (test lines 32-45). Return statement lines 53-57 builds only those three keys."
+    },
+    {
+      "id": "AC11",
+      "status": "PASS",
+      "reason": "Line 30 sets headers 'Idempotency-Key' => $idempotencyKey with no transformation. Test line 50: assertSame('spawn-abc123', $fake->lastArgs[2]['Idempotency-Key'])."
+    },
+    {
+      "id": "AC12",
+      "status": "PASS",
+      "reason": "Grep 'new ' in XLayerOnChainOSClient.php shows 4 matches on lines 39, 41, 45, 50, all 'throw new OnChainOSException(...)'. Zero '::' tokens anywhere in the file. No static factory usage on application classes."
+    },
+    {
+      "id": "AC13",
+      "status": "PASS",
+      "reason": "Catch block lines 36-42 rethrows as 'new OnChainOSException(..., 0, $e)' passing original as third arg. Test test_transport_exception_translates_to_onchainos_exception asserts $e->getPrevious() === $original."
+    },
+    {
+      "id": "AC14",
+      "status": "PASS",
+      "reason": "Lines 44-45 throw OnChainOSException('malformed xlayer response') when session_id or status missing; lines 48-50 throw OnChainOSException('malformed xlayer response status') for status outside {pending,failed,completed}. Test uses expectExceptionMessageMatches('/malformed/i')."
+    },
+    {
+      "id": "AC15",
+      "status": "PASS",
+      "reason": "Line 38 detects 401/403/unauthorized/forbidden and line 39 throws OnChainOSException('auth failure', 0, $e). Exception message is a frozen literal — $apiKey/$secretKey/$passphrase never appear in any message or return string. Test walks getPrevious() chain asserting redacted tokens absent."
+    },
+    {
+      "id": "AC16",
+      "status": "PASS",
+      "reason": "tests/Unit/Services/OnChainOS/XLayerOnChainOSClientTest.php namespace Tests\\Unit\\Services\\OnChainOS, extends PHPUnit\\Framework\\TestCase, in-file FakeXLayerHttpTransport lines 109-125 implements XLayerHttpTransport with $callCount, $lastArgs, $nextResponse, $nextException. Zero createMock/getMockBuilder/MockObject occurrences."
+    },
+    {
+      "id": "AC17",
+      "status": "PASS",
+      "reason": "Four test methods present with the exact locked names: test_happy_path_returns_canonical_shape, test_transport_exception_translates_to_onchainos_exception, test_malformed_upstream_throws_with_malformed_marker, test_auth_failure_throws_without_leaking_credentials."
+    },
+    {
+      "id": "AC18",
+      "status": "PASS",
+      "reason": "Test line 49-50: assertArrayHasKey('Idempotency-Key', $headers); assertSame('spawn-abc123', $headers['Idempotency-Key'])."
+    },
+    {
+      "id": "AC19",
+      "status": "PASS",
+      "reason": "Live 'composer test' on current working tree: 'OK (51 tests, 233 assertions)' exit 0. Exceeds the 41-test floor (prior 37 + 4 new), and includes additional tests landed by the parallel google-auth and postgres-migrations verifiers."
+    },
+    {
+      "id": "AC20",
+      "status": "PASS",
+      "reason": "Live shasum of composer.json equals c3edf159cf70ba3cc9f2d931a9be4ac0ca89eba53092d6ca93367fa753354de2, matching the pre-task pin. Grep for okx/onchainos-skills in composer.json absent."
+    },
+    {
+      "id": "AC21",
+      "status": "PASS",
+      "reason": "Prior task verdicts not touched by this task. bootstrap-proof-loop, test-harness, scaffold-service-stubs, tdd-agent-deployer, tdd-kiloclaw-install, tdd-telegram-validate-token, tdd-telegram-set-webhook, tdd-onchainos-create-charge, land-laravel-framework, and all 4 mockup tasks report verdict_overall_status PASS. postgres-migrations, http-routes-controllers, tdd-google-auth-socialite show UNKNOWN placeholders (mtime 23:21, predating this task's spec at 23:33) — owned by parallel verifier/cleanup subagents per orchestrator guidance, not modified by this task."
+    },
+    {
+      "id": "AC22",
+      "status": "PASS",
+      "reason": "Grep for U+2013 and U+2014 across the 3 new production files, the new test file, spec.md, evidence.md, and evidence.json returned zero matches."
+    }
+  ],
+  "commands_run": [
+    "shasum -a 256 app/Services/OnChainOS/OnChainOSClient.php app/Services/OnChainOS/OnChainOSException.php app/Services/OnChainOSPaymentService.php tests/Unit/Services/OnChainOSPaymentServiceTest.php composer.json",
+    "composer test",
+    "grep 'new \\|::' app/Services/OnChainOS/XLayer/XLayerOnChainOSClient.php",
+    "grep 'env(\\|config(\\|Illuminate\\|Facade' app/Services/OnChainOS/XLayer/XLayerOnChainOSClient.php",
+    "grep U+2013/U+2014 across new files and task markdown",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status for 14 prior tasks"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/tdd-onchainos-xlayer-client/spec.md",
+    ".agent/tasks/tdd-onchainos-xlayer-client/evidence.md",
+    ".agent/tasks/tdd-onchainos-xlayer-client/evidence.json",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/phpunit-green.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/pre-sha.txt",
+    ".agent/tasks/tdd-onchainos-xlayer-client/artifacts/post-sha.txt",
+    "app/Services/OnChainOS/OnChainOSClient.php",
+    "app/Services/OnChainOS/OnChainOSException.php",
+    "app/Services/OnChainOSPaymentService.php",
+    "tests/Unit/Services/OnChainOSPaymentServiceTest.php",
+    "app/Services/OnChainOS/XLayer/XLayerHttpTransport.php",
+    "app/Services/OnChainOS/XLayer/XLayerHttpException.php",
+    "app/Services/OnChainOS/XLayer/XLayerOnChainOSClient.php",
+    "tests/Unit/Services/OnChainOS/XLayerOnChainOSClientTest.php",
+    "composer.json"
+  ]
+}

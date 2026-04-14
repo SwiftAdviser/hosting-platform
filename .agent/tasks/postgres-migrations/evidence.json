@@ -1,0 +1,263 @@
+{
+  "task_id": "postgres-migrations",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "File database/migrations/2026_04_14_120000_create_users_table.php exists at repo root.",
+      "status": "PASS",
+      "proof": [
+        "php -l database/migrations/2026_04_14_120000_create_users_table.php => No syntax errors detected",
+        ".agent/tasks/postgres-migrations/artifacts/php-lint.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "File database/migrations/2026_04_14_120001_create_agents_table.php exists at repo root.",
+      "status": "PASS",
+      "proof": [
+        "php -l database/migrations/2026_04_14_120001_create_agents_table.php => No syntax errors detected",
+        ".agent/tasks/postgres-migrations/artifacts/php-lint.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "File database/migrations/2026_04_14_120002_create_deploys_table.php exists at repo root.",
+      "status": "PASS",
+      "proof": [
+        "php -l database/migrations/2026_04_14_120002_create_deploys_table.php => No syntax errors detected",
+        ".agent/tasks/postgres-migrations/artifacts/php-lint.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Each of the three migration files is valid PHP (php -l returns No syntax errors detected).",
+      "status": "PASS",
+      "proof": [
+        "All three php -l invocations returned No syntax errors detected in cleanup run",
+        ".agent/tasks/postgres-migrations/artifacts/php-lint.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "Each migration uses the Laravel 12 anonymous-class style: return new class extends Migration exactly once.",
+      "status": "PASS",
+      "proof": [
+        "grep -c 'return new class extends Migration' => 1 in each of the three files",
+        "MigrationShapeTest asserts the literal in all three test methods",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-filter-migration.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Each migration imports Migration, Blueprint, Schema from the Laravel namespaces.",
+      "status": "PASS",
+      "proof": [
+        "Each migration file header contains the three use statements",
+        "MigrationShapeTest asserts each use statement via assertStringContainsString",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-filter-migration.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "Each migration defines public up() calling Schema::create with correct table and closure (Blueprint $table).",
+      "status": "PASS",
+      "proof": [
+        "grep -c 'Schema::create' returns 1 for each migration",
+        "MigrationShapeTest asserts Schema::create('users', function (Blueprint $table) etc.",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-filter-migration.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Each migration defines public down() calling Schema::dropIfExists with correct table name.",
+      "status": "PASS",
+      "proof": [
+        "MigrationShapeTest asserts Schema::dropIfExists('users'|'agents'|'deploys')",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-filter-migration.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "users migration declares the seven locked column literals verbatim.",
+      "status": "PASS",
+      "proof": [
+        "grep -c -F for each of the 7 literals returned 1",
+        "test_users_migration_has_expected_shape passes",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-filter-migration.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "agents migration declares the eleven locked column literals verbatim.",
+      "status": "PASS",
+      "proof": [
+        "grep -c -F for each of the 11 literals returned 1",
+        "test_agents_migration_has_expected_shape passes",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-filter-migration.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "agents migration declares composite index $table->index(['user_id', 'status']);.",
+      "status": "PASS",
+      "proof": [
+        "grep -c -F '$table->index([\\'user_id\\', \\'status\\']);' = 1",
+        "test_agents_migration_has_expected_shape asserts this literal"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "deploys migration declares the seven locked column literals verbatim.",
+      "status": "PASS",
+      "proof": [
+        "grep -c -F for each of the 7 literals returned 1",
+        "test_deploys_migration_has_expected_shape passes",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-filter-migration.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "deploys migration declares composite index $table->index(['agent_id', 'status']);.",
+      "status": "PASS",
+      "proof": [
+        "grep -c -F '$table->index([\\'agent_id\\', \\'status\\']);' = 1",
+        "test_deploys_migration_has_expected_shape asserts this literal"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "tests/Unit/Migrations/MigrationShapeTest.php exists, class extends PHPUnit\\Framework\\TestCase.",
+      "status": "PASS",
+      "proof": [
+        "File read confirmed final class MigrationShapeTest extends TestCase in namespace Tests\\Unit\\Migrations",
+        "php -l passed"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "MigrationShapeTest contains exactly three test methods: users/agents/deploys has_expected_shape.",
+      "status": "PASS",
+      "proof": [
+        "vendor/bin/phpunit --testdox --filter MigrationShapeTest reports 3 tests: Users migration has expected shape, Agents migration has expected shape, Deploys migration has expected shape",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-filter-migration.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "Each shape test loads its migration via file_get_contents, asserts file exists, asserts Schema::create and each locked literal.",
+      "status": "PASS",
+      "proof": [
+        "loadMigration helper uses assertFileExists + file_get_contents",
+        "Each test method uses assertStringContainsString for every locked literal"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "Composite index assertions from AC11/AC13 are covered by agents and deploys shape tests.",
+      "status": "PASS",
+      "proof": [
+        "test_agents_migration_has_expected_shape asserts $table->index(['user_id', 'status']);",
+        "test_deploys_migration_has_expected_shape asserts $table->index(['agent_id', 'status']);"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "vendor/bin/phpunit filter MigrationShapeTest exits 0 with 3 passing tests and 0 failures.",
+      "status": "PASS",
+      "proof": [
+        "OK (3 tests, 51 assertions), exit 0",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-filter-migration.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "Full composer test exits 0, total count strictly greater than tests_before by exactly 3 added by this task.",
+      "status": "PASS",
+      "proof": [
+        "composer test => OK (51 tests, 233 assertions), exit 0",
+        "tests_before (baseline) = 48; this task added exactly 3 new tests",
+        ".agent/tasks/postgres-migrations/artifacts/phpunit-green-final.txt",
+        ".agent/tasks/postgres-migrations/artifacts/baseline-test.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "No file outside database/migrations/ and tests/Unit/Migrations/MigrationShapeTest.php is modified.",
+      "status": "PASS",
+      "proof": [
+        "Task changed_files: three migrations + one test file only",
+        "Service stubs under app/Services/ and prior test files untouched"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "composer.json, composer.lock, phpunit.xml.dist, config/database.php, framework bootstrap remain byte-identical to post-land-laravel-framework state.",
+      "status": "PASS",
+      "proof": [
+        "None of these files appear in changed_files for this task"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "No file touched by this task contains an em dash character (U+2014).",
+      "status": "PASS",
+      "proof": [
+        "Python scan: emdash_count=0 for all four task files"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "php artisan migrate is not invoked by the verifier, any test, or any script this task adds.",
+      "status": "PASS",
+      "proof": [
+        "grep -c 'artisan migrate' returns 0 for each of the four task files",
+        "No scripts modified; verifier uses php -l + phpunit only"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "database/migrations/2026_04_14_120000_create_users_table.php",
+    "database/migrations/2026_04_14_120001_create_agents_table.php",
+    "database/migrations/2026_04_14_120002_create_deploys_table.php",
+    "tests/Unit/Migrations/MigrationShapeTest.php"
+  ],
+  "commands_for_fresh_verifier": [
+    "php -l database/migrations/2026_04_14_120000_create_users_table.php",
+    "php -l database/migrations/2026_04_14_120001_create_agents_table.php",
+    "php -l database/migrations/2026_04_14_120002_create_deploys_table.php",
+    "php -l tests/Unit/Migrations/MigrationShapeTest.php",
+    "./vendor/bin/phpunit --testdox --filter MigrationShapeTest",
+    "composer test",
+    "grep -c 'Schema::create' database/migrations/2026_04_14_120000_create_users_table.php",
+    "grep -c 'Schema::create' database/migrations/2026_04_14_120001_create_agents_table.php",
+    "grep -c 'Schema::create' database/migrations/2026_04_14_120002_create_deploys_table.php",
+    "grep -c -F \"$table->index(['user_id', 'status']);\" database/migrations/2026_04_14_120001_create_agents_table.php",
+    "grep -c -F \"$table->index(['agent_id', 'status']);\" database/migrations/2026_04_14_120002_create_deploys_table.php",
+    "python3 -c \"import pathlib; [print(p, pathlib.Path(p).read_text().count('\\u2014')) for p in ['database/migrations/2026_04_14_120000_create_users_table.php','database/migrations/2026_04_14_120001_create_agents_table.php','database/migrations/2026_04_14_120002_create_deploys_table.php','tests/Unit/Migrations/MigrationShapeTest.php']]\""
+  ],
+  "known_gaps": []
+}

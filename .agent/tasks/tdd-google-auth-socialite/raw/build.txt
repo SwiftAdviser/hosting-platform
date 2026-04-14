@@ -1,0 +1,41 @@
+Build log for tdd-google-auth-socialite (seventh TDD cycle)
+===========================================================
+
+Baseline snapshot:
+  composer test (baseline): EXIT=0, OK (41 tests, 161 assertions)
+  captured at .agent/tasks/tdd-google-auth-socialite/artifacts/baseline-test.txt
+
+RED ordering:
+  1. Wrote tests/Unit/Services/Auth/GoogleAuthServiceTest.php first.
+     - Imports App\Services\Auth\GoogleAuthException, GoogleAuthService, GoogleIdentityClient.
+     - Defines in-file FakeGoogleIdentityClient implements GoogleIdentityClient (hand-written fake, no PHPUnit mocks).
+     - 7 test methods (empty, whitespace, happy path, client exception, missing email, missing id, missing name).
+  2. Production files app/Services/Auth/GoogleIdentityClient.php, GoogleAuthException.php, GoogleAuthService.php NOT yet present.
+  3. composer test captured at artifacts/phpunit-red.txt:
+       Interface "App\Services\Auth\GoogleIdentityClient" not found
+       Location: tests/Unit/Services/Auth/GoogleAuthServiceTest.php:146
+       EXIT=255
+     Confirms test file exists BEFORE production interface, GoogleAuthException, and GoogleAuthService.
+
+GREEN phase:
+  1. Wrote app/Services/Auth/GoogleIdentityClient.php (interface with fetchProfile docblock).
+  2. Wrote app/Services/Auth/GoogleAuthException.php (final class extends RuntimeException).
+  3. Wrote app/Services/Auth/GoogleAuthService.php (final class, readonly ctor, signIn method).
+  4. composer dump-autoload then composer test:
+       OK (51 tests, 233 assertions), EXIT=0
+     Captured at artifacts/phpunit-green.txt and raw/test-unit.txt.
+     Includes the 7 new GoogleAuthServiceTest methods plus parallel tasks' additions.
+
+Signed-in shape check (from signIn source):
+  authenticated: ['status' => 'authenticated', 'user' => [id, email, name], 'error' => null]
+  invalid_code:  ['status' => 'invalid_code', 'user' => null, 'error' => 'empty authorization code']
+  failed:        ['status' => 'failed', 'user' => null, 'error' => <client message> | 'malformed google profile']
+
+Audit of signIn body (app/Services/Auth/GoogleAuthService.php):
+  - No ' new ' token.
+  - No '::' token.
+  - No ' static ' token.
+  - catch (GoogleAuthException $e) clause is present (allowed per spec).
+
+Regression gate: prior 14 TDD tasks all report PASS via task_loop.py status.
+  See artifacts/prior-status.txt.

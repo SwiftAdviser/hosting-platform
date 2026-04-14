@@ -1,0 +1,262 @@
+{
+  "task_id": "scaffold-service-stubs",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "Directory app/Services/ exists under repo root and is a directory.",
+      "status": "PASS",
+      "proof": [
+        "mkdir -p /Users/krutovoy/Projects/hosting-platform/app/Services",
+        "raw/services-ls.txt shows /bin/ls -la app/Services/ with . and .. entries"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "File app/Services/AgentDeployerService.php exists.",
+      "status": "PASS",
+      "proof": [
+        "raw/services-ls.txt lists AgentDeployerService.php (157 bytes)",
+        "raw/services-cat.txt contains AgentDeployerService.php body"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "File app/Services/KiloClawClientService.php exists.",
+      "status": "PASS",
+      "proof": [
+        "raw/services-ls.txt lists KiloClawClientService.php (144 bytes)",
+        "raw/services-cat.txt contains KiloClawClientService.php body"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "File app/Services/TelegramBotRegistrarService.php exists.",
+      "status": "PASS",
+      "proof": [
+        "raw/services-ls.txt lists TelegramBotRegistrarService.php (156 bytes)",
+        "raw/services-cat.txt contains TelegramBotRegistrarService.php body"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "File app/Services/OnChainOSPaymentService.php exists.",
+      "status": "PASS",
+      "proof": [
+        "raw/services-ls.txt lists OnChainOSPaymentService.php (158 bytes)",
+        "raw/services-cat.txt contains OnChainOSPaymentService.php body"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Every one of the four files starts with the literal line <?php as its first line.",
+      "status": "PASS",
+      "proof": [
+        "head -n 1 returned '<?php' for all four files (builder verification run b11)",
+        "raw/services-cat.txt shows '<?php' as first content line in each block"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "Every one of the four files contains the line 'namespace App\\Services;' (exact text).",
+      "status": "PASS",
+      "proof": [
+        "grep -c '^namespace App\\\\Services;$' returned 1 for all four files (run b11)",
+        "Visible on line 2 of each file in raw/services-cat.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "AgentDeployerService.php declares class AgentDeployerService on its own line.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '^class AgentDeployerService$' app/Services/AgentDeployerService.php returned 1",
+        "Line 4 of AgentDeployerService block in raw/services-cat.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "KiloClawClientService.php declares class KiloClawClientService.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '^class KiloClawClientService$' app/Services/KiloClawClientService.php returned 1",
+        "Line 4 of KiloClawClientService block in raw/services-cat.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "TelegramBotRegistrarService.php declares class TelegramBotRegistrarService.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '^class TelegramBotRegistrarService$' app/Services/TelegramBotRegistrarService.php returned 1",
+        "Line 4 of TelegramBotRegistrarService block in raw/services-cat.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "OnChainOSPaymentService.php declares class OnChainOSPaymentService.",
+      "status": "PASS",
+      "proof": [
+        "grep -c '^class OnChainOSPaymentService$' app/Services/OnChainOSPaymentService.php returned 1",
+        "Line 4 of OnChainOSPaymentService block in raw/services-cat.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "AgentDeployerService.php contains the exact comment line '    // Orchestrates: validate config -> charge wallet -> upload to KiloClaw -> return token ID' inside the class body.",
+      "status": "PASS",
+      "proof": [
+        "Line 6 of AgentDeployerService block in raw/services-cat.txt shows the exact comment with four-space indent",
+        "ASCII only, uses '->' not em dash"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "KiloClawClientService.php contains the exact comment line '    // Wraps the KiloClaw/OpenClaw host API. See docs/integrations.md §KiloClaw' inside the class body.",
+      "status": "PASS",
+      "proof": [
+        "Line 6 of KiloClawClientService block in raw/services-cat.txt shows the exact comment with four-space indent"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "TelegramBotRegistrarService.php contains the exact comment line '    // Validates user-provided bot token, registers webhook, stores chat pairing state' inside the class body.",
+      "status": "PASS",
+      "proof": [
+        "Line 6 of TelegramBotRegistrarService block in raw/services-cat.txt shows the exact comment with four-space indent"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "OnChainOSPaymentService.php contains the exact comment line '    // Charges the connected wallet for the deploy fee. See docs/integrations.md §OnChainOS' inside the class body.",
+      "status": "PASS",
+      "proof": [
+        "Line 6 of OnChainOSPaymentService block in raw/services-cat.txt shows the exact comment with four-space indent"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "php -l app/Services/AgentDeployerService.php exits 0.",
+      "status": "PASS",
+      "proof": [
+        "raw/php-lint.txt block 1: 'No syntax errors detected in app/Services/AgentDeployerService.php' then 'exit=0'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "php -l app/Services/KiloClawClientService.php exits 0.",
+      "status": "PASS",
+      "proof": [
+        "raw/php-lint.txt block 2: 'No syntax errors detected in app/Services/KiloClawClientService.php' then 'exit=0'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "php -l app/Services/TelegramBotRegistrarService.php exits 0.",
+      "status": "PASS",
+      "proof": [
+        "raw/php-lint.txt block 3: 'No syntax errors detected in app/Services/TelegramBotRegistrarService.php' then 'exit=0'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "php -l app/Services/OnChainOSPaymentService.php exits 0.",
+      "status": "PASS",
+      "proof": [
+        "raw/php-lint.txt block 4: 'No syntax errors detected in app/Services/OnChainOSPaymentService.php' then 'exit=0'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "app/Services/ contains exactly these four files and no others.",
+      "status": "PASS",
+      "proof": [
+        "raw/services-ls.txt section '/bin/ls app/Services/ (names only)' shows exactly AgentDeployerService.php, KiloClawClientService.php, OnChainOSPaymentService.php, TelegramBotRegistrarService.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "No files outside app/Services/ and outside .agent/tasks/scaffold-service-stubs/ are created or modified by the build step.",
+      "status": "PASS",
+      "proof": [
+        "diff raw/pre-build-ls.txt raw/post-build-ls.txt outputs only '8a9\\n> drwxr-xr-x@   3 krutovoy  staff    96 Apr 14 16:20 app'",
+        "The only repo-root difference is the newly added app/ directory; all other entries unchanged"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "Each file follows the exact 7-line template (<?php, namespace, blank, class, {, indented comment, }).",
+      "status": "PASS",
+      "proof": [
+        "raw/services-ls.txt 'wc -l' section shows 7 lines for each of the four files",
+        "raw/services-cat.txt shows byte-exact template match per file with <Name> matching filename stem and <comment> matching AC12..AC15"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "app/Services/AgentDeployerService.php",
+    "app/Services/KiloClawClientService.php",
+    "app/Services/TelegramBotRegistrarService.php",
+    "app/Services/OnChainOSPaymentService.php",
+    ".agent/tasks/scaffold-service-stubs/raw/pre-build-ls.txt",
+    ".agent/tasks/scaffold-service-stubs/raw/post-build-ls.txt",
+    ".agent/tasks/scaffold-service-stubs/raw/php-lint.txt",
+    ".agent/tasks/scaffold-service-stubs/raw/services-ls.txt",
+    ".agent/tasks/scaffold-service-stubs/raw/services-cat.txt",
+    ".agent/tasks/scaffold-service-stubs/raw/build.txt",
+    ".agent/tasks/scaffold-service-stubs/evidence.md",
+    ".agent/tasks/scaffold-service-stubs/evidence.json"
+  ],
+  "commands_for_fresh_verifier": [
+    "test -d app/Services",
+    "test -f app/Services/AgentDeployerService.php",
+    "test -f app/Services/KiloClawClientService.php",
+    "test -f app/Services/TelegramBotRegistrarService.php",
+    "test -f app/Services/OnChainOSPaymentService.php",
+    "head -n 1 app/Services/AgentDeployerService.php",
+    "head -n 1 app/Services/KiloClawClientService.php",
+    "head -n 1 app/Services/TelegramBotRegistrarService.php",
+    "head -n 1 app/Services/OnChainOSPaymentService.php",
+    "grep -c '^namespace App\\\\Services;$' app/Services/AgentDeployerService.php",
+    "grep -c '^namespace App\\\\Services;$' app/Services/KiloClawClientService.php",
+    "grep -c '^namespace App\\\\Services;$' app/Services/TelegramBotRegistrarService.php",
+    "grep -c '^namespace App\\\\Services;$' app/Services/OnChainOSPaymentService.php",
+    "grep -c '^class AgentDeployerService$' app/Services/AgentDeployerService.php",
+    "grep -c '^class KiloClawClientService$' app/Services/KiloClawClientService.php",
+    "grep -c '^class TelegramBotRegistrarService$' app/Services/TelegramBotRegistrarService.php",
+    "grep -c '^class OnChainOSPaymentService$' app/Services/OnChainOSPaymentService.php",
+    "grep -F '    // Orchestrates: validate config -> charge wallet -> upload to KiloClaw -> return token ID' app/Services/AgentDeployerService.php",
+    "grep -F '    // Wraps the KiloClaw/OpenClaw host API. See docs/integrations.md §KiloClaw' app/Services/KiloClawClientService.php",
+    "grep -F '    // Validates user-provided bot token, registers webhook, stores chat pairing state' app/Services/TelegramBotRegistrarService.php",
+    "grep -F '    // Charges the connected wallet for the deploy fee. See docs/integrations.md §OnChainOS' app/Services/OnChainOSPaymentService.php",
+    "php -l app/Services/AgentDeployerService.php",
+    "php -l app/Services/KiloClawClientService.php",
+    "php -l app/Services/TelegramBotRegistrarService.php",
+    "php -l app/Services/OnChainOSPaymentService.php",
+    "/bin/ls app/Services/",
+    "wc -l app/Services/*.php"
+  ],
+  "known_gaps": []
+}

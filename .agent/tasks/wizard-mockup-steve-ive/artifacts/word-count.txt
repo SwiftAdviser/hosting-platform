@@ -1,0 +1,2 @@
+word_count=21
+words=['New', 'agent.', 'New', 'agent.', 'Name', 'Personality', 'Two', 'or', 'three', 'sentences.', 'How', 'it', 'talks.', 'How', 'it', 'decides.', 'Telegram', 'token', 'Allowlist', 'Post', 'agent']

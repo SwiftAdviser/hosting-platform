@@ -1,0 +1,1 @@
+No integration tests in scope for this task. The existing Unit suite (37 tests, 142 assertions) covers AgentDeployerService, OnChainOSPaymentService, KiloClawClientService, TelegramBotRegistrarService, and the SmokeTest. This task does not add or remove tests.

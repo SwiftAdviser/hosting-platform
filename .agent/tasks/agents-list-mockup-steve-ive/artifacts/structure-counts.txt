@@ -1,0 +1,20 @@
+=== button count ===
+4
+=== stop/ghost class count ===
+3
+=== row count ===
+3
+=== h1 count ===
+1
+=== title count ===
+1
+=== cta class count ===
+1
+=== ready/provisioning/failed counts (visible) ===
+1
+1
+1
+=== file-wide case-insensitive counts ===
+1
+1
+1

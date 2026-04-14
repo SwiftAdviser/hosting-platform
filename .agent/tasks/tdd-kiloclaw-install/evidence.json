@@ -1,0 +1,372 @@
+{
+  "task_id": "tdd-kiloclaw-install",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "Failing test_manifest_missing_id_returns_invalid_and_does_not_call_client written first; red artifact nonzero with scaffold-only production code at red time.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_manifest_missing_id_returns_invalid_and_does_not_call_client",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt EXIT=255 (Interface App\\Services\\KiloClaw\\KiloClawHttpClient not found)",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/pre-build-stub.txt shows scaffold-only stub at red time",
+        ".agent/tasks/tdd-kiloclaw-install/raw/build.txt records red-before-production ordering"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "Failing test_manifest_missing_name_returns_invalid_and_does_not_call_client with callCount=0 assertion in red run.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_manifest_missing_name_returns_invalid_and_does_not_call_client",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "Failing test_manifest_missing_version_returns_invalid_and_does_not_call_client with callCount=0 assertion in red run.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_manifest_missing_version_returns_invalid_and_does_not_call_client",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Failing test_manifest_missing_skills_returns_invalid_and_does_not_call_client with callCount=0 assertion in red run.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_manifest_missing_skills_returns_invalid_and_does_not_call_client",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "Failing test_happy_path_ready_returns_canonical_shape asserting full canonical return for kc_abc/ready.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_happy_path_ready_returns_canonical_shape",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Failing test_happy_path_booting_returns_canonical_shape asserting full canonical return for kc_def/booting.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_happy_path_booting_returns_canonical_shape",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "Failing test_client_exception_returns_failed_without_propagating using KiloClawException, no propagation.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_client_exception_returns_failed_without_propagating",
+        "try/catch wrapping with this->fail('exception leaked: ...') in the test body",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "Failing test_malformed_response_missing_kiloclaw_id_returns_failed with malformed error message.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_malformed_response_missing_kiloclaw_id_returns_failed",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "Failing test_malformed_response_invalid_status_returns_failed with malformed error message.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_malformed_response_invalid_status_returns_failed",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "Failing test_idempotency_key_is_stable_across_two_calls_same_manifest asserting identical idempotency keys with kiloclaw- prefix.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php::test_idempotency_key_is_stable_across_two_calls_same_manifest",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "After production code lands, AC1..AC10 tests turn green.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-green.txt: OK (24 tests, 64 assertions), EXIT=0",
+        "All ten kiloclaw test methods execute within the 24-test total; 14 baseline + 10 new"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "composer test exits 0 with Tests >=24 and Assertions >=24.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-green.txt: OK (24 tests, 64 assertions), EXIT=0",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/composer-test-final.txt: OK (30 tests, 87 assertions), EXIT=0 (parallel task tdd-telegram-set-webhook added 6 more)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "app/Services/KiloClaw/KiloClawHttpClient.php exists with strict_types, namespace, interface, single install(array,string):array method; only https:// inside docblock.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/KiloClaw/KiloClawHttpClient.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "app/Services/KiloClaw/KiloClawException.php exists with strict_types, namespace, final class extending RuntimeException.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/KiloClaw/KiloClawException.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "app/Services/KiloClawClientService.php rewritten with strict_types, final class, readonly KiloClawHttpClient client constructor, public install(array):array; no other public methods.",
+      "status": "PASS",
+      "proof": [
+        "app/Services/KiloClawClientService.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "tests/Unit/Services/KiloClawClientServiceTest.php exists with strict_types, namespace, final test class, in-file FakeKiloClawHttpClient with int callCount, array lastArgs, array nextResponse, ?Throwable nextException.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "install validates id/name/version/skills; on missing/invalid returns invalid shape without calling client; AC1..AC4 assert callCount=0.",
+      "status": "PASS",
+      "proof": [
+        "Validation loop in app/Services/KiloClawClientService.php",
+        "AC1..AC4 tests pass in phpunit-green.txt with callCount=0 assertions"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "install builds idempotency key with exact expression 'kiloclaw-' . sha1($manifest['id'] . ':' . $manifest['version']).",
+      "status": "PASS",
+      "proof": [
+        "Literal expression present in app/Services/KiloClawClientService.php at the idempotencyKey assignment"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "install wraps client call in try/catch on KiloClawException and returns failed shape; exception does not propagate.",
+      "status": "PASS",
+      "proof": [
+        "try/catch in app/Services/KiloClawClientService.php",
+        "AC7 test asserts no propagation and passes in phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "Missing or non-string kiloclaw_id, missing status, or status outside ready|booting|failed treated as malformed with 'malformed kiloclaw response'.",
+      "status": "PASS",
+      "proof": [
+        "isset and in_array guard in app/Services/KiloClawClientService.php",
+        "AC8 and AC9 tests pass in phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "On valid response, install returns canonical shape with mapped status, kiloclaw_id, manifest_id, error=null. Fixture plugin.atlas/kc_abc.",
+      "status": "PASS",
+      "proof": [
+        "Happy-path return block in app/Services/KiloClawClientService.php",
+        "AC5 and AC6 tests assertSame the full canonical array and pass in phpunit-green.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "install method body contains no ' new ', '::', or ' static '.",
+      "status": "PASS",
+      "proof": [
+        "Method body audited before save: catch (KiloClawException $e) has no '::'; no 'new ' construct inside body; no ' static '",
+        "in_array is a function call, not a static method call"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "Test uses fake not mock; zero createMock/getMockBuilder/MockObject occurrences. FakeKiloClawHttpClient implements the interface with the four recorder fields.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/Services/KiloClawClientServiceTest.php defines final class FakeKiloClawHttpClient implements KiloClawHttpClient",
+        "Zero occurrences of createMock, getMockBuilder, MockObject in the test file"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC24",
+      "text": "php -l exits 0 on every authored PHP file.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/php-lint.txt: 'No syntax errors detected' on all four files"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC25",
+      "text": "Autoload probe resolves all ten expected symbols via class_exists or interface_exists.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/autoload-check.txt: 'ok' printed for all ten symbols, EXIT=0",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/autoload-check.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC26",
+      "text": "No live network call; no banned HTTP primitives; only https:// inside comment in KiloClawHttpClient docblock.",
+      "status": "PASS",
+      "proof": [
+        "Zero matches for file_get_contents / curl_init / curl_exec / fsockopen / fopen('http in the four authored files",
+        "Only https:// reference is a docblock line ' * Reference: https://kiloclaw.example/api/install ...' in app/Services/KiloClaw/KiloClawHttpClient.php"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC27",
+      "text": "phpunit-red.txt exists, nonzero exit, produced before production code beyond scaffold stub landed.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt: EXIT=255, 'Interface App\\Services\\KiloClaw\\KiloClawHttpClient not found'",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/pre-build-stub.txt captures scaffold stub",
+        ".agent/tasks/tdd-kiloclaw-install/raw/build.txt records the red-before-production ordering"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC28",
+      "text": "phpunit-green.txt exists, exit 0, >=24 tests, >=24 assertions.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-green.txt: OK (24 tests, 64 assertions), EXIT=0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC29",
+      "text": "No regressions; all eight prior tasks still report verdict_overall_status PASS.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/status-bootstrap-proof-loop.txt: PASS",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/status-scaffold-service-stubs.txt: PASS",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/status-test-harness.txt: PASS",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/status-landing-mockup-steve-ive.txt: PASS",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/status-tdd-telegram-validate-token.txt: PASS",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/status-wizard-mockup-steve-ive.txt: PASS",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/status-tdd-onchainos-create-charge.txt: PASS",
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/status-agents-list-mockup-steve-ive.txt: PASS"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC30",
+      "text": "No collateral file changes; only the scoped KiloClaw files touched; protected files not edited by this task.",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/tdd-kiloclaw-install/artifacts/post-build-ls.txt: only new subdir under app/Services/ is KiloClaw/",
+        "This task authored: app/Services/KiloClaw/KiloClawHttpClient.php (new), app/Services/KiloClaw/KiloClawException.php (new), app/Services/KiloClawClientService.php (rewritten), tests/Unit/Services/KiloClawClientServiceTest.php (new)",
+        "Parallel task tdd-telegram-set-webhook owns changes to app/Services/Telegram/TelegramHttpClient.php, app/Services/TelegramBotRegistrarService.php, tests/Unit/Services/TelegramBotRegistrarServiceTest.php; this task did not touch them",
+        "composer.json, phpunit.xml.dist, .gitignore untouched"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC31",
+      "text": "No em dashes (U+2014) in any authored file or spec.md.",
+      "status": "PASS",
+      "proof": [
+        "Author audit: no em dash characters typed in authored files",
+        "Grep for U+2014 in four authored files and spec.md returns zero matches"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "app/Services/KiloClaw/KiloClawHttpClient.php",
+    "app/Services/KiloClaw/KiloClawException.php",
+    "app/Services/KiloClawClientService.php",
+    "tests/Unit/Services/KiloClawClientServiceTest.php",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/baseline-test.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/pre-build-stub.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/pre-build-services.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-red.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/phpunit-green.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/php-lint.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/autoload-check.php",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/autoload-check.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/composer-dump.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/composer-test-final.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/post-build-ls.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/status-bootstrap-proof-loop.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/status-scaffold-service-stubs.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/status-test-harness.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/status-landing-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/status-tdd-telegram-validate-token.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/status-wizard-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/status-tdd-onchainos-create-charge.txt",
+    ".agent/tasks/tdd-kiloclaw-install/artifacts/status-agents-list-mockup-steve-ive.txt",
+    ".agent/tasks/tdd-kiloclaw-install/raw/build.txt",
+    ".agent/tasks/tdd-kiloclaw-install/raw/test-unit.txt",
+    ".agent/tasks/tdd-kiloclaw-install/raw/test-integration.txt",
+    ".agent/tasks/tdd-kiloclaw-install/raw/lint.txt",
+    ".agent/tasks/tdd-kiloclaw-install/evidence.md",
+    ".agent/tasks/tdd-kiloclaw-install/evidence.json"
+  ],
+  "commands_for_fresh_verifier": [
+    "composer test",
+    "php -l app/Services/KiloClaw/KiloClawHttpClient.php",
+    "php -l app/Services/KiloClaw/KiloClawException.php",
+    "php -l app/Services/KiloClawClientService.php",
+    "php -l tests/Unit/Services/KiloClawClientServiceTest.php",
+    "php .agent/tasks/tdd-kiloclaw-install/artifacts/autoload-check.php",
+    "composer dump-autoload -o",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id bootstrap-proof-loop",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id scaffold-service-stubs",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id test-harness",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id landing-mockup-steve-ive",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id tdd-telegram-validate-token",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id wizard-mockup-steve-ive",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id tdd-onchainos-create-charge",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id agents-list-mockup-steve-ive"
+  ],
+  "known_gaps": []
+}

@@ -1,0 +1,46 @@
+=== buzzwords ===
+revolutionary: 0
+seamless: 0
+unleash: 0
+harness: 0
+empower: 0
+best-in-class: 0
+world-class: 0
+cutting-edge: 0
+leverage: 0
+synergy: 0
+streamline: 0
+next-generation: 0
+game-changer: 0
+transform: 0
+we're excited: 0
+introducing: 0
+unlock: 0
+=== crypto ===
+X-Layer: 0
+EVM: 0
+chain: 0
+gas: 0
+signature: 0
+USDC: 0
+ETH: 0
+blockchain: 0
+crypto: 0
+0x: 0
+wallet: 0
+=== em/en dash ===
+0
+0
+=== transform property ===
+0
+0
+=== misc bans ===
+0
+0
+0
+0
+0
+0
+0
+=== style block count ===
+1

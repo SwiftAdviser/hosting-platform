@@ -1,0 +1,10 @@
+total 32
+drwxr-xr-x@  10 krutovoy  staff   320 Apr 14 16:20 .
+drwxr-xr-x  119 krutovoy  staff  3808 Apr 13 22:21 ..
+drwxr-xr-x@   3 krutovoy  staff    96 Apr 13 23:19 .agent
+drwxr-xr-x@   5 krutovoy  staff   160 Apr 13 23:19 .claude
+drwxr-xr-x@   3 krutovoy  staff    96 Apr 13 23:19 .codex
+-rw-r--r--@   1 krutovoy  staff  6148 Apr 13 23:16 .DS_Store
+-rw-r--r--@   1 krutovoy  staff  1080 Apr 14 16:04 AGENTS.md
+-rw-r--r--@   1 krutovoy  staff  3474 Apr 14 16:04 CLAUDE.md
+drwxr-xr-x@   7 krutovoy  staff   224 Apr 13 23:18 docs

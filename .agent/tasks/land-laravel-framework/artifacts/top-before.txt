@@ -1,0 +1,15 @@
+.agent
+.claude
+.codex
+.DS_Store
+.phpunit.result.cache
+AGENTS.md
+app
+CLAUDE.md
+composer.json
+composer.lock
+design
+docs
+phpunit.xml.dist
+tests
+vendor

@@ -1,0 +1,4 @@
+No syntax errors detected in app/Services/Telegram/TelegramHttpClient.php
+No syntax errors detected in app/Services/Telegram/TelegramTransportException.php
+No syntax errors detected in app/Services/TelegramBotRegistrarService.php
+No syntax errors detected in tests/Unit/Services/TelegramBotRegistrarServiceTest.php

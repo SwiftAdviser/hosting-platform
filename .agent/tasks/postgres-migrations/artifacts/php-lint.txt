@@ -1,0 +1,5 @@
+No syntax errors detected in database/migrations/2026_04_14_120000_create_users_table.php
+No syntax errors detected in database/migrations/2026_04_14_120001_create_agents_table.php
+No syntax errors detected in database/migrations/2026_04_14_120002_create_deploys_table.php
+No syntax errors detected in tests/Unit/Migrations/MigrationShapeTest.php
+EXIT=0

@@ -1,0 +1,3 @@
+No lint tool is configured in composer.json at this point (Pint will be wired by a later DX task). Lint proxy: PHPUnit boot compiles all autoloaded PHP files; a syntax error in app/ or tests/ would break composer test. post-install composer test is green => no syntax errors in authored or rsynced PHP.
+
+artisan list also executes a full Laravel boot which parses every registered config, provider, route, and middleware. artisan list exit 0 => no fatal parse or class-not-found errors in bootstrap/app.php, bootstrap/providers.php, routes/*.php, config/*.php, app/Providers/AppServiceProvider.php, app/Models/User.php, or app/Http/Controllers/Controller.php.

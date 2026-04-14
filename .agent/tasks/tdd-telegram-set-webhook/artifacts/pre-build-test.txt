@@ -1,0 +1,92 @@
+<?php
+declare(strict_types=1);
+
+namespace Tests\Unit\Services;
+
+use App\Services\Telegram\TelegramHttpClient;
+use App\Services\Telegram\TelegramTransportException;
+use App\Services\TelegramBotRegistrarService;
+use PHPUnit\Framework\TestCase;
+
+final class TelegramBotRegistrarServiceTest extends TestCase
+{
+    private function makeFake(?array $response = null, ?\Throwable $throw = null): TelegramHttpClient
+    {
+        return new class($response, $throw) implements TelegramHttpClient {
+            public int $callCount = 0;
+            public array $tokensSeen = [];
+
+            public function __construct(
+                private readonly ?array $response,
+                private readonly ?\Throwable $throw,
+            ) {
+            }
+
+            public function getMe(string $token): array
+            {
+                $this->callCount++;
+                $this->tokensSeen[] = $token;
+                if ($this->throw !== null) {
+                    throw $this->throw;
+                }
+                return $this->response ?? [];
+            }
+        };
+    }
+
+    public function test_empty_token_returns_false_without_calling_client(): void
+    {
+        $fake = $this->makeFake(['ok' => true]);
+        $service = new TelegramBotRegistrarService($fake);
+
+        $result = $service->validateToken('');
+
+        $this->assertFalse($result);
+        $this->assertSame(0, $fake->callCount);
+    }
+
+    public function test_valid_token_ok_true_returns_true(): void
+    {
+        $fake = $this->makeFake(['ok' => true, 'result' => ['id' => 1]]);
+        $service = new TelegramBotRegistrarService($fake);
+
+        $result = $service->validateToken('123:abc');
+
+        $this->assertTrue($result);
+        $this->assertSame(1, $fake->callCount);
+        $this->assertSame(['123:abc'], $fake->tokensSeen);
+    }
+
+    public function test_invalid_token_ok_false_returns_false(): void
+    {
+        $fake = $this->makeFake(['ok' => false, 'error_code' => 401, 'description' => 'Unauthorized']);
+        $service = new TelegramBotRegistrarService($fake);
+
+        $result = $service->validateToken('bad:token');
+
+        $this->assertFalse($result);
+        $this->assertSame(1, $fake->callCount);
+    }
+
+    public function test_transport_exception_returns_false(): void
+    {
+        $fake = $this->makeFake(null, new TelegramTransportException('boom'));
+        $service = new TelegramBotRegistrarService($fake);
+
+        $result = $service->validateToken('123:abc');
+
+        $this->assertFalse($result);
+        $this->assertSame(1, $fake->callCount);
+    }
+
+    public function test_whitespace_only_token_returns_false_without_calling_client(): void
+    {
+        $fake = $this->makeFake(['ok' => true]);
+        $service = new TelegramBotRegistrarService($fake);
+
+        $result = $service->validateToken('   ');
+
+        $this->assertFalse($result);
+        $this->assertSame(0, $fake->callCount);
+    }
+}

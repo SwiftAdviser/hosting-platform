@@ -1,0 +1,5 @@
+--- accent lines ---
+97:  background: var(--accent);
+105:  outline: 2px solid var(--accent);
+--- count ---
+2

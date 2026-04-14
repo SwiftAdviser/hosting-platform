@@ -1,0 +1,271 @@
+{
+  "task_id": "test-harness",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "composer.json exists at repo root and is valid JSON.",
+      "status": "PASS",
+      "proof": [
+        "/Users/krutovoy/Projects/hosting-platform/composer.json present",
+        "python3 json.load succeeds"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "composer.json declares type=project and name in vendor/package form.",
+      "status": "PASS",
+      "proof": [
+        "type=project, name=swiftadviser/hosting-platform"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "require.php is exactly ^8.2.",
+      "status": "PASS",
+      "proof": [
+        "composer.json require.php = ^8.2"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "require-dev contains exactly phpunit/phpunit ^11.0; no Laravel/Pest/Mockery/Faker.",
+      "status": "PASS",
+      "proof": [
+        "composer.json require-dev keys = ['phpunit/phpunit'] with value ^11.0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "PSR-4 autoload App\\\\ -> app/.",
+      "status": "PASS",
+      "proof": [
+        "composer.json autoload.psr-4['App\\\\'] = 'app/'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "PSR-4 autoload-dev Tests\\\\ -> tests/.",
+      "status": "PASS",
+      "proof": [
+        "composer.json autoload-dev.psr-4['Tests\\\\'] = 'tests/'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC7",
+      "text": "scripts.test equals 'vendor/bin/phpunit'.",
+      "status": "PASS",
+      "proof": [
+        "composer.json scripts.test = vendor/bin/phpunit"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC8",
+      "text": "phpunit.xml.dist exists; phpunit.xml does NOT.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/post-build-ls.txt shows phpunit.xml.dist; no phpunit.xml"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC9",
+      "text": "phpunit.xml.dist references PHPUnit 11 schema, bootstrap=vendor/autoload.php, colors=true.",
+      "status": "PASS",
+      "proof": [
+        "phpunit.xml.dist contains xsi:noNamespaceSchemaLocation https://schema.phpunit.de/11.0/phpunit.xsd",
+        "bootstrap=\"vendor/autoload.php\"",
+        "colors=\"true\""
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC10",
+      "text": "Exactly one testsuite named Unit pointing at ./tests/Unit.",
+      "status": "PASS",
+      "proof": [
+        "phpunit.xml.dist contains a single <testsuite name=\"Unit\"><directory>./tests/Unit</directory></testsuite>"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC11",
+      "text": "tests/ directory exists.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/post-build-ls.txt shows tests/"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC12",
+      "text": "tests/Unit/ directory exists.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/SmokeTest.php exists"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC13",
+      "text": "SmokeTest.php declares namespace Tests\\Unit, extends TestCase, has test_smoke_assertion_is_true asserting true.",
+      "status": "PASS",
+      "proof": [
+        "tests/Unit/SmokeTest.php contains namespace Tests\\Unit;, extends TestCase, function test_smoke_assertion_is_true(): void { $this->assertTrue(true); }"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC14",
+      "text": "composer install ran successfully; vendor/ exists.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/composer-install.txt EXIT=0",
+        "artifacts/post-build-ls.txt shows vendor/"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC15",
+      "text": "composer.lock exists.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/post-build-ls.txt shows composer.lock"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC16",
+      "text": "vendor/bin/phpunit exists and is executable.",
+      "status": "PASS",
+      "proof": [
+        "vendor/bin/phpunit was invoked in phpunit-red.txt and phpunit-green.txt and produced output"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC17",
+      "text": "composer test exits 0.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/composer-test.txt EXIT=0, OK (1 test, 1 assertion)"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC18",
+      "text": "vendor/bin/phpunit --testdox exits 0 and reports OK (1 test, 1 assertion).",
+      "status": "PASS",
+      "proof": [
+        "artifacts/phpunit-green.txt EXIT=0, contains 'OK (1 test, 1 assertion)'"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC19",
+      "text": "TDD red-then-green captured as raw artifacts.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/phpunit-red.txt contains 'FAILURES!' and EXIT=1",
+        "artifacts/phpunit-green.txt contains 'OK (1 test, 1 assertion)' and EXIT=0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC20",
+      "text": "All four service stubs autoload via PSR-4 after composer dump-autoload.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/composer-dump.txt EXIT=0, 1525 classes",
+        "artifacts/autoload-check.txt: all four classes report ok; EXIT=0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC21",
+      "text": "php -l reports no syntax errors on SmokeTest.php and the four services.",
+      "status": "PASS",
+      "proof": [
+        "artifacts/php-lint.txt: 'No syntax errors detected' x5; EXIT=0"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC22",
+      "text": "No collateral scaffolding; only allowed top-level additions.",
+      "status": "PASS",
+      "proof": [
+        "Diff pre/post shows additions: tests/, vendor/, composer.json, composer.lock, phpunit.xml.dist, .phpunit.result.cache",
+        "None of the forbidden entries (.git, node_modules, public, bootstrap, config, resources, routes, database, storage, .env, .env.example, package.json) are present",
+        ".phpunit.result.cache is a PHPUnit 11 default and is NOT on the AC22 forbidden list, so verifier `test ! -e ...` checks pass"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC23",
+      "text": "No em dash in composer.json, phpunit.xml.dist, tests/Unit/SmokeTest.php, spec.md.",
+      "status": "PASS",
+      "proof": [
+        "Authored files contain no U+2014 character"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "composer.json",
+    "composer.lock",
+    "phpunit.xml.dist",
+    "tests/Unit/SmokeTest.php",
+    "vendor/",
+    ".phpunit.result.cache",
+    ".agent/tasks/test-harness/artifacts/pre-build-ls.txt",
+    ".agent/tasks/test-harness/artifacts/post-build-ls.txt",
+    ".agent/tasks/test-harness/artifacts/composer-install.txt",
+    ".agent/tasks/test-harness/artifacts/phpunit-red.txt",
+    ".agent/tasks/test-harness/artifacts/phpunit-green.txt",
+    ".agent/tasks/test-harness/artifacts/composer-test.txt",
+    ".agent/tasks/test-harness/artifacts/composer-dump.txt",
+    ".agent/tasks/test-harness/artifacts/autoload-check.php",
+    ".agent/tasks/test-harness/artifacts/autoload-check.txt",
+    ".agent/tasks/test-harness/artifacts/php-lint.txt",
+    ".agent/tasks/test-harness/raw/build.txt",
+    ".agent/tasks/test-harness/raw/test-unit.txt",
+    ".agent/tasks/test-harness/raw/test-integration.txt",
+    ".agent/tasks/test-harness/raw/lint.txt",
+    ".agent/tasks/test-harness/evidence.md",
+    ".agent/tasks/test-harness/evidence.json"
+  ],
+  "commands_for_fresh_verifier": [
+    "test -f composer.json && python3 -c \"import json; json.load(open('composer.json'))\"",
+    "python3 -c \"import json; d=json.load(open('composer.json')); assert d['type']=='project'; assert 'name' in d and '/' in d['name']\"",
+    "python3 -c \"import json; d=json.load(open('composer.json')); assert d['require']['php']=='^8.2'\"",
+    "python3 -c \"import json; d=json.load(open('composer.json')); rd=d['require-dev']; assert list(rd.keys())==['phpunit/phpunit']; assert rd['phpunit/phpunit']=='^11.0'\"",
+    "python3 -c \"import json; d=json.load(open('composer.json')); assert d['autoload']['psr-4']['App\\\\\\\\']=='app/'\"",
+    "python3 -c \"import json; d=json.load(open('composer.json')); assert d['autoload-dev']['psr-4']['Tests\\\\\\\\']=='tests/'\"",
+    "python3 -c \"import json; d=json.load(open('composer.json')); assert d['scripts']['test']=='vendor/bin/phpunit'\"",
+    "test -f phpunit.xml.dist && test ! -f phpunit.xml",
+    "grep -q 'https://schema.phpunit.de/11.0/phpunit.xsd' phpunit.xml.dist && grep -q 'bootstrap=\"vendor/autoload.php\"' phpunit.xml.dist && grep -q 'colors=\"true\"' phpunit.xml.dist",
+    "python3 -c \"import xml.etree.ElementTree as ET; r=ET.parse('phpunit.xml.dist').getroot(); ts=r.findall('testsuites/testsuite'); assert len(ts)==1; assert ts[0].get('name')=='Unit'; assert ts[0].find('directory').text=='./tests/Unit'\"",
+    "test -d tests",
+    "test -d tests/Unit",
+    "grep -q 'namespace Tests\\\\\\\\Unit;' tests/Unit/SmokeTest.php && grep -q 'extends TestCase' tests/Unit/SmokeTest.php && grep -q 'function test_smoke_assertion_is_true' tests/Unit/SmokeTest.php && grep -q 'assertTrue(true)' tests/Unit/SmokeTest.php",
+    "test -d vendor",
+    "test -f composer.lock",
+    "test -x vendor/bin/phpunit",
+    "composer test",
+    "vendor/bin/phpunit --testdox",
+    "test -f .agent/tasks/test-harness/artifacts/phpunit-red.txt && test -f .agent/tasks/test-harness/artifacts/phpunit-green.txt && grep -q 'FAILURES' .agent/tasks/test-harness/artifacts/phpunit-red.txt && grep -q 'OK (1 test, 1 assertion)' .agent/tasks/test-harness/artifacts/phpunit-green.txt",
+    "composer dump-autoload -q && php -r 'require \"vendor/autoload.php\"; foreach([\"App\\\\\\\\Services\\\\\\\\AgentDeployerService\",\"App\\\\\\\\Services\\\\\\\\KiloClawClientService\",\"App\\\\\\\\Services\\\\\\\\TelegramBotRegistrarService\",\"App\\\\\\\\Services\\\\\\\\OnChainOSPaymentService\"] as $c){ if(!class_exists($c)){ fwrite(STDERR,\"missing $c\\n\"); exit(1);} } echo \"ok\\n\";'",
+    "php -l tests/Unit/SmokeTest.php && php -l app/Services/AgentDeployerService.php && php -l app/Services/KiloClawClientService.php && php -l app/Services/TelegramBotRegistrarService.php && php -l app/Services/OnChainOSPaymentService.php",
+    "test ! -e .git && test ! -e node_modules && test ! -e public && test ! -e bootstrap && test ! -e config && test ! -e resources && test ! -e routes && test ! -e database && test ! -e storage && test ! -e .env && test ! -e .env.example && test ! -e package.json",
+    "python3 -c \"import sys; [sys.exit(1) for p in ['composer.json','phpunit.xml.dist','tests/Unit/SmokeTest.php','.agent/tasks/test-harness/spec.md'] if '\\u2014' in open(p, encoding='utf-8').read()]\""
+  ],
+  "known_gaps": []
+}

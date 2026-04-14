@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent address</title>
+<style>
+/* theme: dark */
+:root {
+  --bg: #0a0a0b;
+  --fg: #f5f5f4;
+  --muted: rgba(245, 245, 244, 0.46);
+  --rule: rgba(245, 245, 244, 0.08);
+  --tint: rgba(245, 245, 244, 0.04);
+  --accent: #c6ff3d;
+  --radius: 2px;
+  --max: 44rem;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+body {
+  font-family: "JetBrains Mono", "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(900px 520px at 50% -8%, var(--tint), transparent 60%),
+    var(--bg);
+  padding: clamp(1.25rem, 4vw, 3rem);
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  width: 100%;
+  max-width: var(--max);
+  text-align: left;
+}
+h1 {
+  font-size: clamp(2rem, 5.5vw, 3.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  margin: 0 0 2rem;
+  font-weight: 800;
+}
+.label {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+details {
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--tint);
+  padding: 1.1rem 1.35rem;
+  margin: 0 0 2.5rem;
+  max-width: 32rem;
+}
+summary {
+  cursor: pointer;
+  color: var(--fg);
+  font-weight: 700;
+  list-style: none;
+  font-size: 0.95rem;
+}
+summary::-webkit-details-marker { display: none; }
+details[open] summary { margin-bottom: 0.9rem; color: var(--muted); font-weight: 500; }
+code {
+  display: block;
+  font: inherit;
+  color: var(--fg);
+  background: transparent;
+  word-break: break-all;
+  padding: 0.25rem 0;
+  font-size: 0.95rem;
+}
+.hint {
+  margin: 0.85rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 28rem;
+}
+a.cta {
+  display: inline-block;
+  padding: 1.05rem 1.6rem;
+  background: var(--accent);
+  color: var(--bg);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  font-size: 1rem;
+  border-radius: var(--radius);
+}
+a.cta:hover,
+a.cta:focus,
+a.cta:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  h1 { letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+  details { padding: 1rem 1.15rem; margin-bottom: 2rem; }
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Your agent's address.</h1>
+<p class="label">atlas</p>
+<details>
+<summary>Show address</summary>
+<code>0x1234abcd5678ef901234abcd5678ef9012345678</code>
+<p class="hint">Your agent uses this wallet to hold balances. Copy it from the bot message.</p>
+</details>
+<a class="cta" href="agents.html">Done</a>
+</main>
+</body>
+</html>

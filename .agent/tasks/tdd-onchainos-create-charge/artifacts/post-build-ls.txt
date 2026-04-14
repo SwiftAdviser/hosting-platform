@@ -1,0 +1,23 @@
+=== app/Services/ ===
+OnChainOS
+Telegram
+AgentDeployerService.php
+KiloClawClientService.php
+OnChainOSPaymentService.php
+TelegramBotRegistrarService.php
+
+=== app/Services/OnChainOS/ ===
+OnChainOSClient.php
+OnChainOSException.php
+
+=== repo root ===
+app
+design
+docs
+tests
+vendor
+AGENTS.md
+CLAUDE.md
+composer.json
+composer.lock
+phpunit.xml.dist

@@ -1,0 +1,1 @@
+n/a: no linter configured (pint, eslint, prettier) since there is no source yet. Bootstrap-proof-loop does not add one.

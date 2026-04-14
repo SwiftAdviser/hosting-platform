@@ -1,0 +1,69 @@
+=== tag counts (expect 0 except where noted) ===
+<button: 0
+<form: 0
+<input: 0
+<select: 0
+<textarea: 0
+<nav: 0
+<footer: 0
+<a href=: 0
+<script: 0
+<h2: 0
+<h3: 0
+<h4: 0
+<h5: 0
+<h6: 0
+--- h1 count (expect 1) ---
+1
+--- <p count (expect 1) ---
+1
+--- <style count (expect 1) ---
+1
+--- style= attr (expect 0) ---
+0
+=== buzzwords (expect 0 each) ===
+revolutionary: 0
+seamless: 0
+unleash: 0
+harness: 0
+empower: 0
+best-in-class: 0
+world-class: 0
+cutting-edge: 0
+leverage: 0
+synergy: 0
+streamline: 0
+next-generation: 0
+game-changer: 0
+transform: 0
+we're excited: 0
+introducing: 0
+unlock: 0
+=== crypto terms (expect 0) ===
+X-Layer: 0
+EVM: 0
+chain: 0
+gas: 0
+signature: 0
+USDC: 0
+ETH: 0
+blockchain: 0
+crypto: 0
+0x: 0
+wallet: 0
+=== dashes (expect 0) ===
+em-dash U+2014: 0
+en-dash U+2013: 0
+=== transform bans (expect 0) ===
+0
+0
+=== :// outside comments (expect 0 after strip) ===
+:// 0
+=== CDN hosts (expect 0) ===
+0
+=== @import (expect 0) ===
+0
+=== var(--accent) outside declaration (expect 0) ===
+0
+=== --accent: declaration (expect 1) ===
+1

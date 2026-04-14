@@ -1,0 +1,7 @@
+<?php
+namespace App\Services;
+
+class OnChainOSPaymentService
+{
+    // Charges the connected wallet for the deploy fee. See docs/integrations.md §OnChainOS
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spawning</title>
+<style>
+/* theme: dark */
+:root {
+  --bg: #0a0a0b;
+  --fg: #f5f5f4;
+  --muted: rgba(245, 245, 244, 0.46);
+  --rule: rgba(245, 245, 244, 0.08);
+  --tint: rgba(245, 245, 244, 0.04);
+  --accent: #c6ff3d;
+  --radius: 2px;
+  --max: 44rem;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+}
+body {
+  font-family: "JetBrains Mono", "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(900px 520px at 50% -8%, var(--tint), transparent 60%),
+    var(--bg);
+  padding: clamp(1.25rem, 4vw, 3rem);
+  -webkit-font-smoothing: antialiased;
+}
+main {
+  width: 100%;
+  max-width: var(--max);
+  text-align: left;
+}
+h1 {
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.25rem;
+  font-weight: 800;
+}
+p {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  line-height: 1.55;
+  color: var(--muted);
+  margin: 0;
+  max-width: 28rem;
+  font-weight: 400;
+}
+@media (max-width: 640px) {
+  h1 { letter-spacing: -0.02em; margin-bottom: 1rem; }
+}
+</style>
+</head>
+<body>
+<main>
+<h1>Spawning your agent.</h1>
+<p>This usually takes under sixty seconds.</p>
+</main>
+</body>
+</html>

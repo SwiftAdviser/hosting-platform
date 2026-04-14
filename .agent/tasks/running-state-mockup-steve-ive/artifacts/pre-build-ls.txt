@@ -1,0 +1,15 @@
+=== design/ ===
+agents.html
+landing.html
+wizard.html
+=== repo root ===
+app
+design
+docs
+tests
+vendor
+AGENTS.md
+CLAUDE.md
+composer.json
+composer.lock
+phpunit.xml.dist

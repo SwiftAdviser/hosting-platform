@@ -1,0 +1,13 @@
+No syntax errors detected in app/Http/Controllers/Api/DeployController.php
+No syntax errors detected in app/Http/Controllers/Api/OnChainOSWebhookController.php
+No syntax errors detected in app/Http/Controllers/Api/TelegramWebhookController.php
+No syntax errors detected in app/Services/OnChainOS/WebhookSignatureVerifier.php
+No syntax errors detected in app/Providers/AppServiceProvider.php
+No syntax errors detected in config/services.php
+No syntax errors detected in routes/api.php
+No syntax errors detected in tests/TestCase.php
+No syntax errors detected in tests/CreatesApplication.php
+No syntax errors detected in tests/Feature/Http/DeployControllerTest.php
+No syntax errors detected in tests/Feature/Http/OnChainOSWebhookControllerTest.php
+No syntax errors detected in tests/Feature/Http/TelegramWebhookControllerTest.php
+OVERALL_EXIT=0

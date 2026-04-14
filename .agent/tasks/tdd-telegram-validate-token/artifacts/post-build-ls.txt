@@ -1,0 +1,29 @@
+=== ls /Users/krutovoy/Projects/hosting-platform/app/Services/ ===
+AgentDeployerService.php
+KiloClawClientService.php
+OnChainOSPaymentService.php
+Telegram
+TelegramBotRegistrarService.php
+
+=== ls /Users/krutovoy/Projects/hosting-platform/app/Services/Telegram/ ===
+TelegramHttpClient.php
+TelegramTransportException.php
+
+=== ls /Users/krutovoy/Projects/hosting-platform (top level) ===
+AGENTS.md
+app
+CLAUDE.md
+composer.json
+composer.lock
+design
+docs
+phpunit.xml.dist
+tests
+vendor
+
+=== ls /Users/krutovoy/Projects/hosting-platform/tests/Unit/ ===
+Services
+SmokeTest.php
+
+=== ls /Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/ ===
+TelegramBotRegistrarServiceTest.php

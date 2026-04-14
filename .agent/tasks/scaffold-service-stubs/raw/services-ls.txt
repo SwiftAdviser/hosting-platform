@@ -1,0 +1,21 @@
+=== /bin/ls -la app/Services/ ===
+total 32
+drwxr-xr-x@ 6 krutovoy  staff  192 Apr 14 16:21 .
+drwxr-xr-x@ 3 krutovoy  staff   96 Apr 14 16:20 ..
+-rw-r--r--@ 1 krutovoy  staff  157 Apr 14 16:21 AgentDeployerService.php
+-rw-r--r--@ 1 krutovoy  staff  144 Apr 14 16:21 KiloClawClientService.php
+-rw-r--r--@ 1 krutovoy  staff  158 Apr 14 16:21 OnChainOSPaymentService.php
+-rw-r--r--@ 1 krutovoy  staff  156 Apr 14 16:21 TelegramBotRegistrarService.php
+
+=== wc -l app/Services/*.php ===
+       7 /Users/krutovoy/Projects/hosting-platform/app/Services/AgentDeployerService.php
+       7 /Users/krutovoy/Projects/hosting-platform/app/Services/KiloClawClientService.php
+       7 /Users/krutovoy/Projects/hosting-platform/app/Services/OnChainOSPaymentService.php
+       7 /Users/krutovoy/Projects/hosting-platform/app/Services/TelegramBotRegistrarService.php
+      28 total
+
+=== /bin/ls app/Services/ (names only) ===
+AgentDeployerService.php
+KiloClawClientService.php
+OnChainOSPaymentService.php
+TelegramBotRegistrarService.php

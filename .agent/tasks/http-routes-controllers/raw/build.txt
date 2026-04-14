@@ -1,0 +1,2 @@
+Composer test green: 60 tests 250 assertions OK
+php -l all files: OVERALL_EXIT=0

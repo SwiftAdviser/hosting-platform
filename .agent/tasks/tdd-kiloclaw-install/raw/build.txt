@@ -1,0 +1,80 @@
+Build log for tdd-kiloclaw-install (third TDD cycle)
+====================================================
+
+Baseline snapshot:
+  composer test (baseline): EXIT=0, OK (14 tests, 34 assertions)
+  pre-build stub captured to artifacts/pre-build-stub.txt (single-line scaffold class)
+  pre-build services captured to artifacts/pre-build-services.txt
+
+RED step (tests first, no production code beyond the single-line scaffold stub):
+  Wrote tests/Unit/Services/KiloClawClientServiceTest.php with 10 test methods
+  and an in-file FakeKiloClawHttpClient helper class. No touch to app/Services/.
+  Ran: composer test
+  EXIT=255 (nonzero)
+  Failure reason: Interface "App\Services\KiloClaw\KiloClawHttpClient" not found
+  Captured: artifacts/phpunit-red.txt
+
+GREEN step (production code lands in this order):
+  1. Wrote app/Services/KiloClaw/KiloClawHttpClient.php (interface, single method install)
+  2. Wrote app/Services/KiloClaw/KiloClawException.php (final class extends RuntimeException)
+  3. Rewrote app/Services/KiloClawClientService.php (final class with install method)
+  Ran: composer test
+  EXIT=0
+  Result: OK (24 tests, 64 assertions)
+  Captured: artifacts/phpunit-green.txt
+  Delta: +10 tests (14 baseline + 10 new kiloclaw), +30 assertions.
+
+Lint:
+  php -l on 4 authored files: all pass, EXIT=0 each.
+  Captured: artifacts/php-lint.txt
+
+Autoload probe:
+  Extended probe covers ten symbols (Agent/KiloClaw/OnChainOS/Telegram services
+  plus sub-package interfaces/exceptions).
+  php .agent/tasks/tdd-kiloclaw-install/artifacts/autoload-check.php
+  EXIT=0, all ten report "ok".
+  Captured: artifacts/autoload-check.txt
+
+Composer dump:
+  composer dump-autoload -o: EXIT=0
+  Captured: artifacts/composer-dump.txt
+
+Final composer test (after parallel task tdd-telegram-set-webhook landed):
+  composer test
+  First attempt: the parallel task had added setWebhook to
+  app/Services/Telegram/TelegramHttpClient.php and updated its own test file
+  BEFORE landing its production class change, so composer test briefly
+  reported errors in TelegramBotRegistrarServiceTest. This was parallel-task
+  in-flight state, not this task's collateral.
+  After parallel task completed its production-class rewrite, re-ran:
+  composer test
+  EXIT=0, OK (30 tests, 87 assertions)
+  Captured: artifacts/composer-test-final.txt
+
+No-regression check (8 prior tasks):
+  python3 task_loop.py status --task-id <id> for each of:
+    bootstrap-proof-loop, scaffold-service-stubs, test-harness,
+    landing-mockup-steve-ive, tdd-telegram-validate-token,
+    wizard-mockup-steve-ive, tdd-onchainos-create-charge,
+    agents-list-mockup-steve-ive
+  All 8 report verdict_overall_status: PASS, exit 0.
+  Captured: artifacts/status-<id>.txt per task.
+
+Files written or modified by this task:
+  NEW: app/Services/KiloClaw/KiloClawHttpClient.php
+  NEW: app/Services/KiloClaw/KiloClawException.php
+  REWRITTEN: app/Services/KiloClawClientService.php
+  NEW: tests/Unit/Services/KiloClawClientServiceTest.php
+  NEW: .agent/tasks/tdd-kiloclaw-install/artifacts/* (all artifacts)
+  NEW: .agent/tasks/tdd-kiloclaw-install/raw/* (build log)
+  UPDATED: .phpunit.result.cache (tolerated by scope rules)
+
+NOT touched by this task (parallel task tdd-telegram-set-webhook owns these):
+  app/Services/Telegram/TelegramHttpClient.php (parallel added setWebhook)
+  app/Services/TelegramBotRegistrarService.php (parallel rewrote)
+  tests/Unit/Services/TelegramBotRegistrarServiceTest.php (parallel updated)
+
+Red/green test counts:
+  RED: 0 tests ran (bootstrap failure, interface missing)
+  GREEN (this task's scope): OK (24 tests, 64 assertions)
+  GREEN (final, includes parallel task's tests): OK (30 tests, 87 assertions)

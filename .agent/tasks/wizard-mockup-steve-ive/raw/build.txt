@@ -1,0 +1,53 @@
+wizard-mockup-steve-ive build log
+=================================
+
+Result summary
+- File: design/wizard.html
+- Bytes: 3049 (limit < 14336)
+- Visible body words: 21 (limit < 80)
+- CTA text: Post agent
+- CTA element: <button class="cta" type="submit">Post agent</button>
+- Theme: /* theme: dark */ (matches landing.html)
+- Font primary: "JetBrains Mono"
+- Full font stack: "JetBrains Mono", "IBM Plex Mono", "SF Mono", "Fira Code", ui-monospace, monospace
+- Accent color: #c6ff3d (var(--accent), used only on button.cta and button.cta:hover/:focus/:focus-visible)
+- :root tokens copied byte-identical from design/landing.html lines 9-18
+- Background: radial-gradient(900px 520px at 50% -8%, var(--tint), transparent 60%), var(--bg)
+- Form: one <form method="post" action="#post"> with four labeled fields plus one submit button
+- Fields:
+  1. <input type="text" name="name" required>           label NAME            placeholder "atlas",         no hint
+  2. <textarea name="personality" required>             label PERSONALITY     no placeholder,              hint "Two or three sentences. How it talks. How it decides."
+  3. <input type="text" name="bot_token" required>      label TELEGRAM TOKEN  placeholder "123456:abcdef", no hint
+  4. <input type="text" name="allowlist">               label ALLOWLIST       placeholder "42, 7, 1024",   no hint
+- landing.html sha256 BEFORE: 87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64
+- landing.html sha256 AFTER:  87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64
+- landing.html unchanged: yes
+
+Commands run (representative; each exited 0 unless noted)
+- shasum -a 256 design/landing.html                                                       exit 0
+- mkdir -p .agent/tasks/wizard-mockup-steve-ive/artifacts                                 exit 0
+- ls /Users/krutovoy/Projects/hosting-platform/                                           exit 0
+- ls /Users/krutovoy/Projects/hosting-platform/design/                                    exit 0
+- write design/wizard.html                                                                 exit 0
+- wc -c design/wizard.html                                                                 exit 0
+- wc -w design/wizard.html                                                                 exit 0
+- stat -f%z design/wizard.html                                                             exit 0
+- python3 visible-word-count strip                                                         exit 0  -> 21
+- python3 forbidden-term scan (buzzwords, crypto, dashes, transform, !)                    exit 0  -> all 0 except agent=3
+- grep -n 'var(--accent)' design/wizard.html                                               exit 0  -> 2 lines, both inside button.cta rules
+- grep -c '<button' design/wizard.html                                                     exit 0  -> 1
+- grep -c '<form' design/wizard.html                                                       exit 0  -> 1
+- grep -c '<style' design/wizard.html                                                      exit 0  -> 1
+- grep -c ' style=' design/wizard.html                                                     exit 0  -> 0
+- grep -c '<title>' design/wizard.html                                                     exit 0  -> 1
+- grep -c '<script' design/wizard.html                                                     exit 0  -> 0
+- grep -c 'src=' design/wizard.html                                                        exit 0  -> 0
+- grep -c '@import' design/wizard.html                                                     exit 0  -> 0
+- grep -cE 'https?://' design/wizard.html                                                  exit 0  -> 0
+- grep -c '<link' design/wizard.html                                                       exit 0  -> 0
+- grep -c '://' design/wizard.html                                                         exit 0  -> 0
+- shasum -a 256 design/landing.html                                                       exit 0  -> matches pre snapshot
+- python3 task_loop.py status --task-id bootstrap-proof-loop                              exit 0  -> verdict_overall_status PASS
+- python3 task_loop.py status --task-id scaffold-service-stubs                            exit 0  -> verdict_overall_status PASS
+- python3 task_loop.py status --task-id test-harness                                      exit 0  -> verdict_overall_status PASS
+- python3 task_loop.py status --task-id landing-mockup-steve-ive                          exit 0  -> verdict_overall_status PASS

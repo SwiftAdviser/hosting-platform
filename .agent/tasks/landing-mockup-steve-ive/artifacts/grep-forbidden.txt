@@ -1,0 +1,39 @@
+=== AC9 buzzwords ===
+revolutionary: 0
+seamless: 0
+unleash: 0
+harness: 0
+empower: 0
+best-in-class: 0
+world-class: 0
+cutting-edge: 0
+leverage: 0
+synergy: 0
+streamline: 0
+next-generation: 0
+game-changer: 0
+transform: 0
+we're excited: 0
+introducing: 0
+unlock: 0
+
+=== AC12 crypto terms ===
+X-Layer: 0
+EVM: 0
+chain: 0
+gas: 0
+signature: 0
+USDC: 0
+ETH: 0
+0x: 0
+blockchain: 0
+crypto: 0
+wallet: 0
+
+=== AC10 dashes ===
+em-dash U+2014: 0
+en-dash U+2013: 0
+
+=== AC11 exclamation (raw count incl DOCTYPE) ===
+raw bang count: 1
+post-strip bang count: 0

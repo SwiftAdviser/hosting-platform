@@ -1,0 +1,9 @@
+ok: App\Services\AgentDeployerService
+ok: App\Services\KiloClawClientService
+ok: App\Services\OnChainOSPaymentService
+ok: App\Services\TelegramBotRegistrarService
+ok: App\Services\Telegram\TelegramHttpClient
+ok: App\Services\Telegram\TelegramTransportException
+ok: App\Services\OnChainOS\OnChainOSClient
+ok: App\Services\OnChainOS\OnChainOSException
+EXIT=0

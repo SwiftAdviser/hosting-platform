@@ -1,0 +1,38 @@
+tdd-telegram-set-webhook build log
+
+Commands run:
+1. composer test (baseline) -> EXIT=0, 24 tests, 64 assertions
+2. cp snapshots to artifacts/pre-build-* -> EXIT=0
+3. awk extract validateToken body -> saved to pre-build-validate-token-body.txt
+4. Edit app/Services/Telegram/TelegramHttpClient.php (add setWebhook method)
+5. Write tests/Unit/Services/TelegramBotRegistrarServiceTest.php (promote fake to named class, add 6 new tests)
+6. composer test (RED) -> EXIT=2, 30 tests, 65 assertions, 5 errors, 1 failure
+   - 6 new webhook tests failed (undefined method registerWebhook; client-exception test fails via try/catch fail pattern)
+   - 24 existing tests (5 validateToken + 8 onchainos + others + 1 smoke) still green
+7. Edit app/Services/TelegramBotRegistrarService.php (add registerWebhook method after validateToken)
+8. composer test (GREEN) -> EXIT=0, 30 tests, 87 assertions
+9. php -l on all 3 modified files -> EXIT=0 each
+10. Diff validateToken pre vs post -> empty (byte-identical)
+11. composer dump-autoload -o -> EXIT=0, 1534 classes
+12. composer test (final) -> EXIT=0, 30 tests, 87 assertions
+
+Files modified for this task:
+- app/Services/Telegram/TelegramHttpClient.php (interface extended with setWebhook method declaration)
+- app/Services/TelegramBotRegistrarService.php (added registerWebhook method; validateToken untouched)
+- tests/Unit/Services/TelegramBotRegistrarServiceTest.php (replaced inline anonymous fake with named FakeTelegramHttpClient helper class; added 6 new webhook tests; existing 5 validateToken tests adapted to new fake but preserved names)
+
+Tests that went red then green:
+- test_register_webhook_empty_token_returns_invalid_no_client_call
+- test_register_webhook_non_https_url_returns_invalid_no_client_call
+- test_register_webhook_invalid_host_returns_invalid_no_client_call
+- test_register_webhook_happy_path_returns_registered
+- test_register_webhook_client_exception_returns_failed
+- test_register_webhook_telegram_rejected_returns_failed
+
+Tests that stayed green throughout (no regression):
+- test_empty_token_returns_false_without_calling_client
+- test_valid_token_ok_true_returns_true
+- test_invalid_token_ok_false_returns_false
+- test_transport_exception_returns_false
+- test_whitespace_only_token_returns_false_without_calling_client
+- all OnChainOS and other baseline tests

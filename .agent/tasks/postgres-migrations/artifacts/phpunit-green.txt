@@ -1,0 +1,51 @@
+> @php vendor/bin/phpunit
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /Users/krutovoy/Projects/hosting-platform/phpunit.xml.dist
+
+..........EEEEEEE..................................               51 / 51 (100%)
+
+Time: 00:00.012, Memory: 10.00 MB
+
+There were 7 errors:
+
+1) Tests\Unit\Services\Auth\GoogleAuthServiceTest::test_empty_authorization_code_returns_invalid_code_and_does_not_call_client
+Error: Class "App\Services\Auth\GoogleAuthService" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Auth/GoogleAuthServiceTest.php:21
+
+2) Tests\Unit\Services\Auth\GoogleAuthServiceTest::test_whitespace_only_authorization_code_returns_invalid_code_and_does_not_call_client
+Error: Class "App\Services\Auth\GoogleAuthService" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Auth/GoogleAuthServiceTest.php:34
+
+3) Tests\Unit\Services\Auth\GoogleAuthServiceTest::test_happy_path_returns_authenticated_with_canonical_user_shape
+Error: Class "App\Services\Auth\GoogleAuthService" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Auth/GoogleAuthServiceTest.php:52
+
+4) Tests\Unit\Services\Auth\GoogleAuthServiceTest::test_client_exception_returns_failed_without_propagating
+Error: Class "App\Services\Auth\GoogleAuthService" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Auth/GoogleAuthServiceTest.php:76
+
+5) Tests\Unit\Services\Auth\GoogleAuthServiceTest::test_malformed_profile_missing_email_returns_failed
+Error: Class "App\Services\Auth\GoogleAuthService" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Auth/GoogleAuthServiceTest.php:102
+
+6) Tests\Unit\Services\Auth\GoogleAuthServiceTest::test_malformed_profile_missing_id_returns_failed
+Error: Class "App\Services\Auth\GoogleAuthService" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Auth/GoogleAuthServiceTest.php:119
+
+7) Tests\Unit\Services\Auth\GoogleAuthServiceTest::test_malformed_profile_missing_name_returns_failed
+Error: Class "App\Services\Auth\GoogleAuthService" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Auth/GoogleAuthServiceTest.php:136
+
+ERRORS!
+Tests: 51, Assertions: 212, Errors: 7.
+Script @php vendor/bin/phpunit handling the test event returned with error code 2
+EXIT=2

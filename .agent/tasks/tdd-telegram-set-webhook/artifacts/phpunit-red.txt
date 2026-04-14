@@ -1,0 +1,50 @@
+> vendor/bin/phpunit
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /Users/krutovoy/Projects/hosting-platform/phpunit.xml.dist
+
+.......................EEEEFE.                                    30 / 30 (100%)
+
+Time: 00:00.009, Memory: 8.00 MB
+
+There were 5 errors:
+
+1) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_register_webhook_empty_token_returns_invalid_no_client_call
+Error: Call to undefined method App\Services\TelegramBotRegistrarService::registerWebhook()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:79
+
+2) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_register_webhook_non_https_url_returns_invalid_no_client_call
+Error: Call to undefined method App\Services\TelegramBotRegistrarService::registerWebhook()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:98
+
+3) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_register_webhook_invalid_host_returns_invalid_no_client_call
+Error: Call to undefined method App\Services\TelegramBotRegistrarService::registerWebhook()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:111
+
+4) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_register_webhook_happy_path_returns_registered
+Error: Call to undefined method App\Services\TelegramBotRegistrarService::registerWebhook()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:125
+
+5) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_register_webhook_telegram_rejected_returns_failed
+Error: Call to undefined method App\Services\TelegramBotRegistrarService::registerWebhook()
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:160
+
+--
+
+There was 1 failure:
+
+1) Tests\Unit\Services\TelegramBotRegistrarServiceTest::test_register_webhook_client_exception_returns_failed
+leaked
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/TelegramBotRegistrarServiceTest.php:144
+
+ERRORS!
+Tests: 30, Assertions: 65, Errors: 5, Failures: 1.
+Script vendor/bin/phpunit handling the test event returned with error code 2
+EXIT=2

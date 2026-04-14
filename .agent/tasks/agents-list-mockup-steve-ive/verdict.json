@@ -1,0 +1,52 @@
+{
+  "task_id": "agents-list-mockup-steve-ive",
+  "overall_verdict": "PASS",
+  "pass": 1,
+  "verifier_notes": "Fresh independent verification. All 25 ACs PASS. design/agents.html is 3501 bytes with 18 visible body words. :root tokens are byte-identical to landing.html; font stack matches. var(--accent) is referenced only inside button.cta and button.cta:hover/:focus/:focus-visible. The six prior tasks still report verdict_overall_status: PASS. landing.html and wizard.html sha256 match their locked values.",
+  "criteria": [
+    {"id": "AC1", "status": "PASS", "reason": "design/agents.html exists; parent design/ present."},
+    {"id": "AC2", "status": "PASS", "reason": "Line 1 <!DOCTYPE html>; <html lang=\"en\">; meta charset=utf-8 and viewport width=device-width, initial-scale=1 present."},
+    {"id": "AC3", "status": "PASS", "reason": "Exactly one <title>; text \"Your agents.\" is 2 words (<=5)."},
+    {"id": "AC4", "status": "PASS", "reason": "Exactly one class=\"cta\" element (button.cta) with visible text \"Post agent\"; stop buttons carry class=\"stop\"."},
+    {"id": "AC5", "status": "PASS", "reason": "Zero grep matches for Learn more, Read more, See more, Get started, Sign up, Sign in, Log in, More info."},
+    {"id": "AC6", "status": "PASS", "reason": "Three li.row elements; names atlas, nova, sage each appear once as visible text."},
+    {"id": "AC7", "status": "PASS", "reason": "<button count = 4 (3 stop + 1 cta); class=\"stop\" count = 3."},
+    {"id": "AC8", "status": "PASS", "reason": "Telegram labels @atlasbot, @novabot, @sagebot render as short handles; zero :// substrings in file."},
+    {"id": "AC9", "status": "PASS", "reason": "Zero <script, src=, <link , @import, and no :// or CDN hosts."},
+    {"id": "AC10", "status": "PASS", "reason": "Exactly one <style> block in <head>; zero inline style= attributes."},
+    {"id": "AC11", "status": "PASS", "reason": "Word-boundary case-insensitive grep for all 17 buzzwords returned zero; transform:/text-transform: literal substrings absent."},
+    {"id": "AC12", "status": "PASS", "reason": "Python codepoint counts: U+2014 = 0, U+2013 = 0."},
+    {"id": "AC13", "status": "PASS", "reason": "After stripping <style> and tags, visible body text contains zero ! characters."},
+    {"id": "AC14", "status": "PASS", "reason": "Word-boundary grep (-iwE) for X-Layer, EVM, chain, gas, signature, USDC, ETH, blockchain, crypto, 0x, wallet: zero matches for every term."},
+    {"id": "AC15", "status": "PASS", "reason": "grep -iw \\bagent\\b count >= 1 (appears in title, h1, CTA)."},
+    {"id": "AC16", "status": "PASS", "reason": "Extracted :root blocks from landing.html and agents.html. --bg, --fg, --muted, --rule, --tint, --accent, --radius, --max all byte-identical."},
+    {"id": "AC17", "status": "PASS", "reason": "body font-family starts with \"JetBrains Mono\" and full stack (\"JetBrains Mono\", \"IBM Plex Mono\", \"SF Mono\", \"Fira Code\", ui-monospace, monospace) equals landing.html stack verbatim."},
+    {"id": "AC18", "status": "PASS", "reason": "Only two var(--accent) occurrences: line 112 inside button.cta rule (background), line 120 inside button.cta:hover,:focus,:focus-visible rule (outline). No accent leakage to rows, pills, stops, links, h1, or body."},
+    {"id": "AC19", "status": "PASS", "reason": "Contains @media (max-width: 640px) block and clamp() on h1 font-size."},
+    {"id": "AC20", "status": "PASS", "reason": "stat size 3501 bytes < 14336."},
+    {"id": "AC21", "status": "PASS", "reason": "Visible body word count = 18 < 90."},
+    {"id": "AC22", "status": "PASS", "reason": "Exactly one <h1>; inner text = \"Three agents.\" (two words, ends with period)."},
+    {"id": "AC23", "status": "PASS", "reason": "provisioning, ready, failed each appear exactly once as visible pill text."},
+    {"id": "AC24", "status": "PASS", "reason": "sha256(design/landing.html) = 87e79f41082c177e5c79859afe16b53b95a19e27bd1258e502a1f9011c4d4d64; sha256(design/wizard.html) = 8c3dc84dd422ccd9e1e04502205d7992c29e7d6ebd91632e05f6197d3de14f18. Both match locked digests. ls design/ = {agents.html, landing.html, wizard.html}."},
+    {"id": "AC25", "status": "PASS", "reason": "task_loop.py status for bootstrap-proof-loop, scaffold-service-stubs, test-harness, landing-mockup-steve-ive, tdd-telegram-validate-token, wizard-mockup-steve-ive all report verdict_overall_status: PASS."}
+  ],
+  "commands_run": [
+    "shasum -a 256 design/landing.html design/wizard.html design/agents.html",
+    "ls design/ | sort",
+    "head -1 design/agents.html",
+    "stat -f%z design/agents.html",
+    "grep -c '<title>|<h1|class=\"cta\"|<style|style=|<button|class=\"row\"|<script|src=|://' design/agents.html",
+    "grep -ciwE '(revolutionary|seamless|unleash|harness|empower|best-in-class|world-class|cutting-edge|leverage|synergy|streamline|next-generation|game-changer|transform|introducing|unlock)' design/agents.html",
+    "grep -ciwE '(X-Layer|EVM|chain|gas|signature|USDC|ETH|blockchain|crypto|0x|wallet)' design/agents.html",
+    "python3 codepoint + word-count + exclam strip script",
+    "grep -n 'var(--accent)' design/agents.html",
+    "python3 .claude/skills/repo-task-proof-loop/scripts/task_loop.py status --task-id <each prior task>"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/agents-list-mockup-steve-ive/spec.md",
+    "design/agents.html",
+    "design/landing.html",
+    "design/wizard.html",
+    ".claude/skills/repo-task-proof-loop/scripts/task_loop.py"
+  ]
+}

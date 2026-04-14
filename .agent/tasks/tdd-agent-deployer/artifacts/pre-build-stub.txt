@@ -1,0 +1,7 @@
+<?php
+namespace App\Services;
+
+class AgentDeployerService
+{
+    // Orchestrates: validate config -> charge wallet -> upload to KiloClaw -> return token ID
+}

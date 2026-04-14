@@ -1,0 +1,21 @@
+{
+  "repo_root": "/Users/krutovoy/Projects/hosting-platform",
+  "task_id": "tdd-onchainos-create-charge",
+  "task_dir": "/Users/krutovoy/Projects/hosting-platform/.agent/tasks/tdd-onchainos-create-charge",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}
