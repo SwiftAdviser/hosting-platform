@@ -14,9 +14,7 @@ cmds = [
 
 [phases.build]
 cmds = [
-    "php artisan config:cache || true",
-    "php artisan route:cache || true",
-    "php artisan view:cache || true",
+    "rm -f bootstrap/cache/config.php bootstrap/cache/routes-v7.php bootstrap/cache/packages.php",
 ]
 
 [start]
