@@ -1,0 +1,69 @@
+421:.trust {
+426:.trust-grid {
+432:.trust-item {
+439:.trust-item h3 {
+448:.trust-item p {
+533:.pillars {
+538:.pillars-shell {
+545:.pillars-title {
+554:.pillars-title span {
+683:.launch {
+687:.launch-shell {
+702:.launch h2 {
+712:.launch h2 span {
+717:.launch p {
+726:.launch-actions {
+779:  .trust-grid {
+818:  .trust-grid {
+850:  .launch-actions {
+867:@media (prefers-reduced-motion: reduce) {
+894:      <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+897:        <a href="#workflow" class="nav-link">Workflow</a>
+898:        <a href="#pillars" class="nav-link">Integrations</a>
+899:        <a href="#launch" class="nav-link">Launch</a>
+901:          <a class="nav-cta magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+903:          <a class="nav-cta magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+907:    <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+928:              <a class="button-primary magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+930:              <a class="button-primary magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+932:            <a class="button-secondary" href="#pillars">See integration details</a>
+964:    <section class="section trust reveal" aria-label="Trust and proof">
+965:      <div class="shell trust-grid">
+966:        <article class="trust-item">
+970:        <article class="trust-item">
+974:        <article class="trust-item">
+978:        <article class="trust-item">
+985:    <section class="section manifesto" id="workflow">
+992:          <div class="manifesto-overlay" id="manifestoOverlay">
+994:              Spawn workflow:
+1002:    <section class="section pillars reveal" id="pillars">
+1003:      <div class="shell pillars-shell">
+1005:        <h2 class="pillars-title">the runtime stack, <span>made explicit</span></h2>
+1024:                  <li>Direct `/auth/google` entry for unauthenticated traffic</li>
+1025:                  <li>Low-friction path back to `/wizard` after callback</li>
+1121:    <section class="section launch reveal" id="launch">
+1122:      <div class="shell launch-shell">
+1126:        <h2>launch your next <span>agent run</span></h2>
+1133:        <div class="launch-actions">
+1135:            <a class="button-primary magnetic" href="/wizard"><span class="magnetic-inner">Post agent now</span></a>
+1137:            <a class="button-primary magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+1153:  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+1160:  const progressBar = document.getElementById('progressBar');
+1162:    if (!progressBar) {
+1168:    progressBar.style.width = pct.toFixed(2) + '%';
+1174:  const mobileNavToggle = document.getElementById('mobileNavToggle');
+1176:  if (mobileNavToggle && navLinks) {
+1178:      mobileNavToggle.setAttribute('aria-expanded', 'false');
+1182:    mobileNavToggle.addEventListener('click', () => {
+1183:      const expanded = mobileNavToggle.getAttribute('aria-expanded') === 'true';
+1184:      mobileNavToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+1194:      if (!navLinks.contains(event.target) && event.target !== mobileNavToggle) {
+1222:  const manifestoSection = document.getElementById('workflow');
+1223:  const manifestoOverlay = document.getElementById('manifestoOverlay');
+1225:    if (!manifestoSection || !manifestoOverlay) {
+1230:      manifestoOverlay.style.setProperty('--manifesto-progress', '1');
+1239:    manifestoOverlay.style.setProperty('--manifesto-progress', progress.toFixed(3));
+1305:      if (event.key === 'ArrowDown') {
+1311:      if (event.key === 'ArrowUp') {
+1374:      if (manifestoOverlay) {
+1375:        manifestoOverlay.style.setProperty('--manifesto-progress', '1');

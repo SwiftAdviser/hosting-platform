@@ -1,0 +1,21 @@
+726:.magnetic,
+727:.magnetic-inner {
+865:        <a class="nav-cta magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+867:        <a class="nav-cta magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+903:            <a class="hero-primary magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+905:            <a class="hero-primary magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+1047:          <a class="footer-button magnetic" href="/wizard"><span class="magnetic-inner">Post agent now</span></a>
+1049:          <a class="footer-button magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+1069:  const touchQuery = window.matchMedia('(hover: none), (pointer: coarse)');
+1071:  const disablePointerFx = reduceMotion || touchQuery.matches;
+1192:  if (!disablePointerFx) {
+1193:    document.querySelectorAll('.magnetic').forEach((element) => {
+1194:      const child = element.querySelector('.magnetic-inner') || element;
+1212:    const heroStage = document.querySelector('.hero-stage');
+1213:    const heroCopy = document.querySelector('.hero-copy');
+1215:    if (hero && heroStage && heroCopy) {
+1221:        heroStage.style.transform = `scale(1.08) translate(${x * -26}px, ${y * -26}px)`;
+1222:        heroCopy.style.transform = `translate(${x * -8}px, ${y * -8}px)`;
+1226:        heroStage.style.transform = 'scale(1.08) translate(0, 0)';
+1227:        heroCopy.style.transform = 'translate(0, 0)';
+1235:      document.querySelectorAll('.magnetic, .magnetic-inner, .hero-stage, .hero-copy').forEach((el) => {

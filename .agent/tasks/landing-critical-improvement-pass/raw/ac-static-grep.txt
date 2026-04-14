@@ -1,0 +1,54 @@
+7:<meta name="description" content="Deploy your agent from Spawn with Google sign-in, OnChainOS payment flow, KiloClaw runtime provisioning, and Telegram delivery.">
+511:  background-image: url('/landing/os.png');
+867:@media (prefers-reduced-motion: reduce) {
+894:      <button type="button" class="mobile-nav-toggle" id="mobileNavToggle" aria-expanded="false" aria-controls="navLinks">Menu</button>
+901:          <a class="nav-cta magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+903:          <a class="nav-cta magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+907:    <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+922:            Spawn gives you a direct path from local code to a live Telegram agent: Google sign-in,
+923:            payment-gated deploy via OnChainOS, runtime provisioning in KiloClaw, and bot delivery in one flow.
+928:              <a class="button-primary magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+930:              <a class="button-primary magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+938:            <li>Telegram token validation runs before runtime install.</li>
+944:            <img src="/landing/hero.png" alt="Spawn runtime preview">
+968:          <p>Telegram token checks run before any charge or install starts.</p>
+972:          <p>OnChainOS charge status gates provisioning so installs do not run unpaid.</p>
+976:          <p>KiloClaw install state is mapped to clear deployed, failed, or booting results.</p>
+980:          <p>OnChainOS webhook signatures are verified before accepting callbacks.</p>
+992:          <div class="manifesto-overlay" id="manifestoOverlay">
+995:              <span>sign in -> post agent -> pay -> live on Telegram.</span>
+1009:            <button class="pillar-trigger" type="button" id="pillar-btn-1" aria-expanded="true" aria-controls="pillar-panel-1">
+1024:                  <li>Direct `/auth/google` entry for unauthenticated traffic</li>
+1025:                  <li>Low-friction path back to `/wizard` after callback</li>
+1029:                <img src="/landing/hero.png" alt="Google auth flow visual">
+1037:            <button class="pillar-trigger" type="button" id="pillar-btn-2" aria-expanded="false" aria-controls="pillar-panel-2">
+1039:              <span class="pillar-title">OnChainOS Charge Gate</span>
+1047:                  Deploy creates a payment intent through OnChainOS and proceeds only when the charge state is valid.
+1057:                <img src="/landing/traditional.png" alt="OnChainOS payment gate visual">
+1065:            <button class="pillar-trigger" type="button" id="pillar-btn-3" aria-expanded="false" aria-controls="pillar-panel-3">
+1067:              <span class="pillar-title">KiloClaw Runtime Install</span>
+1075:                  Spawn packages a manifest and calls KiloClaw install with idempotency. Runtime status is normalized
+1085:                <img src="/landing/clanker.png" alt="KiloClaw install visual">
+1093:            <button class="pillar-trigger" type="button" id="pillar-btn-4" aria-expanded="false" aria-controls="pillar-panel-4">
+1095:              <span class="pillar-title">Telegram Delivery Layer</span>
+1113:                <img src="/landing/os.png" alt="Telegram delivery visual">
+1130:          and Telegram runtime delivery in one stable path.
+1135:            <a class="button-primary magnetic" href="/wizard"><span class="magnetic-inner">Post agent now</span></a>
+1137:            <a class="button-primary magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+1153:  const reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+1160:  const progressBar = document.getElementById('progressBar');
+1162:    if (!progressBar) {
+1168:    progressBar.style.width = pct.toFixed(2) + '%';
+1178:      mobileNavToggle.setAttribute('aria-expanded', 'false');
+1183:      const expanded = mobileNavToggle.getAttribute('aria-expanded') === 'true';
+1184:      mobileNavToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+1223:  const manifestoOverlay = document.getElementById('manifestoOverlay');
+1225:    if (!manifestoSection || !manifestoOverlay) {
+1230:      manifestoOverlay.style.setProperty('--manifesto-progress', '1');
+1239:    manifestoOverlay.style.setProperty('--manifesto-progress', progress.toFixed(3));
+1251:    button.setAttribute('aria-expanded', 'false');
+1275:    button.setAttribute('aria-expanded', 'true');
+1305:      if (event.key === 'ArrowDown') {
+1319:  const defaultOpen = accordionButtons.find((button) => button.getAttribute('aria-expanded') === 'true') || accordionButtons[0];
+1374:      if (manifestoOverlay) {
+1375:        manifestoOverlay.style.setProperty('--manifesto-progress', '1');

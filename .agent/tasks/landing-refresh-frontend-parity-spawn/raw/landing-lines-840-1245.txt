@@ -1,0 +1,404 @@
+   840	  }
+   841	
+   842	  .reveal {
+   843	    opacity: 1;
+   844	    transform: none;
+   845	  }
+   846	
+   847	  .manifesto-reveal {
+   848	    clip-path: none;
+   849	  }
+   850	}
+   851	</style>
+   852	</head>
+   853	<body>
+   854	<nav class="corner-nav" aria-label="Landing navigation">
+   855	  <div class="corner-top">
+   856	    <a href="/" class="brand">spawn<span>.</span></a>
+   857	
+   858	    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navCluster" type="button">Menu</button>
+   859	
+   860	    <div class="nav-cluster" id="navCluster">
+   861	      <a class="nav-link" href="#manifesto">How it works</a>
+   862	      <a class="nav-link" href="#pillars">Integrations</a>
+   863	      <a class="nav-link" href="#contact">Contact</a>
+   864	      @if(session('user'))
+   865	        <a class="nav-cta magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+   866	      @else
+   867	        <a class="nav-cta magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+   868	      @endif
+   869	    </div>
+   870	  </div>
+   871	
+   872	  <div class="corner-bottom">
+   873	    <div class="scroll-chip"><span id="scrollProgress">00</span><small>%</small></div>
+   874	    <div class="quick-links">
+   875	      <a href="#hero">Overview</a>
+   876	      <a href="#manifesto">Flow</a>
+   877	      <a href="#pillars">Modules</a>
+   878	      <a href="#contact">Launch</a>
+   879	    </div>
+   880	  </div>
+   881	</nav>
+   882	
+   883	<main>
+   884	  <section class="section hero reveal" id="hero">
+   885	    <div class="hero-frame">
+   886	      <div class="hero-stage" aria-hidden="true"></div>
+   887	
+   888	      <div class="hero-copy">
+   889	        <p class="eyebrow">platform.thespawn.io // KiloClaw runtime</p>
+   890	
+   891	        <h1 class="hero-title">
+   892	          <span class="soft">One click.</span>
+   893	          <span class="strong">Agent online.</span>
+   894	        </h1>
+   895	
+   896	        <p class="hero-description">
+   897	          Spawn hosts your agent end-to-end: authenticate, post the bot, handle wallet payment via OnChainOS,
+   898	          then run live on Telegram through KiloClaw without local uptime babysitting.
+   899	        </p>
+   900	
+   901	        <div class="hero-actions">
+   902	          @if(session('user'))
+   903	            <a class="hero-primary magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+   904	          @else
+   905	            <a class="hero-primary magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+   906	          @endif
+   907	          <a class="hero-secondary" href="#pillars">Explore modules</a>
+   908	        </div>
+   909	
+   910	        <div class="hero-meta">
+   911	          @if(session('user'))
+   912	            <span>Signed in as <strong>{{ session('user.email') }}</strong></span>
+   913	          @else
+   914	            <span>Google auth enabled</span>
+   915	          @endif
+   916	          <span>Build <strong>main@{{ substr(config('app.build_sha', env('BUILD_SHA', 'a835343')), 0, 7) }}</strong></span>
+   917	        </div>
+   918	
+   919	        <ul class="hero-steps" aria-label="Spawn deployment flow">
+   920	          <li><span>1</span>sign in</li>
+   921	          <li><span>2</span>post agent</li>
+   922	          <li><span>3</span>pay with OnChainOS</li>
+   923	          <li><span>4</span>live on Telegram</li>
+   924	        </ul>
+   925	      </div>
+   926	    </div>
+   927	  </section>
+   928	
+   929	  <section class="section manifesto" id="manifesto">
+   930	    <div class="manifesto-track">
+   931	      <div class="manifesto-sticky">
+   932	        <div class="manifesto-base">
+   933	          <h2>manual launches are done.</h2>
+   934	        </div>
+   935	
+   936	        <div class="manifesto-reveal" id="manifestoReveal">
+   937	          <h2>
+   938	            Spawn runs the chain:
+   939	            <span>sign in -> post agent -> pay -> ship to Telegram.</span>
+   940	          </h2>
+   941	        </div>
+   942	      </div>
+   943	    </div>
+   944	  </section>
+   945	
+   946	  <section class="section pillars reveal" id="pillars">
+   947	    <div class="pillars-inner">
+   948	      <p class="section-kicker">System pillars</p>
+   949	
+   950	      <article class="pillar is-open" data-pillar>
+   951	        <h3>
+   952	          <button class="pillar-trigger" type="button" id="pillar-btn-1" aria-expanded="true" aria-controls="pillar-panel-1">
+   953	            <span class="pillar-index">01</span>
+   954	            <span class="pillar-title">KiloClaw Runtime</span>
+   955	            <span class="pillar-arrow" aria-hidden="true">+</span>
+   956	          </button>
+   957	        </h3>
+   958	        <div class="pillar-panel" id="pillar-panel-1" role="region" aria-labelledby="pillar-btn-1">
+   959	          <div class="pillar-grid">
+   960	            <div>
+   961	              <p class="pillar-description">
+   962	                Spawn packages your configuration and hands deployment to KiloClaw. The hosted runtime is checked for
+   963	                ready/booting status before the flow returns success.
+   964	              </p>
+   965	              <ul class="pillar-list">
+   966	                <li>Manifest-based install payload</li>
+   967	                <li>Ready / booting / failed state handling</li>
+   968	                <li>Idempotent install key strategy</li>
+   969	              </ul>
+   970	            </div>
+   971	            <figure class="pillar-media">
+   972	              <img src="/landing/clanker.png" alt="KiloClaw runtime visual">
+   973	            </figure>
+   974	          </div>
+   975	        </div>
+   976	      </article>
+   977	
+   978	      <article class="pillar" data-pillar>
+   979	        <h3>
+   980	          <button class="pillar-trigger" type="button" id="pillar-btn-2" aria-expanded="false" aria-controls="pillar-panel-2">
+   981	            <span class="pillar-index">02</span>
+   982	            <span class="pillar-title">OnChainOS Payments</span>
+   983	            <span class="pillar-arrow" aria-hidden="true">+</span>
+   984	          </button>
+   985	        </h3>
+   986	        <div class="pillar-panel" id="pillar-panel-2" role="region" aria-labelledby="pillar-btn-2" hidden>
+   987	          <div class="pillar-grid">
+   988	            <div>
+   989	              <p class="pillar-description">
+   990	                Deploy calls create an OnChainOS charge with idempotency protection. Payment status gates provisioning,
+   991	                and webhook signatures are validated before accepting settlement callbacks.
+   992	              </p>
+   993	              <ul class="pillar-list">
+   994	                <li>Charge creation per deploy request</li>
+   995	                <li>Webhook signature verification path</li>
+   996	                <li>Failure-safe status mapping to API response</li>
+   997	              </ul>
+   998	            </div>
+   999	            <figure class="pillar-media">
+  1000	              <img src="/landing/traditional.png" alt="OnChainOS payment visual">
+  1001	            </figure>
+  1002	          </div>
+  1003	        </div>
+  1004	      </article>
+  1005	
+  1006	      <article class="pillar" data-pillar>
+  1007	        <h3>
+  1008	          <button class="pillar-trigger" type="button" id="pillar-btn-3" aria-expanded="false" aria-controls="pillar-panel-3">
+  1009	            <span class="pillar-index">03</span>
+  1010	            <span class="pillar-title">Telegram Bot Surface</span>
+  1011	            <span class="pillar-arrow" aria-hidden="true">+</span>
+  1012	          </button>
+  1013	        </h3>
+  1014	        <div class="pillar-panel" id="pillar-panel-3" role="region" aria-labelledby="pillar-btn-3" hidden>
+  1015	          <div class="pillar-grid">
+  1016	            <div>
+  1017	              <p class="pillar-description">
+  1018	                User-provided bot tokens are validated before deploy. Webhook registration and inbound webhook endpoints
+  1019	                complete the messaging channel used by the hosted agent.
+  1020	              </p>
+  1021	              <ul class="pillar-list">
+  1022	                <li>Token validation before charge/install</li>
+  1023	                <li>Per-agent webhook endpoint wiring</li>
+  1024	                <li>Single launch flow from dashboard to bot</li>
+  1025	              </ul>
+  1026	            </div>
+  1027	            <figure class="pillar-media">
+  1028	              <img src="/landing/os.png" alt="Telegram channel visual">
+  1029	            </figure>
+  1030	          </div>
+  1031	        </div>
+  1032	      </article>
+  1033	    </div>
+  1034	  </section>
+  1035	
+  1036	  <footer class="section footer-cta reveal" id="contact">
+  1037	    <div class="footer-shell">
+  1038	      <div class="status-dot" aria-hidden="true"></div>
+  1039	      <p class="eyebrow" style="text-align:center; margin-bottom: 16px;">system online</p>
+  1040	
+  1041	      <h2 class="footer-title">
+  1042	        launch your next <span>agent run</span>
+  1043	      </h2>
+  1044	
+  1045	      <div class="footer-actions">
+  1046	        @if(session('user'))
+  1047	          <a class="footer-button magnetic" href="/wizard"><span class="magnetic-inner">Post agent now</span></a>
+  1048	        @else
+  1049	          <a class="footer-button magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+  1050	        @endif
+  1051	      </div>
+  1052	
+  1053	      <p class="footer-note">
+  1054	        Keep coding locally. Spawn handles hosting, payment handshake, and Telegram runtime handoff behind one deploy flow.
+  1055	      </p>
+  1056	
+  1057	      <div class="footer-meta">
+  1058	        <span>platform.thespawn.io</span>
+  1059	        <span>main@{{ substr(config('app.build_sha', env('BUILD_SHA', 'a835343')), 0, 7) }}</span>
+  1060	        <span>&copy; {{ date('Y') }} Spawn</span>
+  1061	      </div>
+  1062	    </div>
+  1063	  </footer>
+  1064	</main>
+  1065	
+  1066	<script>
+  1067	(() => {
+  1068	  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  1069	  const touchQuery = window.matchMedia('(hover: none), (pointer: coarse)');
+  1070	  let reduceMotion = motionQuery.matches;
+  1071	  const disablePointerFx = reduceMotion || touchQuery.matches;
+  1072	
+  1073	  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+  1074	
+  1075	  const progressEl = document.getElementById('scrollProgress');
+  1076	  const updateScrollProgress = () => {
+  1077	    if (!progressEl) {
+  1078	      return;
+  1079	    }
+  1080	
+  1081	    const max = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+  1082	    const pct = Math.round((window.scrollY / max) * 100);
+  1083	    progressEl.textContent = String(clamp(pct, 0, 100)).padStart(2, '0');
+  1084	  };
+  1085	
+  1086	  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+  1087	  window.addEventListener('resize', updateScrollProgress);
+  1088	  updateScrollProgress();
+  1089	
+  1090	  const navToggle = document.getElementById('navToggle');
+  1091	  const navCluster = document.getElementById('navCluster');
+  1092	  if (navToggle && navCluster) {
+  1093	    navToggle.addEventListener('click', () => {
+  1094	      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+  1095	      navToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  1096	      navCluster.classList.toggle('is-open', !expanded);
+  1097	    });
+  1098	
+  1099	    navCluster.querySelectorAll('a').forEach((link) => {
+  1100	      link.addEventListener('click', () => {
+  1101	        navToggle.setAttribute('aria-expanded', 'false');
+  1102	        navCluster.classList.remove('is-open');
+  1103	      });
+  1104	    });
+  1105	  }
+  1106	
+  1107	  const revealElements = document.querySelectorAll('.reveal');
+  1108	  if (reduceMotion || !('IntersectionObserver' in window)) {
+  1109	    revealElements.forEach((el) => el.classList.add('visible'));
+  1110	  } else {
+  1111	    const revealObserver = new IntersectionObserver((entries, observer) => {
+  1112	      entries.forEach((entry) => {
+  1113	        if (entry.isIntersecting) {
+  1114	          entry.target.classList.add('visible');
+  1115	          observer.unobserve(entry.target);
+  1116	        }
+  1117	      });
+  1118	    }, { threshold: 0.14 });
+  1119	
+  1120	    revealElements.forEach((el) => revealObserver.observe(el));
+  1121	  }
+  1122	
+  1123	  const manifestoSection = document.getElementById('manifesto');
+  1124	  const manifestoReveal = document.getElementById('manifestoReveal');
+  1125	  const updateManifestoReveal = () => {
+  1126	    if (!manifestoSection || !manifestoReveal) {
+  1127	      return;
+  1128	    }
+  1129	
+  1130	    if (reduceMotion) {
+  1131	      manifestoReveal.style.setProperty('--reveal-progress', '1');
+  1132	      return;
+  1133	    }
+  1134	
+  1135	    const rect = manifestoSection.getBoundingClientRect();
+  1136	    const viewport = window.innerHeight || 1;
+  1137	    const start = viewport * 0.86;
+  1138	    const end = -rect.height * 0.32;
+  1139	    const progress = clamp((start - rect.top) / (start - end), 0, 1);
+  1140	    manifestoReveal.style.setProperty('--reveal-progress', progress.toFixed(3));
+  1141	  };
+  1142	
+  1143	  window.addEventListener('scroll', updateManifestoReveal, { passive: true });
+  1144	  window.addEventListener('resize', updateManifestoReveal);
+  1145	  updateManifestoReveal();
+  1146	
+  1147	  const accordionButtons = Array.from(document.querySelectorAll('.pillar-trigger'));
+  1148	  const setOpenPanel = (targetButton) => {
+  1149	    accordionButtons.forEach((button) => {
+  1150	      const panelId = button.getAttribute('aria-controls');
+  1151	      const panel = panelId ? document.getElementById(panelId) : null;
+  1152	      const article = button.closest('[data-pillar]');
+  1153	      const isOpen = button === targetButton;
+  1154	
+  1155	      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  1156	      if (article) {
+  1157	        article.classList.toggle('is-open', isOpen);
+  1158	      }
+  1159	
+  1160	      if (!panel) {
+  1161	        return;
+  1162	      }
+  1163	
+  1164	      if (isOpen) {
+  1165	        panel.hidden = false;
+  1166	        panel.style.maxHeight = panel.scrollHeight + 'px';
+  1167	      } else {
+  1168	        panel.style.maxHeight = '0px';
+  1169	        panel.hidden = true;
+  1170	      }
+  1171	    });
+  1172	  };
+  1173	
+  1174	  accordionButtons.forEach((button) => {
+  1175	    button.addEventListener('click', () => {
+  1176	      setOpenPanel(button);
+  1177	    });
+  1178	
+  1179	    button.addEventListener('keydown', (event) => {
+  1180	      if (event.key === 'Enter' || event.key === ' ') {
+  1181	        event.preventDefault();
+  1182	        setOpenPanel(button);
+  1183	      }
+  1184	    });
+  1185	  });
+  1186	
+  1187	  const openButton = accordionButtons.find((btn) => btn.getAttribute('aria-expanded') === 'true') || accordionButtons[0];
+  1188	  if (openButton) {
+  1189	    setOpenPanel(openButton);
+  1190	  }
+  1191	
+  1192	  if (!disablePointerFx) {
+  1193	    document.querySelectorAll('.magnetic').forEach((element) => {
+  1194	      const child = element.querySelector('.magnetic-inner') || element;
+  1195	
+  1196	      element.addEventListener('mousemove', (event) => {
+  1197	        const rect = element.getBoundingClientRect();
+  1198	        const x = event.clientX - rect.left - rect.width / 2;
+  1199	        const y = event.clientY - rect.top - rect.height / 2;
+  1200	
+  1201	        element.style.transform = `translate(${x * 0.14}px, ${y * 0.14}px)`;
+  1202	        child.style.transform = `translate(${x * 0.08}px, ${y * 0.08}px)`;
+  1203	      });
+  1204	
+  1205	      element.addEventListener('mouseleave', () => {
+  1206	        element.style.transform = 'translate(0, 0)';
+  1207	        child.style.transform = 'translate(0, 0)';
+  1208	      });
+  1209	    });
+  1210	
+  1211	    const hero = document.getElementById('hero');
+  1212	    const heroStage = document.querySelector('.hero-stage');
+  1213	    const heroCopy = document.querySelector('.hero-copy');
+  1214	
+  1215	    if (hero && heroStage && heroCopy) {
+  1216	      hero.addEventListener('mousemove', (event) => {
+  1217	        const rect = hero.getBoundingClientRect();
+  1218	        const x = (event.clientX - rect.left) / rect.width - 0.5;
+  1219	        const y = (event.clientY - rect.top) / rect.height - 0.5;
+  1220	
+  1221	        heroStage.style.transform = `scale(1.08) translate(${x * -26}px, ${y * -26}px)`;
+  1222	        heroCopy.style.transform = `translate(${x * -8}px, ${y * -8}px)`;
+  1223	      });
+  1224	
+  1225	      hero.addEventListener('mouseleave', () => {
+  1226	        heroStage.style.transform = 'scale(1.08) translate(0, 0)';
+  1227	        heroCopy.style.transform = 'translate(0, 0)';
+  1228	      });
+  1229	    }
+  1230	  }
+  1231	
+  1232	  motionQuery.addEventListener('change', (event) => {
+  1233	    if (event.matches) {
+  1234	      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
+  1235	      document.querySelectorAll('.magnetic, .magnetic-inner, .hero-stage, .hero-copy').forEach((el) => {
+  1236	        el.style.transform = 'translate(0, 0)';
+  1237	      });
+  1238	    }
+  1239	  });
+  1240	})();
+  1241	</script>
+  1242	</body>
+  1243	</html>

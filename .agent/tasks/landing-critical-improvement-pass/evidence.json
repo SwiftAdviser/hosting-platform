@@ -1,0 +1,100 @@
+{
+  "task_id": "landing-critical-improvement-pass",
+  "status": "PASS",
+  "verified_at": "2026-04-14",
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:912",
+        "resources/views/landing.blade.php:964",
+        "resources/views/landing.blade.php:985",
+        "resources/views/landing.blade.php:1002",
+        "resources/views/landing.blade.php:1121"
+      ]
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:900-903",
+        "resources/views/landing.blade.php:927-930",
+        "resources/views/landing.blade.php:1134-1137"
+      ]
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:921-923",
+        "resources/views/landing.blade.php:968-980",
+        "resources/views/landing.blade.php:1011-1113"
+      ]
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:511",
+        "resources/views/landing.blade.php:944",
+        "resources/views/landing.blade.php:1029",
+        "resources/views/landing.blade.php:1057",
+        "resources/views/landing.blade.php:1085",
+        "resources/views/landing.blade.php:1113"
+      ]
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:1160-1172",
+        "resources/views/landing.blade.php:1174-1204",
+        "resources/views/landing.blade.php:1206-1220",
+        "resources/views/landing.blade.php:1222-1242",
+        "resources/views/landing.blade.php:1244-1323",
+        "resources/views/landing.blade.php:1325-1369"
+      ]
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:867-880",
+        "resources/views/landing.blade.php:1153-1156",
+        "resources/views/landing.blade.php:1371-1390"
+      ]
+    },
+    {
+      "id": "AC7",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/landing-critical-improvement-pass/raw/git-status-short.txt"
+      ]
+    },
+    {
+      "id": "AC8",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/landing-critical-improvement-pass/raw/verify-phpunit-feature-regression.txt"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "php-lint-landing",
+      "status": "PASS",
+      "output": ".agent/tasks/landing-critical-improvement-pass/raw/verify-php-lint-landing.txt"
+    },
+    {
+      "name": "feature-regression",
+      "status": "PASS",
+      "output": ".agent/tasks/landing-critical-improvement-pass/raw/verify-phpunit-feature-regression.txt"
+    },
+    {
+      "name": "server-port-8000",
+      "status": "PASS",
+      "output": ".agent/tasks/landing-critical-improvement-pass/raw/port-8000-check.txt"
+    }
+  ]
+}

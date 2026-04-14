@@ -1,0 +1,17 @@
+832:@media (prefers-reduced-motion: reduce) {
+858:    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navCluster" type="button">Menu</button>
+873:    <div class="scroll-chip"><span id="scrollProgress">00</span><small>%</small></div>
+884:  <section class="section hero reveal" id="hero">
+929:  <section class="section manifesto" id="manifesto">
+946:  <section class="section pillars reveal" id="pillars">
+952:          <button class="pillar-trigger" type="button" id="pillar-btn-1" aria-expanded="true" aria-controls="pillar-panel-1">
+980:          <button class="pillar-trigger" type="button" id="pillar-btn-2" aria-expanded="false" aria-controls="pillar-panel-2">
+1008:          <button class="pillar-trigger" type="button" id="pillar-btn-3" aria-expanded="false" aria-controls="pillar-panel-3">
+1036:  <footer class="section footer-cta reveal" id="contact">
+1068:  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+1075:  const progressEl = document.getElementById('scrollProgress');
+1094:      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+1095:      navToggle.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+1101:        navToggle.setAttribute('aria-expanded', 'false');
+1155:      button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+1187:  const openButton = accordionButtons.find((btn) => btn.getAttribute('aria-expanded') === 'true') || accordionButtons[0];

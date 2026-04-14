@@ -1,0 +1,33 @@
+68:.corner-nav,
+74:.corner-nav {
+418:.manifesto-reveal {
+433:.manifesto-reveal h2 {
+443:.manifesto-reveal {
+450:.manifesto-reveal::before {
+460:.manifesto-reveal::after {
+467:.manifesto-reveal h2 {
+472:.manifesto-reveal h2 span {
+507:.pillar-trigger {
+521:.pillar-trigger:focus-visible {
+798:  .corner-nav {
+832:@media (prefers-reduced-motion: reduce) {
+847:  .manifesto-reveal {
+854:<nav class="corner-nav" aria-label="Landing navigation">
+865:        <a class="nav-cta magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+867:        <a class="nav-cta magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+873:    <div class="scroll-chip"><span id="scrollProgress">00</span><small>%</small></div>
+884:  <section class="section hero reveal" id="hero">
+903:            <a class="hero-primary magnetic" href="/wizard"><span class="magnetic-inner">Post agent</span></a>
+905:            <a class="hero-primary magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+929:  <section class="section manifesto" id="manifesto">
+936:        <div class="manifesto-reveal" id="manifestoReveal">
+946:  <section class="section pillars reveal" id="pillars">
+952:          <button class="pillar-trigger" type="button" id="pillar-btn-1" aria-expanded="true" aria-controls="pillar-panel-1">
+980:          <button class="pillar-trigger" type="button" id="pillar-btn-2" aria-expanded="false" aria-controls="pillar-panel-2">
+1008:          <button class="pillar-trigger" type="button" id="pillar-btn-3" aria-expanded="false" aria-controls="pillar-panel-3">
+1036:  <footer class="section footer-cta reveal" id="contact">
+1047:          <a class="footer-button magnetic" href="/wizard"><span class="magnetic-inner">Post agent now</span></a>
+1049:          <a class="footer-button magnetic" href="/auth/google"><span class="magnetic-inner">Sign in with Google</span></a>
+1068:  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+1075:  const progressEl = document.getElementById('scrollProgress');
+1147:  const accordionButtons = Array.from(document.querySelectorAll('.pillar-trigger'));

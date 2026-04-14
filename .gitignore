@@ -1,5 +1,7 @@
 /vendor
 /node_modules
+/frontend-example/node_modules
+/frontend-example/dist
 /public/build
 /public/hot
 /public/storage

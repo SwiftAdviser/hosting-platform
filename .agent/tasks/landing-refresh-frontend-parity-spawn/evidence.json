@@ -1,0 +1,103 @@
+{
+  "task_id": "landing-refresh-frontend-parity-spawn",
+  "status": "PASS",
+  "verified_at": "2026-04-14",
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:854",
+        "resources/views/landing.blade.php:884",
+        "resources/views/landing.blade.php:929",
+        "resources/views/landing.blade.php:946",
+        "resources/views/landing.blade.php:1036"
+      ]
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:865-867",
+        "resources/views/landing.blade.php:903-905",
+        "resources/views/landing.blade.php:1047-1049"
+      ]
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:889",
+        "resources/views/landing.blade.php:894-899",
+        "resources/views/landing.blade.php:959-965",
+        "resources/views/landing.blade.php:987-993",
+        "resources/views/landing.blade.php:1015-1021",
+        ".agent/tasks/landing-refresh-frontend-parity-spawn/raw/no-legacy-branding.txt"
+      ]
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:236",
+        "resources/views/landing.blade.php:453",
+        "resources/views/landing.blade.php:971",
+        "resources/views/landing.blade.php:999",
+        "resources/views/landing.blade.php:1027",
+        ".agent/tasks/landing-refresh-frontend-parity-spawn/raw/landing-assets-ls.txt"
+      ]
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:1075-1087",
+        "resources/views/landing.blade.php:1107-1125",
+        "resources/views/landing.blade.php:1127-1145",
+        "resources/views/landing.blade.php:1147-1189",
+        "resources/views/landing.blade.php:1192-1210",
+        "resources/views/landing.blade.php:1091-1105"
+      ]
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "proof": [
+        "resources/views/landing.blade.php:832-849",
+        "resources/views/landing.blade.php:1068",
+        "resources/views/landing.blade.php:1178-1184",
+        "resources/views/landing.blade.php:952",
+        "resources/views/landing.blade.php:980",
+        "resources/views/landing.blade.php:1008"
+      ]
+    },
+    {
+      "id": "AC7",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/landing-refresh-frontend-parity-spawn/raw/git-status-short.txt"
+      ]
+    },
+    {
+      "id": "AC8",
+      "status": "PASS",
+      "proof": [
+        ".agent/tasks/landing-refresh-frontend-parity-spawn/raw/verify-phpunit-feature-regression.txt"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "name": "php-lint-landing",
+      "command": "php -l resources/views/landing.blade.php",
+      "status": "PASS",
+      "output": ".agent/tasks/landing-refresh-frontend-parity-spawn/raw/verify-php-lint-landing.txt"
+    },
+    {
+      "name": "feature-regression",
+      "command": "vendor/bin/phpunit tests/Feature/Http/DeployControllerTest.php tests/Feature/Http/OnChainOSWebhookControllerTest.php tests/Feature/Http/TelegramWebhookControllerTest.php",
+      "status": "PASS",
+      "output": ".agent/tasks/landing-refresh-frontend-parity-spawn/raw/verify-phpunit-feature-regression.txt"
+    }
+  ]
+}

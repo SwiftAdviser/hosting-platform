@@ -1,0 +1,1 @@
+No syntax errors detected in resources/views/landing.blade.php

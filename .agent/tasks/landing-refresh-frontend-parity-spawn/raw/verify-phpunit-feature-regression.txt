@@ -1,0 +1,10 @@
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.13
+Configuration: /Users/Tomas/Desktop/Coding/hosting-platform/phpunit.xml.dist
+
+..........                                                        10 / 10 (100%)
+
+Time: 00:00.189, Memory: 30.00 MB
+
+OK (10 tests, 20 assertions)

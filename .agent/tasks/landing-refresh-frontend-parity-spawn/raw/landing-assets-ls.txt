@@ -1,0 +1,7 @@
+total 5984
+drwxr-xr-x@  6 Tomas  staff     192 Apr 14 22:24 .
+drwxr-xr-x@ 16 Tomas  staff     512 Apr 14 22:24 ..
+-rw-r--r--@  1 Tomas  staff  805473 Apr 14 22:24 clanker.png
+-rw-r--r--@  1 Tomas  staff  729869 Apr 14 22:24 hero.png
+-rw-r--r--@  1 Tomas  staff  738707 Apr 14 22:24 os.png
+-rw-r--r--@  1 Tomas  staff  779424 Apr 14 22:24 traditional.png

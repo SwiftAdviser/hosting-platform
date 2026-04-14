@@ -1,0 +1,220 @@
+     1	<!DOCTYPE html>
+     2	<html lang="en">
+     3	<head>
+     4	<meta charset="utf-8">
+     5	<meta name="viewport" content="width=device-width, initial-scale=1">
+     6	<title>Spawn Platform - One click. Agent online.</title>
+     7	<link rel="preconnect" href="https://fonts.googleapis.com">
+     8	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     9	<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    10	<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    11	<style>
+    12	:root {
+    13	  --bg: #02050d;
+    14	  --bg-soft: #0b1325;
+    15	  --panel: rgba(10, 18, 35, 0.86);
+    16	  --panel-strong: #0c1427;
+    17	  --text-primary: #e6ecf7;
+    18	  --text-secondary: #9fb0cc;
+    19	  --text-dim: #74829d;
+    20	  --line: rgba(167, 184, 212, 0.2);
+    21	  --cyan: #33d6e5;
+    22	  --cyan-soft: rgba(51, 214, 229, 0.16);
+    23	  --orange: #ff8a4c;
+    24	  --radius-lg: 24px;
+    25	  --radius-md: 16px;
+    26	  --radius-sm: 12px;
+    27	  --container: 1240px;
+    28	  --nav-height: 84px;
+    29	}
+    30	
+    31	* {
+    32	  box-sizing: border-box;
+    33	}
+    34	
+    35	html,
+    36	body {
+    37	  margin: 0;
+    38	  padding: 0;
+    39	  background: var(--bg);
+    40	  color: var(--text-primary);
+    41	}
+    42	
+    43	body {
+    44	  font-family: "Manrope", system-ui, -apple-system, sans-serif;
+    45	  min-height: 100vh;
+    46	  overflow-x: hidden;
+    47	  background:
+    48	    radial-gradient(1200px 700px at 50% -10%, rgba(51, 214, 229, 0.16), transparent 60%),
+    49	    radial-gradient(900px 500px at 90% 20%, rgba(255, 138, 76, 0.08), transparent 70%),
+    50	    linear-gradient(180deg, #02050d 0%, #040913 60%, #02050d 100%);
+    51	}
+    52	
+    53	body::before {
+    54	  content: "";
+    55	  position: fixed;
+    56	  inset: 0;
+    57	  pointer-events: none;
+    58	  opacity: 0.045;
+    59	  z-index: 2;
+    60	  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.66' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    61	}
+    62	
+    63	a {
+    64	  color: inherit;
+    65	  text-decoration: none;
+    66	}
+    67	
+    68	.corner-nav,
+    69	main {
+    70	  position: relative;
+    71	  z-index: 3;
+    72	}
+    73	
+    74	.corner-nav {
+    75	  position: fixed;
+    76	  inset: 0;
+    77	  pointer-events: none;
+    78	  padding: 20px clamp(16px, 2.8vw, 32px);
+    79	  display: flex;
+    80	  flex-direction: column;
+    81	  justify-content: space-between;
+    82	}
+    83	
+    84	.corner-top,
+    85	.corner-bottom {
+    86	  display: flex;
+    87	  align-items: center;
+    88	  justify-content: space-between;
+    89	  gap: 16px;
+    90	  pointer-events: auto;
+    91	}
+    92	
+    93	.brand {
+    94	  font-family: "Clash Display", "Manrope", sans-serif;
+    95	  font-size: clamp(26px, 3.1vw, 34px);
+    96	  font-weight: 700;
+    97	  letter-spacing: -0.03em;
+    98	  color: var(--text-primary);
+    99	  line-height: 1;
+   100	  text-transform: lowercase;
+   101	}
+   102	
+   103	.brand span {
+   104	  color: var(--cyan);
+   105	}
+   106	
+   107	.nav-toggle {
+   108	  display: none;
+   109	  align-items: center;
+   110	  justify-content: center;
+   111	  border: 1px solid var(--line);
+   112	  border-radius: 999px;
+   113	  padding: 8px 14px;
+   114	  background: rgba(5, 12, 24, 0.85);
+   115	  color: var(--text-primary);
+   116	  font-family: "JetBrains Mono", ui-monospace, monospace;
+   117	  font-size: 11px;
+   118	  letter-spacing: 0.1em;
+   119	  text-transform: uppercase;
+   120	}
+   121	
+   122	.nav-cluster {
+   123	  display: flex;
+   124	  align-items: center;
+   125	  gap: 12px;
+   126	}
+   127	
+   128	.nav-link {
+   129	  font-family: "JetBrains Mono", ui-monospace, monospace;
+   130	  font-size: 11px;
+   131	  letter-spacing: 0.08em;
+   132	  text-transform: uppercase;
+   133	  color: var(--text-dim);
+   134	  transition: color 180ms ease;
+   135	}
+   136	
+   137	.nav-link:hover,
+   138	.nav-link:focus-visible {
+   139	  color: var(--text-primary);
+   140	}
+   141	
+   142	.nav-cta {
+   143	  border: 1px solid rgba(51, 214, 229, 0.38);
+   144	  border-radius: 999px;
+   145	  padding: 12px 18px;
+   146	  background: rgba(2, 10, 20, 0.8);
+   147	  color: var(--text-primary);
+   148	  font-size: 11px;
+   149	  font-family: "JetBrains Mono", ui-monospace, monospace;
+   150	  letter-spacing: 0.11em;
+   151	  text-transform: uppercase;
+   152	  transition: border-color 220ms ease, background 220ms ease, color 220ms ease;
+   153	}
+   154	
+   155	.nav-cta:hover,
+   156	.nav-cta:focus-visible {
+   157	  border-color: var(--cyan);
+   158	  background: rgba(51, 214, 229, 0.12);
+   159	  color: #dffcff;
+   160	}
+   161	
+   162	.scroll-chip {
+   163	  font-family: "Clash Display", "Manrope", sans-serif;
+   164	  font-size: clamp(22px, 2.8vw, 32px);
+   165	  letter-spacing: -0.03em;
+   166	  color: rgba(230, 236, 247, 0.72);
+   167	  display: inline-flex;
+   168	  align-items: baseline;
+   169	  gap: 3px;
+   170	}
+   171	
+   172	.scroll-chip small {
+   173	  font-family: "JetBrains Mono", ui-monospace, monospace;
+   174	  font-size: 11px;
+   175	  letter-spacing: 0.06em;
+   176	  color: var(--text-dim);
+   177	}
+   178	
+   179	.quick-links {
+   180	  display: inline-flex;
+   181	  align-items: center;
+   182	  gap: 16px;
+   183	}
+   184	
+   185	.quick-links a {
+   186	  font-family: "JetBrains Mono", ui-monospace, monospace;
+   187	  font-size: 11px;
+   188	  letter-spacing: 0.08em;
+   189	  text-transform: uppercase;
+   190	  color: var(--text-dim);
+   191	  transition: color 180ms ease;
+   192	}
+   193	
+   194	.quick-links a:hover,
+   195	.quick-links a:focus-visible {
+   196	  color: var(--text-primary);
+   197	}
+   198	
+   199	main {
+   200	  width: 100%;
+   201	  overflow: clip;
+   202	}
+   203	
+   204	.section {
+   205	  width: 100%;
+   206	}
+   207	
+   208	.hero {
+   209	  min-height: 100vh;
+   210	  padding: calc(var(--nav-height) + 48px) clamp(16px, 5vw, 60px) 88px;
+   211	  display: grid;
+   212	  place-items: center;
+   213	}
+   214	
+   215	.hero-frame {
+   216	  width: 100%;
+   217	  max-width: var(--container);
+   218	  min-height: min(78vh, 860px);
+   219	  border-radius: 30px;
+   220	  border: 1px solid rgba(167, 184, 212, 0.2);

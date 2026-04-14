@@ -1,0 +1,4 @@
+ M resources/views/landing.blade.php
+?? .agent/tasks/landing-refresh-frontend-parity-spawn/
+?? frontend-example/
+?? public/landing/
