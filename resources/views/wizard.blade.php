@@ -112,7 +112,8 @@ label {
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  /* Keep field labels brighter for stronger readability. */
+  color: var(--fg);
   margin: 0 0 0.55rem;
 }
 
@@ -135,7 +136,12 @@ input[type="text"]:focus, textarea:focus { border-color: var(--fg); }
 
 textarea { min-height: 8rem; resize: vertical; }
 
-.hint { margin: 0.55rem 0 0; font-size: 0.78rem; color: var(--muted); }
+.hint {
+  margin: 0.55rem 0 0;
+  font-size: 0.78rem;
+  /* Keep helper copy softer than labels to avoid visual clash. */
+  color: var(--muted);
+}
 
 .hint a {
   color: var(--fg);
@@ -202,7 +208,7 @@ footer .tag {
 </header>
 
 <main>
-  <h1>New agent.<span class="turn">Four fields.</span></h1>
+  <h1>New agent.<span class="turn">Three fields.</span></h1>
 
   <form method="post" action="/api/deploys">
     @csrf
@@ -221,14 +227,14 @@ footer .tag {
       <label for="bot_token">Telegram Token</label>
       <input id="bot_token" name="telegram_bot_token" type="text" required placeholder="123456:abcdef">
       <p class="hint">
-        <a href="https://help.superchat.com/en/articles/14901-how-do-i-get-the-telegram-token-or-bot-id" target="_blank" rel="noopener noreferrer">Learn how to create a Telegram Bot</a>
+        Learn how to create a <a href="https://help.superchat.com/en/articles/14901-how-do-i-get-the-telegram-token-or-bot-id" target="_blank" rel="noopener noreferrer">Telegram Bot</a>
       </p>
     </div>
     <div>
       <label for="allowlist">Allowed Telegram IDs</label>
       <input id="allowlist" name="allowlist" type="text" placeholder="858032733, 858032711">
       <p class="hint">
-        <a href="https://t.me/userinfobot" target="_blank" rel="noopener noreferrer">get your telegram id here</a>
+        Get your Telegram id <a href="https://t.me/userinfobot" target="_blank" rel="noopener noreferrer">here</a>.
       </p>
     </div>
     <input type="hidden" name="amount_usd" value="10">
