@@ -43,24 +43,46 @@ final class AgentDeployerServiceTest extends TestCase
         ];
     }
 
-    public function test_missing_required_field_returns_invalid_request(): void
+    public function test_missing_personality_defaults_and_continues_flow(): void
     {
         [$onchainosFake, $kiloclawFake, $telegramFake, $deployer] = $this->makeStack();
+        $telegramFake->getMeNextResponse = ['ok' => false, 'error_code' => 401];
 
         $request = $this->validRequest();
         unset($request['personality']);
 
         $result = $deployer->deploy($request);
 
-        $this->assertSame('invalid_request', $result['status']);
-        $this->assertSame('validate', $result['stage']);
+        $this->assertSame('telegram_invalid', $result['status']);
+        $this->assertSame('telegram_validate', $result['stage']);
         $this->assertSame('atlas', $result['agent_name']);
-        $this->assertStringContainsString('personality', $result['error']);
+        $this->assertSame('telegram token invalid', $result['error']);
         $this->assertNull($result['kiloclaw_id']);
         $this->assertNull($result['session_id']);
         $this->assertSame(0, $onchainosFake->callCount);
         $this->assertSame(0, $kiloclawFake->callCount);
-        $this->assertSame(0, $telegramFake->getMeCallCount);
+        $this->assertSame(1, $telegramFake->getMeCallCount);
+    }
+
+    public function test_blank_personality_defaults_and_continues_flow(): void
+    {
+        [$onchainosFake, $kiloclawFake, $telegramFake, $deployer] = $this->makeStack();
+        $telegramFake->getMeNextResponse = ['ok' => false, 'error_code' => 401];
+
+        $request = $this->validRequest();
+        $request['personality'] = '  ';
+
+        $result = $deployer->deploy($request);
+
+        $this->assertSame('telegram_invalid', $result['status']);
+        $this->assertSame('telegram_validate', $result['stage']);
+        $this->assertSame('atlas', $result['agent_name']);
+        $this->assertSame('telegram token invalid', $result['error']);
+        $this->assertNull($result['kiloclaw_id']);
+        $this->assertNull($result['session_id']);
+        $this->assertSame(0, $onchainosFake->callCount);
+        $this->assertSame(0, $kiloclawFake->callCount);
+        $this->assertSame(1, $telegramFake->getMeCallCount);
     }
 
     public function test_empty_agent_name_returns_invalid_request(): void

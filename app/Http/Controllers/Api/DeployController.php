@@ -13,7 +13,14 @@ final class DeployController extends Controller
 {
     public function store(Request $request, AgentDeployerService $deployer): JsonResponse
     {
-        $request->validate([
+        $personality = $request->input('personality');
+        if (!is_string($personality) || trim($personality) === '') {
+            $request->merge([
+                'personality' => AgentDeployerService::DEFAULT_PERSONALITY,
+            ]);
+        }
+
+        $validated = $request->validate([
             'agent_name' => 'required|string',
             'personality' => 'required|string',
             'telegram_bot_token' => 'required|string',
@@ -21,7 +28,7 @@ final class DeployController extends Controller
             'allowlist' => 'nullable|string',
         ]);
 
-        $result = $deployer->deploy($request->all());
+        $result = $deployer->deploy($validated);
 
         $statusMap = [
             'deployed' => 201,

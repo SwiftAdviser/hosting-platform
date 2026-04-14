@@ -137,6 +137,11 @@ textarea { min-height: 8rem; resize: vertical; }
 
 .hint { margin: 0.55rem 0 0; font-size: 0.78rem; color: var(--muted); }
 
+.hint a {
+  color: var(--fg);
+  text-decoration: underline;
+}
+
 button.cta {
   margin-top: 1.25rem;
   display: inline-flex;
@@ -203,20 +208,28 @@ footer .tag {
     @csrf
     <div>
       <label for="name">Name</label>
-      <input id="name" name="agent_name" type="text" required placeholder="atlas">
+      <input id="name" name="agent_name" type="text" required placeholder="name your agent">
     </div>
+    {{--
     <div>
       <label for="personality">Personality</label>
       <textarea id="personality" name="personality" required placeholder="A laconic agent that ships code."></textarea>
       <p class="hint">Two or three sentences. How it talks. How it decides.</p>
     </div>
+    --}}
     <div>
       <label for="bot_token">Telegram Token</label>
       <input id="bot_token" name="telegram_bot_token" type="text" required placeholder="123456:abcdef">
+      <p class="hint">
+        <a href="https://help.superchat.com/en/articles/14901-how-do-i-get-the-telegram-token-or-bot-id" target="_blank" rel="noopener noreferrer">Learn how to create a Telegram Bot</a>
+      </p>
     </div>
     <div>
-      <label for="allowlist">Allowlist</label>
-      <input id="allowlist" name="allowlist" type="text" placeholder="42, 7, 1024">
+      <label for="allowlist">Allowed Telegram IDs</label>
+      <input id="allowlist" name="allowlist" type="text" placeholder="858032733, 858032711">
+      <p class="hint">
+        <a href="https://t.me/userinfobot" target="_blank" rel="noopener noreferrer">get your telegram id here</a>
+      </p>
     </div>
     <input type="hidden" name="amount_usd" value="10">
     <button class="cta" type="submit">

@@ -1,0 +1,95 @@
+{
+  "task_id": "onboarding-step1-four-fields",
+  "overall_status": "PASS",
+  "acceptance_criteria": [
+    {
+      "id": "AC1",
+      "text": "In resources/views/wizard.blade.php, the Name input placeholder is exactly 'name your agent'.",
+      "status": "PASS",
+      "proof": [
+        "resources/views/wizard.blade.php:211 placeholder is 'name your agent'",
+        ".agent/tasks/onboarding-step1-four-fields/artifacts/ui-checks.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC2",
+      "text": "Personality field is removed from visible UI and kept commented out in template.",
+      "status": "PASS",
+      "proof": [
+        "resources/views/wizard.blade.php:213 starts Blade comment before personality block",
+        "resources/views/wizard.blade.php:219 ends Blade comment after personality block",
+        ".agent/tasks/onboarding-step1-four-fields/artifacts/ui-checks.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC3",
+      "text": "All deploys default personality to 'A general helpful assistant specialized in wallet operations.' when missing/blank.",
+      "status": "PASS",
+      "proof": [
+        "app/Http/Controllers/Api/DeployController.php:16-21 merges AgentDeployerService::DEFAULT_PERSONALITY for missing/blank input",
+        "app/Services/AgentDeployerService.php:12 defines DEFAULT_PERSONALITY constant",
+        "app/Services/AgentDeployerService.php:109-116 normalizes missing/blank personality",
+        "tests/Feature/Http/DeployControllerTest.php:84-162 includes missing/blank personality success tests",
+        "tests/Unit/Services/AgentDeployerServiceTest.php:46-86 includes missing/blank personality defaulting tests",
+        ".agent/tasks/onboarding-step1-four-fields/artifacts/phpunit-feature.txt",
+        ".agent/tasks/onboarding-step1-four-fields/artifacts/phpunit-unit.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC4",
+      "text": "Telegram token keeps placeholder and shows helper hyperlink to superchat article.",
+      "status": "PASS",
+      "proof": [
+        "resources/views/wizard.blade.php:222 placeholder is '123456:abcdef'",
+        "resources/views/wizard.blade.php:224 link text 'Learn how to create a Telegram Bot' points to the required URL",
+        ".agent/tasks/onboarding-step1-four-fields/artifacts/ui-checks.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC5",
+      "text": "Allowlist relabeled and updated with required placeholder and Telegram ID helper hyperlink.",
+      "status": "PASS",
+      "proof": [
+        "resources/views/wizard.blade.php:228 label is 'Allowed Telegram IDs'",
+        "resources/views/wizard.blade.php:229 placeholder is '858032733, 858032711'",
+        "resources/views/wizard.blade.php:231 link text 'get your telegram id here' points to https://t.me/userinfobot",
+        ".agent/tasks/onboarding-step1-four-fields/artifacts/ui-checks.txt"
+      ],
+      "gaps": []
+    },
+    {
+      "id": "AC6",
+      "text": "Existing deploy flow/status mapping remains unchanged and tests reflect new default-personality behavior.",
+      "status": "PASS",
+      "proof": [
+        "app/Http/Controllers/Api/DeployController.php:33-39 keeps same status->HTTP map",
+        ".agent/tasks/onboarding-step1-four-fields/artifacts/backend-checks.txt",
+        "Feature test suite still passes with existing status cases plus new personality defaulting cases",
+        ".agent/tasks/onboarding-step1-four-fields/artifacts/phpunit-feature.txt"
+      ],
+      "gaps": []
+    }
+  ],
+  "changed_files": [
+    "resources/views/wizard.blade.php",
+    "app/Http/Controllers/Api/DeployController.php",
+    "app/Services/AgentDeployerService.php",
+    "tests/Feature/Http/DeployControllerTest.php",
+    "tests/Unit/Services/AgentDeployerServiceTest.php"
+  ],
+  "commands_for_fresh_verifier": [
+    "php -l app/Http/Controllers/Api/DeployController.php",
+    "php -l app/Services/AgentDeployerService.php",
+    "php -l resources/views/wizard.blade.php",
+    "./vendor/bin/phpunit tests/Feature/Http/DeployControllerTest.php",
+    "./vendor/bin/phpunit tests/Unit/Services/AgentDeployerServiceTest.php",
+    "rg -n \"name your agent|Learn how to create a Telegram Bot|Allowed Telegram IDs|858032733, 858032711|get your telegram id here\" resources/views/wizard.blade.php",
+    "rg -n \"'deployed' => 201|'payment_failed' => 402|'invalid_request' => 422|'telegram_invalid' => 422|'install_failed' => 502\" app/Http/Controllers/Api/DeployController.php",
+    "rg -n \"DEFAULT_PERSONALITY\" app/Http/Controllers/Api/DeployController.php app/Services/AgentDeployerService.php"
+  ],
+  "known_gaps": []
+}

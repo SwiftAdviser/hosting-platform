@@ -19,7 +19,6 @@ final class DeployControllerTest extends TestCase
     {
         return [
             'agent_name' => 'atlas',
-            'personality' => 'helpful analyst',
             'telegram_bot_token' => '123456:ABCDEF',
             'amount_usd' => 10,
         ];
@@ -82,7 +81,7 @@ final class DeployControllerTest extends TestCase
         ]);
     }
 
-    public function test_missing_personality_returns_422(): void
+    public function test_missing_personality_defaults_and_returns_201(): void
     {
         $this->bindDeployer(
             new class implements OnChainOSClient {
@@ -115,7 +114,51 @@ final class DeployControllerTest extends TestCase
 
         $response = $this->postJson('/api/deploys', $payload);
 
-        $response->assertStatus(422);
+        $response->assertStatus(201);
+        $response->assertJson([
+            'status' => 'deployed',
+            'stage' => 'complete',
+        ]);
+    }
+
+    public function test_blank_personality_defaults_and_returns_201(): void
+    {
+        $this->bindDeployer(
+            new class implements OnChainOSClient {
+                public function createCharge(int $amountUsd, string $agentName, string $idempotencyKey): array
+                {
+                    return ['session_id' => 'sess_blank', 'status' => 'pending'];
+                }
+            },
+            new class implements KiloClawHttpClient {
+                public function install(array $manifest, string $idempotencyKey): array
+                {
+                    return ['kiloclaw_id' => 'kc_blank', 'status' => 'ready'];
+                }
+            },
+            new class implements TelegramHttpClient {
+                public function getMe(string $token): array
+                {
+                    return ['ok' => true, 'result' => ['id' => 101]];
+                }
+
+                public function setWebhook(string $token, string $webhookUrl): array
+                {
+                    return ['ok' => true];
+                }
+            },
+        );
+
+        $payload = $this->validPayload();
+        $payload['personality'] = '   ';
+
+        $response = $this->postJson('/api/deploys', $payload);
+
+        $response->assertStatus(201);
+        $response->assertJson([
+            'status' => 'deployed',
+            'stage' => 'complete',
+        ]);
     }
 
     public function test_telegram_invalid_returns_422(): void

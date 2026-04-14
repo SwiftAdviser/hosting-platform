@@ -9,6 +9,8 @@ use App\Services\TelegramBotRegistrarService;
 
 final class AgentDeployerService
 {
+    public const DEFAULT_PERSONALITY = 'A general helpful assistant specialized in wallet operations.';
+
     public function __construct(
         private readonly OnChainOSPaymentService $payment,
         private readonly KiloClawClientService $kiloclaw,
@@ -18,6 +20,8 @@ final class AgentDeployerService
 
     public function deploy(array $request): array
     {
+        $request['personality'] = $this->normalizePersonality($request['personality'] ?? null);
+
         $missing = [];
         foreach (['agent_name', 'personality', 'telegram_bot_token', 'amount_usd'] as $key) {
             if (!array_key_exists($key, $request)) {
@@ -100,5 +104,14 @@ final class AgentDeployerService
             'kiloclaw_id' => $install['kiloclaw_id'],
             'session_id' => $charge['session_id'],
         ];
+    }
+
+    private function normalizePersonality(mixed $personality): string
+    {
+        if (!is_string($personality) || trim($personality) === '') {
+            return self::DEFAULT_PERSONALITY;
+        }
+
+        return $personality;
     }
 }

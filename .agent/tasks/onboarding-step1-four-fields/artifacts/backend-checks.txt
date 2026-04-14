@@ -1,0 +1,10 @@
+## Controller status map
+34:            'deployed' => 201,
+35:            'payment_failed' => 402,
+36:            'invalid_request' => 422,
+37:            'telegram_invalid' => 422,
+38:            'install_failed' => 502,
+## Personality default constant
+app/Http/Controllers/Api/DeployController.php:19:                'personality' => AgentDeployerService::DEFAULT_PERSONALITY,
+app/Services/AgentDeployerService.php:12:    public const DEFAULT_PERSONALITY = 'A general helpful assistant specialized in wallet operations.';
+app/Services/AgentDeployerService.php:112:            return self::DEFAULT_PERSONALITY;

@@ -1,0 +1,21 @@
+{
+  "repo_root": "/Users/Tomas/Desktop/Coding/hosting-platform",
+  "task_id": "onboarding-step1-four-fields",
+  "task_dir": "/Users/Tomas/Desktop/Coding/hosting-platform/.agent/tasks/onboarding-step1-four-fields",
+  "exists": true,
+  "required_files_present": {
+    "spec.md": true,
+    "evidence.md": true,
+    "evidence.json": true,
+    "verdict.json": true,
+    "problems.md": true,
+    "raw/build.txt": true,
+    "raw/test-unit.txt": true,
+    "raw/test-integration.txt": true,
+    "raw/lint.txt": true,
+    "raw/screenshot-1.png": true
+  },
+  "evidence_overall_status": "PASS",
+  "verdict_overall_status": "PASS",
+  "non_pass_criteria": []
+}

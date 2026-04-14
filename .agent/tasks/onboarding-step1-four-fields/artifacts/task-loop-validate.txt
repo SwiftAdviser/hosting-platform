@@ -1,0 +1,8 @@
+{
+  "repo_root": "/Users/Tomas/Desktop/Coding/hosting-platform",
+  "task_id": "onboarding-step1-four-fields",
+  "task_dir": "/Users/Tomas/Desktop/Coding/hosting-platform/.agent/tasks/onboarding-step1-four-fields",
+  "valid": true,
+  "missing_files": [],
+  "errors": []
+}

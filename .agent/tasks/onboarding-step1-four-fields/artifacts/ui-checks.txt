@@ -1,0 +1,13 @@
+## UI checks
+211:      <input id="name" name="agent_name" type="text" required placeholder="name your agent">
+215:      <label for="personality">Personality</label>
+216:      <textarea id="personality" name="personality" required placeholder="A laconic agent that ships code."></textarea>
+224:        <a href="https://help.superchat.com/en/articles/14901-how-do-i-get-the-telegram-token-or-bot-id" target="_blank" rel="noopener noreferrer">Learn how to create a Telegram Bot</a>
+228:      <label for="allowlist">Allowed Telegram IDs</label>
+229:      <input id="allowlist" name="allowlist" type="text" placeholder="858032733, 858032711">
+231:        <a href="https://t.me/userinfobot" target="_blank" rel="noopener noreferrer">get your telegram id here</a>
+## Personality block commented
+213:    {{--
+219:    --}}
+## Token placeholder check
+222:      <input id="bot_token" name="telegram_bot_token" type="text" required placeholder="123456:abcdef">

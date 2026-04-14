@@ -1,0 +1,61 @@
+{
+  "task_id": "onboarding-step1-four-fields",
+  "overall_verdict": "PASS",
+  "criteria": [
+    {
+      "id": "AC1",
+      "status": "PASS",
+      "reason": "Name placeholder is exactly 'name your agent' in resources/views/wizard.blade.php:211."
+    },
+    {
+      "id": "AC2",
+      "status": "PASS",
+      "reason": "Personality block is wrapped in Blade comments at lines 213-219, so it is not visible in rendered UI."
+    },
+    {
+      "id": "AC3",
+      "status": "PASS",
+      "reason": "Default personality is enforced in both controller (merge before validate) and service (normalizePersonality); missing/blank coverage passes in feature and unit tests."
+    },
+    {
+      "id": "AC4",
+      "status": "PASS",
+      "reason": "Telegram token placeholder remains 123456:abcdef and helper hyperlink text/url match required values."
+    },
+    {
+      "id": "AC5",
+      "status": "PASS",
+      "reason": "Allowlist is relabeled to 'Allowed Telegram IDs', placeholder updated, and Telegram ID helper hyperlink text/url match required values."
+    },
+    {
+      "id": "AC6",
+      "status": "PASS",
+      "reason": "Deploy status map remains unchanged in DeployController and the updated feature suite passes all status-path tests."
+    }
+  ],
+  "commands_run": [
+    "php -l app/Http/Controllers/Api/DeployController.php",
+    "php -l app/Services/AgentDeployerService.php",
+    "php -l resources/views/wizard.blade.php",
+    "./vendor/bin/phpunit tests/Feature/Http/DeployControllerTest.php",
+    "./vendor/bin/phpunit tests/Unit/Services/AgentDeployerServiceTest.php",
+    "rg -n \"name your agent|Learn how to create a Telegram Bot|Allowed Telegram IDs|858032733, 858032711|get your telegram id here|personality\" resources/views/wizard.blade.php",
+    "rg -n \"'deployed' => 201|'payment_failed' => 402|'invalid_request' => 422|'telegram_invalid' => 422|'install_failed' => 502\" app/Http/Controllers/Api/DeployController.php",
+    "rg -n \"DEFAULT_PERSONALITY\" app/Services/AgentDeployerService.php app/Http/Controllers/Api/DeployController.php"
+  ],
+  "artifacts_used": [
+    ".agent/tasks/onboarding-step1-four-fields/spec.md",
+    ".agent/tasks/onboarding-step1-four-fields/evidence.md",
+    ".agent/tasks/onboarding-step1-four-fields/evidence.json",
+    ".agent/tasks/onboarding-step1-four-fields/artifacts/ui-checks.txt",
+    ".agent/tasks/onboarding-step1-four-fields/artifacts/backend-checks.txt",
+    ".agent/tasks/onboarding-step1-four-fields/artifacts/php-lint.txt",
+    ".agent/tasks/onboarding-step1-four-fields/artifacts/phpunit-feature.txt",
+    ".agent/tasks/onboarding-step1-four-fields/artifacts/phpunit-unit.txt",
+    "resources/views/wizard.blade.php",
+    "app/Http/Controllers/Api/DeployController.php",
+    "app/Services/AgentDeployerService.php",
+    "tests/Feature/Http/DeployControllerTest.php",
+    "tests/Unit/Services/AgentDeployerServiceTest.php"
+  ]
+}

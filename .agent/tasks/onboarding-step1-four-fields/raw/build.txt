@@ -1,0 +1,29 @@
+# Build log: onboarding-step1-four-fields
+
+## Implemented changes
+- Updated wizard UI in `resources/views/wizard.blade.php`:
+  - Name placeholder -> `name your agent`
+  - Personality block wrapped in Blade comments (`{{-- ... --}}`)
+  - Telegram helper link added under token input
+  - Allowlist relabeled to `Allowed Telegram IDs`
+  - Allowlist placeholder -> `858032733, 858032711`
+  - Telegram ID helper link added under allowlist input
+- Updated backend defaulting:
+  - `app/Http/Controllers/Api/DeployController.php`: pre-validation default merge for missing/blank personality and pass validated payload to service
+  - `app/Services/AgentDeployerService.php`: `DEFAULT_PERSONALITY` constant and normalization for missing/blank personality inside service
+- Updated tests:
+  - `tests/Feature/Http/DeployControllerTest.php`: payload no longer depends on personality; added missing/blank personality success tests
+  - `tests/Unit/Services/AgentDeployerServiceTest.php`: replaced missing personality invalidation test with defaulting behavior tests for missing and blank personality
+
+## Verification commands run
+- `php -l app/Http/Controllers/Api/DeployController.php`
+- `php -l app/Services/AgentDeployerService.php`
+- `php -l resources/views/wizard.blade.php`
+- `./vendor/bin/phpunit tests/Feature/Http/DeployControllerTest.php`
+- `./vendor/bin/phpunit tests/Unit/Services/AgentDeployerServiceTest.php`
+- `rg -n "name your agent|Learn how to create a Telegram Bot|Allowed Telegram IDs|858032733, 858032711|get your telegram id here|personality" resources/views/wizard.blade.php`
+- `rg -n "'deployed' => 201|'payment_failed' => 402|'invalid_request' => 422|'telegram_invalid' => 422|'install_failed' => 502" app/Http/Controllers/Api/DeployController.php`
+- `rg -n "DEFAULT_PERSONALITY" app/Services/AgentDeployerService.php app/Http/Controllers/Api/DeployController.php`
+
+## Note
+- `php artisan test ...` was requested in the plan but this app does not expose the Artisan `test` command in this environment. Equivalent targeted checks were executed using `./vendor/bin/phpunit`.
