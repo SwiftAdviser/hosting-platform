@@ -1,0 +1,23 @@
+providers = ["php"]
+
+[variables]
+NIXPACKS_PHP_ROOT_DIR = "/app/public"
+
+[phases.setup]
+nixPkgs = ["php83", "php83Packages.composer", "nodejs_20"]
+aptPkgs = ["nginx", "supervisor"]
+
+[phases.install]
+cmds = [
+    "composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev",
+]
+
+[phases.build]
+cmds = [
+    "php artisan config:cache || true",
+    "php artisan route:cache || true",
+    "php artisan view:cache || true",
+]
+
+[start]
+cmd = "php artisan serve --host=0.0.0.0 --port=8080"
