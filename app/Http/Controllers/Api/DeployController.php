@@ -28,6 +28,8 @@ final class DeployController extends Controller
             'allowlist' => 'nullable|string',
         ]);
 
+        $validated['amount_usd'] = (int) $validated['amount_usd'];
+
         $result = $deployer->deploy($validated);
 
         $statusMap = [

@@ -49,6 +49,15 @@ return [
 
     'onchainos' => [
         'webhook_secret' => env('ONCHAINOS_WEBHOOK_SECRET', ''),
+        'base_url' => env('ONCHAINOS_BASE_URL', ''),
+        'api_key' => env('ONCHAINOS_API_KEY', ''),
+        'secret_key' => env('ONCHAINOS_SECRET_KEY', ''),
+        'passphrase' => env('ONCHAINOS_PASSPHRASE', ''),
+    ],
+
+    'kiloclaw' => [
+        'base_url' => env('KILOCLAW_BASE_URL', ''),
+        'api_key' => env('KILOCLAW_API_KEY', ''),
     ],
 
 ];
