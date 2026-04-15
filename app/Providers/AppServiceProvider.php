@@ -11,9 +11,13 @@ use App\Services\OnChainOS\WebhookSignatureVerifier;
 use App\Services\OnChainOS\XLayer\HttpXLayerTransport;
 use App\Services\OnChainOS\XLayer\XLayerHttpTransport;
 use App\Services\OnChainOS\XLayer\XLayerOnChainOSClient;
+use App\Services\Runtime\AgentRuntimeProvisioner;
+use App\Services\Runtime\Coolify\CoolifyAgentRuntimeProvisioner;
+use App\Services\Runtime\Demo\DemoAgentRuntimeProvisioner;
 use App\Services\Telegram\DemoTelegramHttpClient;
 use App\Services\Telegram\HttpTelegramClient;
 use App\Services\Telegram\TelegramHttpClient;
+use Illuminate\Http\Client\Factory as HttpFactory;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -61,6 +65,22 @@ class AppServiceProvider extends ServiceProvider
             }
 
             return new HttpTelegramClient();
+        });
+
+        $this->app->bind(AgentRuntimeProvisioner::class, function ($app) {
+            if ((bool) config('services.demo.enabled', false)) {
+                return new DemoAgentRuntimeProvisioner();
+            }
+
+            return new CoolifyAgentRuntimeProvisioner(
+                $app->make(HttpFactory::class),
+                (string) config('services.coolify.base_url', ''),
+                (string) config('services.coolify.token', ''),
+                (string) config('services.coolify.server_uuid', ''),
+                (string) config('services.coolify.destination_uuid', ''),
+                (string) config('services.coolify.project_uuid') ?: null,
+                (string) config('services.coolify.image_name', 'ghcr.io/swiftadviser/openclaw-agent'),
+            );
         });
     }
 

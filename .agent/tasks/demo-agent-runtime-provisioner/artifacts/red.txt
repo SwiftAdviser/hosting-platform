@@ -1,0 +1,43 @@
+PHPUnit 11.5.55 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /Users/krutovoy/Projects/hosting-platform/phpunit.xml.dist
+
+EEEEEE                                                              6 / 6 (100%)
+
+Time: 00:00.126, Memory: 28.00 MB
+
+There were 6 errors:
+
+1) Tests\Unit\Services\Runtime\Demo\DemoAgentRuntimeProvisionerTest::test_create_returns_handle_with_demo_prefix_provider_ref
+Error: Class "App\Services\Runtime\Demo\DemoAgentRuntimeProvisioner" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Runtime/Demo/DemoAgentRuntimeProvisionerTest.php:30
+
+2) Tests\Unit\Services\Runtime\Demo\DemoAgentRuntimeProvisionerTest::test_create_fqdn_uses_spec_webhook_base_domain
+Error: Class "App\Services\Runtime\Demo\DemoAgentRuntimeProvisioner" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Runtime/Demo/DemoAgentRuntimeProvisionerTest.php:40
+
+3) Tests\Unit\Services\Runtime\Demo\DemoAgentRuntimeProvisionerTest::test_create_handle_id_is_uuid
+Error: Class "App\Services\Runtime\Demo\DemoAgentRuntimeProvisioner" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Runtime/Demo/DemoAgentRuntimeProvisionerTest.php:52
+
+4) Tests\Unit\Services\Runtime\Demo\DemoAgentRuntimeProvisionerTest::test_status_always_returns_running
+Error: Class "App\Services\Runtime\Demo\DemoAgentRuntimeProvisioner" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Runtime/Demo/DemoAgentRuntimeProvisionerTest.php:61
+
+5) Tests\Unit\Services\Runtime\Demo\DemoAgentRuntimeProvisionerTest::test_start_stop_destroy_upgrade_are_idempotent_noops
+Error: Class "App\Services\Runtime\Demo\DemoAgentRuntimeProvisioner" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Runtime/Demo/DemoAgentRuntimeProvisionerTest.php:73
+
+6) Tests\Unit\Services\Runtime\Demo\DemoAgentRuntimeProvisionerTest::test_create_two_tenants_produces_distinct_ids
+Error: Class "App\Services\Runtime\Demo\DemoAgentRuntimeProvisioner" not found
+
+/Users/krutovoy/Projects/hosting-platform/tests/Unit/Services/Runtime/Demo/DemoAgentRuntimeProvisionerTest.php:92
+
+ERRORS!
+Tests: 6, Assertions: 0, Errors: 6.

@@ -64,4 +64,13 @@ return [
         'enabled' => env('DEMO_MODE', false),
     ],
 
+    'coolify' => [
+        'base_url' => env('COOLIFY_BASE_URL', 'https://coolz.krutovoy.me/api/v1'),
+        'token' => env('COOLIFY_API_TOKEN', ''),
+        'server_uuid' => env('COOLIFY_SERVER_UUID', ''),
+        'destination_uuid' => env('COOLIFY_DESTINATION_UUID', ''),
+        'project_uuid' => env('COOLIFY_PROJECT_UUID'),
+        'image_name' => env('OPENCLAW_IMAGE_NAME', 'ghcr.io/swiftadviser/openclaw-agent'),
+    ],
+
 ];
