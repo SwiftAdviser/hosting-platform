@@ -60,4 +60,8 @@ return [
         'api_key' => env('KILOCLAW_API_KEY', ''),
     ],
 
+    'demo' => [
+        'enabled' => env('DEMO_MODE', false),
+    ],
+
 ];
