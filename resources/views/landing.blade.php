@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Spawn Platform - Agent hosting that ships</title>
-<meta name="description" content="Deploy your agent from Spawn with Google sign-in, OnChainOS payment flow, KiloClaw runtime provisioning, and Telegram delivery.">
+<meta name="description" content="Deploy your agent from Spawn with Google sign-in, OnChainOS payment flow, OpenClaw runtime provisioning, and Telegram delivery.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -920,7 +920,7 @@ main {
 
           <p class="hero-description">
             Spawn gives you a direct path from local code to a live Telegram agent: Google sign-in,
-            payment-gated deploy via OnChainOS, runtime provisioning in KiloClaw, and bot delivery in one flow.
+            payment-gated deploy via OnChainOS, runtime provisioning in OpenClaw, and bot delivery in one flow.
           </p>
 
           <div class="hero-actions">
@@ -953,7 +953,7 @@ main {
             <ul class="status-list">
               <li class="status-row"><span>Auth</span><strong class="ok">google ok</strong></li>
               <li class="status-row"><span>Payment</span><strong class="wait">awaiting charge</strong></li>
-              <li class="status-row"><span>Runtime</span><strong class="ok">kiloclaw ready</strong></li>
+              <li class="status-row"><span>Runtime</span><strong class="ok">openclaw ready</strong></li>
               <li class="status-row"><span>Channel</span><strong class="ok">telegram active</strong></li>
             </ul>
           </div>
@@ -973,7 +973,7 @@ main {
         </article>
         <article class="trust-item">
           <h3>Runtime status</h3>
-          <p>KiloClaw install state is mapped to clear deployed, failed, or booting results.</p>
+          <p>OpenClaw install state is mapped to clear deployed, failed, or booting results.</p>
         </article>
         <article class="trust-item">
           <h3>Webhook safety</h3>
@@ -1064,7 +1064,7 @@ main {
           <h3>
             <button class="pillar-trigger" type="button" id="pillar-btn-3" aria-expanded="false" aria-controls="pillar-panel-3">
               <span class="pillar-index">03</span>
-              <span class="pillar-title">KiloClaw Runtime Install</span>
+              <span class="pillar-title">OpenClaw Runtime Install</span>
               <span class="pillar-arrow" aria-hidden="true">+</span>
             </button>
           </h3>
@@ -1072,7 +1072,7 @@ main {
             <div class="pillar-grid">
               <div>
                 <p class="pillar-text">
-                  Spawn packages a manifest and calls KiloClaw install with idempotency. Runtime status is normalized
+                  Spawn packages a manifest and calls OpenClaw install with idempotency. Runtime status is normalized
                   into ready, booting, or failed so deployment state is transparent for the client.
                 </p>
                 <ul class="pillar-list">
@@ -1082,7 +1082,7 @@ main {
                 </ul>
               </div>
               <figure class="pillar-media">
-                <img src="/landing/clanker.png" alt="KiloClaw install visual">
+                <img src="/landing/clanker.png" alt="OpenClaw install visual">
               </figure>
             </div>
           </div>
