@@ -19,7 +19,11 @@
 
 > *One-click hosting for laptop-bound agents. No tutorials, no chain prompts, no signature popups.*
 
-A dev brings an agent that only runs on their laptop, signs in with Google, pays once through OnChainOS on X-Layer, and ends up with a live OpenClaw Gateway reachable on Telegram. The wallet is provisioned server-side. The user never types a seed phrase, never sees a gas estimate, never approves a signature. Closer to Vercel for agents than to a crypto wallet. Built for the X-Layer hackathon, April 2026.
+A dev brings an agent that only runs on their laptop, signs in with Google, pays once through OnChainOS on X-Layer, and ends up with a live OpenClaw Gateway reachable on Telegram.
+
+The wallet is provisioned server-side. The user never types a seed phrase, never sees a gas estimate, never approves a signature. Closer to Vercel for agents than to a crypto wallet.
+
+Built for the X-Layer hackathon, April 2026.
 
 ## Why it matters
 
@@ -101,7 +105,6 @@ flowchart LR
 app/
   Services/
     AgentDeployerService.php            orchestrates the 7-step walkthrough
-    KiloClawClientService.php           talks to KiloClaw for agent upload
     TelegramBotRegistrarService.php     validates bot token, sets webhook
     OnChainOSPaymentService.php         opens charge session, handles receipts
     Runtime/
@@ -119,9 +122,6 @@ app/
       WebhookSignatureVerifier.php      signed receipt verification
       XLayer/                           X-Layer HTTP transport + client
       DemoOnChainOSClient.php           stub for DEMO_MODE
-    KiloClaw/
-      HttpKiloClawClient.php            real HTTP client
-      DemoKiloClawHttpClient.php        stub for DEMO_MODE
     Telegram/
       HttpTelegramClient.php            real Bot API client
       DemoTelegramHttpClient.php        stub for DEMO_MODE
@@ -166,50 +166,13 @@ php -S 127.0.0.1:8000 -t public public/index.php
 
 Open `http://127.0.0.1:8000`, sign in, hit `/wizard`, ship an agent.
 
-> Set `DEMO_MODE=true` in `.env` to bypass OnChainOS charges, KiloClaw uploads, and Telegram webhooks. The walkthrough runs end to end against in-memory stubs. Useful for a dry demo without burning testnet funds.
-
 ## Running the tests
 
 ```bash
 composer test
 ```
 
-Runs the PHPUnit suite: 89 tests across 16 files, covering `AgentDeployerService`, `KiloClawClientService`, `TelegramBotRegistrarService`, `OnChainOSPaymentService`, the Coolify and Demo runtime provisioners, Google auth, deploy and webhook controllers, migration shape, and tenant model. Feature tests hit a real database. Service tests use in-file anonymous-class fakes implementing the interface, never `createMock` or `MockObject`.
-
-## Supercharges your agent
-
-The agent runtime is pluggable. v0.1 ships OpenClaw. Planned runtimes land behind the same `AgentRuntimeProvisioner` interface.
-
-| Runtime | Status |
-|---------|--------|
-| **OpenClaw** | Live |
-| **Claude Code** | Planned |
-| **Codex CLI** | Planned |
-| **Gemini CLI** | Planned |
-| **Cursor** | Planned |
-| **Vercel AI SDK** | Planned |
-
-## Wallets
-
-v0.1 provisions wallets server-side through OnChainOS so the user never sees a signature prompt. Bring-your-own-wallet lands after the hackathon, behind the same abstraction.
-
-| Wallet | Status |
-|--------|--------|
-| **OnChainOS server-provisioned** (X-Layer) | Live |
-| **Bankr** | Planned |
-| **Locus** | Planned |
-| **Privy** | Planned |
-| **Turnkey** | Planned |
-| **Openfort** | Planned |
-
-## Links
-
-- **Platform**: [platform.thespawn.io](https://platform.thespawn.io)
-- **Spawn visualizer**: [thespawn.io](https://thespawn.io)
-- **Mandate (policy gate companion)**: [mandate.md](https://mandate.md)
-- **OpenClaw**: [openclaw.ai](https://openclaw.ai)
-- **Coolify**: [coolify.io](https://coolify.io)
-- **Repo**: [github.com/SwiftAdviser/hosting-platform](https://github.com/SwiftAdviser/hosting-platform)
+Runs the PHPUnit suite: 89 tests across 16 files, covering `AgentDeployerService`, `TelegramBotRegistrarService`, `OnChainOSPaymentService`, the Coolify and Demo runtime provisioners, Google auth, deploy and webhook controllers, migration shape, and tenant model. Feature tests hit a real database.
 
 ## Roadmap
 
@@ -223,8 +186,8 @@ v0.1 provisions wallets server-side through OnChainOS so the user never sees a s
 
 ## Credits
 
-Built by Roman Krutovoy and Alanas for the X-Layer hackathon, April 2026. Source call: Krisp `019d867bc64674ea970ef50b08dcf05e`.
+Built by Roman Krutovoy and Alanas for the X-Layer hackathon, April 2026.
 
 ## License
 
-MIT. See `composer.json`. Free to use, fork, ship.
+MIT
