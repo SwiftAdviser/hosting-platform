@@ -19,6 +19,8 @@
 
 > *One-click hosting for laptop-bound agents. No tutorials, no chain prompts, no signature popups.*
 
+See demo: https://x.com/thespawnio/status/2044513350948704480
+
 A dev brings an agent that only runs on their laptop, signs in with Google, pays once through OnChainOS on X-Layer, and ends up with a live OpenClaw Gateway reachable on Telegram.
 
 The wallet is provisioned server-side. The user never types a seed phrase, never sees a gas estimate, never approves a signature. Closer to Vercel for agents than to a crypto wallet.
