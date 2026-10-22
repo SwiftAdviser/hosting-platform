@@ -4,7 +4,16 @@ providers = ["php"]
 NIXPACKS_PHP_ROOT_DIR = "/app/public"
 
 [phases.setup]
-nixPkgs = ["php83", "php83Packages.composer", "nodejs_20"]
+nixPkgs = [
+  "(with (import ../nix/php-security.nix { inherit pkgs; }); php83)",
+  "(with (import ../nix/php-security.nix { inherit pkgs; }); php83Packages.composer)",
+  "nodejs_20",
+]
+# Fixed PHP sources; fail before Composer/app installation on regression.
+nixpkgsArchive = "e24b4c09e963677b1beea49d411cd315a024ad3a"
+onlyIncludeFiles = ["nix/php-security.nix"]
+cmds = ["php -r '$expected = \"8.3.36\"; if (PHP_VERSION !== $expected || phpversion(\"session\") !== $expected || phpversion(\"filter\") !== $expected) { fwrite(STDERR, \"Unsafe PHP runtime\\n\"); exit(1); } echo \"Verified PHP \".PHP_VERSION.PHP_EOL;'"]
+
 aptPkgs = ["nginx", "supervisor"]
 
 [phases.install]
